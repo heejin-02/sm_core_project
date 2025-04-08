@@ -9,7 +9,7 @@
 |팀장|오희진| [GitHub](https://github.com/heejin-02)|
 |역할|김혜림| [GitHub](https://github.com/hyerimmmmm)|
 |역할|박지은| [GitHub](https://github.com/jieunpark0428)|
-|역할|이동한| [GitHub](https://github.com/donghan-lee))|
+|역할|이동한| [GitHub](https://github.com/donghan-lee)|
 |역할|차명훈| [GitHub](https://github.com/ckaudgns89)|
 
 

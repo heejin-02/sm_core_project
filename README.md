@@ -2,7 +2,6 @@
 # ✏️ 청소년 정책 제안 토론 플랫폼 청소년 정책 기획소 (팀 공기청정기 )
 <img width="400" src="https://github.com/user-attachments/assets/c73fcde8-a34d-4cad-b4a6-94d3b37c3f43"><br>
 
-
 ## 👀 서비스 소개
 청정기는 ‘청소년 정책 기획소’의 줄임말이자 탁한 공기를 맑게해주는 공기청정기처럼,
 청소년의 목소리로 맑고 건강한 정책으로 정화하고자 하는 플랫폼입니다!
@@ -75,7 +74,7 @@
 <br>
 
 ## ⚙ 시스템 아키텍처(구조) 예시 
-![서비스 아키텍처](https://user-images.githubusercontent.com/25995055/169925538-15867bd9-aa0b-42fc-a39b-88981e926e51.png)
+![서비스 아키텍처](![Image](https://github.com/user-attachments/assets/147fe033-3162-4bfe-8eb5-09756bce1f13))
 <br>
 
 ## 📌 SW유스케이스

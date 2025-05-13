@@ -1,6 +1,6 @@
 # 스마트인재개발원 핵심 프로젝트
 # 주제 (팀명: 공기청정기 )
-![Image](https://github.com/user-attachments/assets/c73fcde8-a34d-4cad-b4a6-94d3b37c3f43)
+<img width="400" src="https://github.com/user-attachments/assets/c73fcde8-a34d-4cad-b4a6-94d3b37c3f43"><br>
 청소년 정책 제안 토론 플랫폼 청소년 정책 기획소
 
 ## 👀 서비스 소개

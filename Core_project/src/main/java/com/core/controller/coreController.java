@@ -1,10 +1,17 @@
 package com.core.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class coreController {
 
+	// 기본 메서드
+	@RequestMapping("/")
+	public String main() {
+		return "similar_search";
+	}
+	
 	//회원가입 메서드(join)
 	
 	

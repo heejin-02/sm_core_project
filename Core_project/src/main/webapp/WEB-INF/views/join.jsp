@@ -8,6 +8,17 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
 <body>
-	
+	 <c:if test="${not empty msg}">
+        <p style="color:red;">${msg}</p>
+    </c:if>
+    
+    <!-- 회원가입 폼 예시 -->
+    <form action="join" method="post">
+        이메일: <input type="email" name="user_email" required><br>
+        이름: <input type="text" name="user_name" required><br>
+        비밀번호: <input type="password" name="user_pw" required><br>
+        비밀번호 확인: <input type="password" name="user_pw_confirm" required><br>
+        <button type="submit">회원가입</button>
+    </form>
 </body>
 </html>

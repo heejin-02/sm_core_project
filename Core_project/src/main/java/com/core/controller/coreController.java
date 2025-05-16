@@ -13,7 +13,10 @@ public class coreController {
 	}
 	
 	//회원가입 메서드(join)
-	
+	@RequestMapping("/join")
+	public String join() {
+		return "join";
+	}
 	
 	
 	

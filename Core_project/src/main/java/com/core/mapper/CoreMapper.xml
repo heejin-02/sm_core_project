@@ -4,7 +4,6 @@
          "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.core.mapper.CoreMapper">
- <!-- VO 필드명(PRPSL_NO, ID, CATEGORY ...)에 맞춘 ResultMap -->
   <resultMap id="ProposalResult" type="com.core.model.ProposalVO">
     <id     property="PRPSL_NO"         column="PRPSL_NO"/>
     <result property="ID"               column="ID"/>

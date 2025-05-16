@@ -23,8 +23,8 @@ public class ProposalVO {
 	private String RESULT_CONTENT;
 	private int AGREE_CNT;
 	private int DISAG_CNT;
-	public void setAuthor(String author) {
-        this.ID = author;
+	public void setId(String Id) {
+        this.ID = Id;
     }
 	
 	

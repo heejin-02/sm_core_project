@@ -10,19 +10,15 @@ import com.core.model.ProposalVO;
 @Mapper
 public interface CoreMapper {
 
-	/**
-     * 정책 제안 저장
-     */
+    /** 정책 제안 저장 */
     void insertProposal(ProposalVO proposal);
 
-    /**
-     * 전체 정책 제안 목록 조회
-     */
+    /** 전체 정책 제안 목록 조회 */
     List<ProposalVO> selectAllProposals();
 
-    /**
-     * 단일 정책 제안 조회
-     * @param id PRPSL_NO
-     */
+    /** 단일 정책 제안 조회 */
     ProposalVO selectProposalById(@Param("id") int id);
+    
+    /** 카테고리별 정책 제안 목록 조회 */
+    List<ProposalVO> selectByCategory(@Param("category") String category);
 }

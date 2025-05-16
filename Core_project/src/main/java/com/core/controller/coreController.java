@@ -1,13 +1,18 @@
 package com.core.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
+import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.core.mapper.CoreMapper;
@@ -39,10 +44,14 @@ public class coreController {
     private CoreMapper coreMapper;
 	 // 1) 정책 제안 작성 폼 보여주기
     @GetMapping("/proposal_post")
-    public String showProposalForm(HttpSession session) {
+    public String showProposalForm(Model model, HttpSession session) {
         if (session.getAttribute("loginUser") == null) {
             return "redirect:/login";
         }
+        // 카테고리 목록
+        List<String> categories = Arrays.asList("학교생활", "지역사회", "문화생활", "사회문제");
+        model.addAttribute("categories", categories);
+        model.addAttribute("proposal", new ProposalVO());
         return "proposal_post";
     }
 
@@ -50,31 +59,51 @@ public class coreController {
     @PostMapping("/proposal_post")
     public String submitProposal(
             @ModelAttribute("proposal") ProposalVO proposal,
+            Model model,
             HttpSession session,
             RedirectAttributes rttr) {
 
-        // 로그인 체크
         if (session.getAttribute("loginUser") == null) {
             return "redirect:/login";
         }
 
         // 작성자(ID) 세팅
-        proposal.setAuthor(session.getAttribute("loginUser").toString());
+        proposal.setId(session.getAttribute("loginUser").toString());
+        // 초기 상태 세팅
+        proposal.setST_CD("접수");       // 예: 접수 상태 코드
+        proposal.setPRCS_NM("대기");     // 예: 처리 대기
 
-        // DB에 저장
+        // DB 저장
         coreMapper.insertProposal(proposal);
 
         // 완료 메시지
         rttr.addFlashAttribute("msg", "제안이 성공적으로 등록되었습니다.");
-
-        // 목록 페이지로 리다이렉트
         return "redirect:/proposal_list";
     }
 
 	
 	
 	//정책 제안 목록 띄우기 메서드(proposal_list)
-	
+    @GetMapping("/proposal_list")
+    public String showProposalList(
+            @RequestParam(value = "category", required = false, defaultValue = "전체") String category,
+            Model model) {
+        // 카테고리 탭 데이터
+        List<String> categories = Arrays.asList("전체", "학교생활", "지역사회", "문화생활", "사회문제");
+        model.addAttribute("categories", categories);
+        model.addAttribute("selectedCategory", category);
+
+        // 제안 목록 조회
+        List<ProposalVO> proposals;
+        if ("전체".equals(category)) {
+            proposals = coreMapper.selectAllProposals();
+        } else {
+            proposals = coreMapper.selectByCategory(category);
+        }
+        model.addAttribute("proposals", proposals);
+
+        return "proposal_list";
+    }
 	
 	
 	

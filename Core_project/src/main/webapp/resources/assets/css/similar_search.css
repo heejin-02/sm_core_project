@@ -17,10 +17,49 @@ body {
 	align-items: center;
 }
 
-#wrapper {
+#search_banner {
+	width: 100%;
+	background-image: url("../../images/similar_banner.png");
+	background-repeat: no-repeat;
+	background-position: top center;
+	background-size: cover;
+	padding-top: 165px;
+	padding-bottom: 195px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+#title {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 20px;
+}
+
+#search {
 	width: 80%;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 }
+
+#search form {
+	width: 60%;
+}
+
+.banner_title{
+	color: #4C9DF8;
+}
+
+
+
+
+
+
+
+
+

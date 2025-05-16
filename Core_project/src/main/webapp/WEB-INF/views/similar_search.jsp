@@ -17,12 +17,16 @@
 	 	
 	 	<!-- 검색 배너 -->
 	 	<div id="search_banner">
-	 		<p class="banner_title">좋은 아이디어 있으신가요?</p>
-	 		<p class="banner_body">내 아이디어를 검색해 실제 정책 / 제안된 정책과의 유사도를 확인해보세요!</p>
-	 		<form action="#" method="post">
-	 			<input class="search_bar" type="text" placeholder="아이디어를 입력해주세요.">
-	 			<input class="submit_btn" type="submit" value="검색">
-	 		</form>
+	 		<div id="title">
+	 			<p class="banner_title">좋은 아이디어 있으신가요?</p>
+	 			<p class="banner_body">내 아이디어를 검색해 실제 정책 / 제안된 정책과의 유사도를 확인해보세요!</p>
+	 		</div>
+	 		<div id="search">
+	 			<form action="#" method="post">
+	 				<input class="search_bar" type="text" placeholder="아이디어를 입력해주세요.">
+	 				<input class="submit_btn" type="submit" value="검색">
+	 			</form>
+	 		</div>
 	 	</div>
 	 	
 	 	<!-- 검색 결과 목록 -->
@@ -32,6 +36,7 @@
 	 			<p class="list_body">유사한 정책 목록입니다.</p>
 	 		</div>
 	 		
+	 		<!-- 검색 전에는 결과 없음 페이지 띄우기 -->
 	 		<!-- todo: 정책 데이터 받아와서 for each 돌리기 -->
 	 		<div class="search_box">
 	 			<!-- 카테고리, 유사도 -->

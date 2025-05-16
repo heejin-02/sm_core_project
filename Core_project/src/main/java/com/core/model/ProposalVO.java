@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ProposalVO {
 	private int PRPSL_NO ;
-	private String ID;
+	private String ID; //사용자 아이디
 	private String CATEGORY;
 	private String TITLE;
 	private String CONTENT;
@@ -23,4 +23,9 @@ public class ProposalVO {
 	private String RESULT_CONTENT;
 	private int AGREE_CNT;
 	private int DISAG_CNT;
+	public void setAuthor(String author) {
+        this.ID = author;
+    }
+	
+	
 }

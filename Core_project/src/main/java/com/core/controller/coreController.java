@@ -18,14 +18,12 @@ public class coreController {
 		return "join";
 	}
 	
-	
-	
-	
+
 	//로그인 메서드(login)
-	
-	
-	
-	
+	@RequestMapping("/login")
+	public String login() {
+		return "login";
+	}
 	
 	//정책 제안 올리기 메서드(proposal_post)
 	

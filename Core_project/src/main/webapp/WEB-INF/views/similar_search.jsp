@@ -12,6 +12,7 @@
 <body>
 	<div id="wrapper">
 	
+		<!-- 헤더(네비게이션) -->
 		<%@ include file="header.jsp" %>
 	 	
 	 	<!-- 검색 배너 -->
@@ -53,7 +54,7 @@
 				</div>
 				
 				<!-- 더보기 버튼 -->
-				<button clss="more_btn">유사도 분석 결과 더보기</button>
+				<button clss="basic_btn">유사도 분석 결과 더보기</button>
 	 		</div>
 	 	</div>
 	

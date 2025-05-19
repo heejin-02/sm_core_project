@@ -7,14 +7,8 @@
 
 	<!-- 회원가입 -->
 	<insert id="join" parameterType="com.core.model.UserinfoVO">
-		INSERT INTO Userinfo (id,pw,nick,region,id_card, is_approved, joined_at)
-		VALUES ( #{id},
-		#{pw}
-		#{nick},
-		#{region},
-		#{id_card},
-		#{is_approved},
-		#{joined_at})
+		INSERT INTO userinfo (id,pw,nick,region,id_card, is_approved, joined_at)
+		VALUES (#{id},#{pw},#{nick},#{region},#{id_card},#{is_approved},#{joined_at})
 	</insert>
 
 	<!-- 로그인 -->

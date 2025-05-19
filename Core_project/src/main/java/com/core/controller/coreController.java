@@ -44,23 +44,31 @@ public class coreController {
 	// 회원가입 처리 (POST 요청)
 	@PostMapping("/join")
 	public String join(UserinfoVO vo, Model model) {
-		
-		// 기본값 설정
-		vo.setIs_approved("N");
-		vo.setJoined_at(LocalDateTime.now());
+	    System.out.println("id: " + vo.getId());
 
-		// DB 저장
-		mapper.join(vo);
-		model.addAttribute("id", vo.getId());
-		System.out.println("id: " + vo.getId());
-		System.out.println("pw: " + vo.getPw());
-		System.out.println("nick: " + vo.getNick());
-		System.out.println(" region: " + vo.getRegion());
-		
-		return "redirect:/join?email=" + vo.getId(); // 회원가입 후 이동할 페이지
+	    // 필수 필드 null 또는 빈값 체크
+	    if (vo.getId() == null || vo.getId().isEmpty() ||
+	        vo.getPw() == null || vo.getPw().isEmpty() ||
+	        vo.getNick() == null || vo.getNick().isEmpty() ||
+	        vo.getRegion() == null || vo.getRegion().isEmpty()) {
+	        System.out.println("❗ 필수 입력값 누락");
+	        model.addAttribute("msg", "모든 항목을 입력해주세요.");
+	        return "join"; // 다시 회원가입 폼으로 이동
+	    }
+
+	    // 파일 없이 기본값 세팅
+	    vo.setId_card("default.jpg");  // or "N/A" 등 문자열로 대체 가능
+
+	    // 기본값 세팅
+	    vo.setIs_approved("N");
+	    vo.setJoined_at(LocalDateTime.now());
+
+	    // DB 저장
+	    mapper.join(vo);
+
+	    model.addAttribute("id", vo.getId());
+	    return "similar_search"; // 가입 완료 후 이동할 페이지
 	}
-	
-
 
 	// 로그인 메서드(login)
 
@@ -69,6 +77,11 @@ public class coreController {
 
 	}
 
+	@GetMapping("/login")
+	public String loginform() {
+		return "login"; 
+	}
+	
 	@RequestMapping("/login")
 	public String login(UserinfoVO vo, HttpSession session, Model model) {
 		UserinfoVO mvo = mapper.login(vo);

@@ -22,10 +22,8 @@
 
         <!-- 정보입력 -->
         <div id="join">
-            <form action="${pageContext.request.contextPath}/join"
-                  method="post"
-                  enctype="multipart/form-data"
-                  onsubmit="return validateForm();">
+            <form action="join"
+                  method="post">
                 
                 <span class="input_title">아이디</span>
                 <input type="text" name="id" placeholder="아이디를 입력해주세요." required>
@@ -43,9 +41,11 @@
                 <input type="text" name="region" placeholder="지역을 입력해주세요.">
                 <br>
 
+				<!--
                 <span class="input_title">재학증명자료</span>
                 <input type="file" name="file" id="file">
                 <br>
+                -->
 
                 <input class="basic_btn" type="submit" value="회원가입">
             </form>

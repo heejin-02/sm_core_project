@@ -20,15 +20,25 @@
   </resultMap>
   <!-- 회원가입 -->
    <insert id="join" parameterType="com.core.model.UserinfoVO">
-      INSERT INTO userinfo (id,pw,nick,region,id_card, is_approved, joined_at)
+      INSERT INTO Userinfo (id,pw,nick,region,id_card, is_approved, joined_at)
       VALUES (#{id},#{pw},#{nick},#{region},#{id_card},#{is_approved},#{joined_at})
    </insert>
     <!-- 로그인 -->
-    <select id="login" parameterType="com.core.model.UserinfoVO" resultType="com.core.model.UserinfoVO">
-	    SELECT user_id AS ID, user_pw AS PW, user_name AS NICK, region AS REGION, id_card AS ID_CARD, is_approved AS IS_APPROVED, joined_at AS JOINED_AT
-	    FROM Userinfo
-	    WHERE ID = #{ID} AND PW = #{PW}
-	</select>
+    <select id="login"
+        parameterType="com.core.model.UserinfoVO"
+        resultType="com.core.model.UserinfoVO">
+  SELECT
+    ID          AS ID,
+    PW          AS PW,
+    NICK        AS NICK,
+    REGION      AS REGION,
+    ID_CARD     AS ID_CARD,
+    IS_APPROVED AS IS_APPROVED,
+    JOINED_AT   AS JOINED_AT
+  FROM USERINFO
+  WHERE ID = #{ID, jdbcType=VARCHAR}
+    AND PW = #{PW, jdbcType=VARCHAR}
+</select>
 
     <!-- 회원탈퇴 -->
     <delete id="delete" parameterType="string">

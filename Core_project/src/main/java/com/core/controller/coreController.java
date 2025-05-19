@@ -25,11 +25,7 @@ import com.core.model.UserinfoVO;
 public class coreController {
 
 	// 기본 메서드
-	@RequestMapping("/")
-	public String main() {
-		return "similar_search";
-	}
-	
+
 	@RequestMapping("/similar_search")
     public String similarSearch() {
         return "similar_search"; 

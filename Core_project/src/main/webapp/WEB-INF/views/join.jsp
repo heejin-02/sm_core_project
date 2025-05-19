@@ -4,9 +4,11 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
+	<meta charset="UTF-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="resources/assets/css/share.css" />
+	<link rel="stylesheet" href="resources/assets/css/joinAndLogin.css" />
     <title>회원가입</title>
-    <link rel="stylesheet" href="resources/assets/css/share.css">
 </head>
 
 <body>

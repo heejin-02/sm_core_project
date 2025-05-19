@@ -7,9 +7,9 @@
 	<meta charset="UTF-8" />
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<link rel="stylesheet" href="resources/assets/css/share.css" />
+	<link rel="stylesheet" href="resources/assets/css/joinAndLogin.css" />
 </head>
 <body>
-	<div id="wrapper">
 	
 		<!-- 헤더(네비게이션) -->
 		<%@ include file="header.jsp" %>

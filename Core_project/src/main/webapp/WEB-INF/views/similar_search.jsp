@@ -17,7 +17,7 @@
 		<%@ include file="header.jsp" %>
 	 	
 	 	<!-- 검색 배너 -->
-	 	<div class="search_banner">
+	 	<div class="main_banner">
 	 		<div id="title">
 	 			<p class="banner_title">좋은 아이디어 있으신가요?</p>
 	 			<p class="banner_body">내 아이디어를 검색해 실제 정책 / 제안된 정책과의 유사도를 확인해보세요!</p>

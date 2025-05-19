@@ -7,6 +7,7 @@
 	<meta charset="UTF-8" />
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<link rel="stylesheet" href="resources/assets/css/share.css" />
+	<link rel="stylesheet" href="resources/assets/css/joinAndLogin.css" />
 </head>
 <body>
 	<div id="wrapper">
@@ -20,35 +21,69 @@
 		</div>
 		
 		<!-- 정보입력 -->
-		<div id="join">
-		<form action="join" method="post" enctype="multipart/form-data">
-			    <span class="input_title">아이디</span>
-			    <input type="text" name="ID" placeholder="아이디를 입력해주세요." required>
-			    <br>
-			
-			    <span class="input_title">비밀번호</span>
-			    <input type="password" name="PW" placeholder="비밀번호를 입력해주세요." required>
-			    <br>
-			
-			    <span class="input_title">비밀번호 확인</span>
-			    <input type="password" name="PW_confirm" placeholder="비밀번호 확인을 입력해주세요." required>
-			    <br>
-			
-			    <span class="input_title">닉네임</span>
-			    <input type="text" name="NICK" placeholder="닉네임을 입력해주세요." required>
-			    <br>
-			
-			    <span class="input_title">지역</span>
-			    <input type="text" name="REGION" placeholder="지역을 입력해주세요.">
-			    <br>
-			
-			    <span class="input_title">재학증명자료</span>
-			    <input type="file" name="ID_CARD" id="file_input">
-			    <br>
+		<div class="join_login">
+			<form action="join" method="post" enctype="multipart/form-data">
+				<table>
+					<!-- 아이디 -->
+					<tr>
+						<td class="join_login_title">
+							<span class="input_title">아이디</span>
+						</td>
+						<td class="join_login_input">
+							<input type="text" name="id" placeholder="아이디를 입력해주세요.">
+							<!-- todo: 아이디 중복 검사 -->
+							<p id="id_check"></p>
+						</td>
+					</tr>
+
+					<!-- 비밀번호 -->
+					<tr>
+						<td class="join_login_title">
+							<span class="input_title">비밀번호</span>
+						</td>
+						<td class="join_login_input">
+							<input type="password" name="pw" placeholder="비밀번호를 입력해주세요.">
+						</td>
+					</tr>
+
+					<!-- 닉네임 -->
+					<tr>
+						<td class="join_login_title">
+							<span class="input_title">닉네임</span>
+						</td>
+						<td class="join_login_input">
+							<input type="text" name="nick" placeholder="닉네임을 입력해주세요.">
+						</td>
+					</tr>
+					
+					<!-- 재학 중인 학교 -->
+					<tr>
+						<td class="join_login_title">
+							<span class="input_title">재학 중인 학교</span>
+						</td>
+						<td class="join_login_input">
+							<input type="text" name="region" placeholder="재학 중인 학교 이름을 입력해주세요.">
+						</td>
+					</tr>
+					
+					<!-- 재학 증명 -->
+					<tr>
+						<td class="join_login_title">
+							<span class="input_title">재학증명자료</span>
+						</td>
+						<td class="join_login_input">
+							<input type="file" name="id_card" id="file_input">
+						</td>
+					</tr>
+				</table>
 			
 			    <input class="basic_btn" type="submit" value="회원가입">
 			</form>
 		</div>
+		
+		<!-- footer -->
+		<%@ include file="footer.jsp" %>
+		
 	</div>
 </body>
 </html>

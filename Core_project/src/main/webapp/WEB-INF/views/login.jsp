@@ -7,6 +7,7 @@
 	<meta charset="UTF-8" />
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<link rel="stylesheet" href="resources/assets/css/share.css" />
+	<link rel="stylesheet" href="resources/assets/css/joinAndLogin.css" />
 </head>
 <body>
 	<div id="wrapper">
@@ -20,15 +21,31 @@
 		</div>
 		
 		<!-- 정보입력 -->
-		<div id="login">
+		<div class="join_login">
 			<form action="login" method="post">
-			    <span class="input_title">아이디</span>
-			    <input type="text" name="ID" placeholder="아이디를 입력해주세요." required>
-			    <br>
-			    <span class="input_title">비밀번호</span>
-			    <input type="password" name="PW" placeholder="비밀번호를 입력해주세요." required>
-			    <br>
-			    <input class="basic_btn" type="submit" value="로그인">
+			    <table>
+					<!-- 아이디 -->
+					<tr>
+						<td class="join_login_title">
+							<span class="input_title">아이디</span>
+						</td>
+						<td class="join_login_input">
+							<input type="text" name="id" placeholder="아이디를 입력해주세요.">
+							<!-- todo: 아이디 중복 검사 -->
+							<p id="id_check"></p>
+						</td>
+					</tr>
+
+					<!-- 비밀번호 -->
+					<tr>
+						<td class="join_login_title">
+							<span class="input_title">비밀번호</span>
+						</td>
+						<td class="join_login_input">
+							<input type="password" name="pw" placeholder="비밀번호를 입력해주세요.">
+						</td>
+					</tr>
+				</table>
 			</form>
 		</div>
 	</div>

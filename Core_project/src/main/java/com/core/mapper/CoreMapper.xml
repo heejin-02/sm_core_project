@@ -14,10 +14,9 @@
 	<!-- 로그인 -->
 	<select id="login" parameterType="com.core.model.UserinfoVO"
 		resultType="com.core.model.UserinfoVO">
-		SELECT user_id AS ID, user_pw AS PW, user_name AS NICK, region AS REGION,
-		id_card AS ID_CARD, is_approved AS IS_APPROVED, joined_at AS JOINED_AT
+		SELECT *
 		FROM Userinfo
-		WHERE ID = #{ID} AND PW = #{PW}
+		WHERE ID = #{id} AND PW = #{pw}
 	</select>
 
 	<!-- 회원탈퇴 -->

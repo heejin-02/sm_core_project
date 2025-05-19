@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 public class ProposalVO {
 	private int PRPSL_NO ;
 	private String ID; //사용자 아이디
-	private String CATEGORY;
+	private String CATEGORY; 
 	private String TITLE;
 	private String CONTENT;
 	private String EXPECTATION_EFFECT;

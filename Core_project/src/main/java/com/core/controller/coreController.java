@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.core.mapper.CoreMapper;
+import com.core.model.Ai_analysisVO;
 import com.core.model.ProposalVO;
 
 @Controller
@@ -109,8 +110,22 @@ public class coreController {
 	
 	
 	//유사도 목록 띄우기 메서드(similar_search)
-	
-	
+    /**
+     * @param idea 검색 키워드
+     * @param model 뷰로 전달할 모델
+     * @return similar_search.jsp 뷰 이름
+     */
+    @GetMapping("/similar_search")
+    public String similarSearch(
+            @RequestParam(value = "idea", required = false) String idea,
+            Model model) {
+        if (idea != null && !idea.isEmpty()) {
+            List<Ai_analysisVO> list = coreMapper.similarSearch(idea);
+            model.addAttribute("similarList", list);
+            model.addAttribute("searched", true);
+        }
+        return "similar_search"; // /WEB-INF/views/similar_search.jsp
+    }
 	
 	
 	

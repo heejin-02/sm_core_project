@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.core.model.Ai_analysisVO;
 import com.core.model.ProposalVO;
 
 @Mapper
@@ -21,4 +22,11 @@ public interface CoreMapper {
     
     /** 카테고리별 정책 제안 목록 조회 */
     List<ProposalVO> selectByCategory(@Param("category") String category);
+    
+    /**
+     * 유사도 분석 결과 목록 조회
+     * @param idea 검색 키워드
+     * @return Ai_analysisVO 리스트
+     */
+    List<Ai_analysisVO> similarSearch(@Param("idea") String idea);
 }

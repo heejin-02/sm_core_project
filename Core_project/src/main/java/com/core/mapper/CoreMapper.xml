@@ -73,4 +73,22 @@
     WHERE PRPSL_NO = #{id}
   </select>
 
+<!-- 유사도 분석 결과 목록 조회 -->
+    <select id="similarSearch"
+            parameterType="string"
+            resultType="com.core.model.Ai_analysisVO">
+        SELECT
+            ANALYSIS_NO,
+            PRPSL_NO,
+            ANALYSIS_MODEL,
+            ANALYSIS_RESULT,
+            SIMILARITY,
+            RECO_POLICY,
+            ANALIZED_AT
+        FROM AI_ANALYSIS
+        WHERE MATCH(ANALYSIS_RESULT)
+              AGAINST(#{idea} IN NATURAL LANGUAGE MODE)
+        ORDER BY SIMILARITY DESC
+    </select>
+    
 </mapper>

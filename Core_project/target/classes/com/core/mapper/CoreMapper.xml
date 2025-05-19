@@ -1,42 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
-<<<<<<< HEAD
-    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
-<mapper namespace="com.core.mapper.CoreMapper">
-
-    <!-- 회원가입 -->
-    <insert id="join" parameterType="com.core.model.UserinfoVO">
-      INSERT INTO userinfo (id,pw,nick,region,id_card, is_approved, joined_at)
-      VALUES (#{id},#{pw},#{nick},#{region},#{id_card},#{is_approved},#{joined_at})
-   </insert>
-
-    <!-- 로그인 -->
-    <select id="login" parameterType="com.core.model.UserinfoVO" resultType="com.core.model.UserinfoVO">
-        SELECT * FROM Userinfo
-        WHERE user_email = #{user_email} AND user_pw = #{user_pw}
-    </select>
-
-    <!-- 회원탈퇴 -->
-    <delete id="delete" parameterType="string">
-        DELETE FROM Userinfo WHERE user_email = #{user_email}
-    </delete>
-
-    <!-- 회원정보 수정 -->
-    <update id="update" parameterType="com.core.model.UserinfoVO">
-        UPDATE Userinfo
-        SET user_pw = #{user_pw}, user_name = #{user_name}
-        WHERE user_email = #{user_email}
-    </update>
-    <resultMap id="ProposalResult" type="com.core.model.ProposalVO">
-=======
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
          "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.core.mapper.CoreMapper">
   <resultMap id="ProposalResult" type="com.core.model.ProposalVO">
->>>>>>> a8fa2c974ac8cef7d968a350b28952a9c1e5754c
     <id     property="PRPSL_NO"         column="PRPSL_NO"/>
     <result property="ID"               column="ID"/>
     <result property="CATEGORY"         column="CATEGORY"/>
@@ -50,6 +18,29 @@
     <result property="AGREE_CNT"        column="AGREE_CNT"/>
     <result property="DISAG_CNT"        column="DISAG_CNT"/>
   </resultMap>
+  <!-- 회원가입 -->
+   <insert id="join" parameterType="com.core.model.UserinfoVO">
+      INSERT INTO userinfo (id,pw,nick,region,id_card, is_approved, joined_at)
+      VALUES (#{id},#{pw},#{nick},#{region},#{id_card},#{is_approved},#{joined_at})
+   </insert>
+    <!-- 로그인 -->
+    <select id="login" parameterType="com.core.model.UserinfoVO" resultType="com.core.model.UserinfoVO">
+	    SELECT user_id AS ID, user_pw AS PW, user_name AS NICK, region AS REGION, id_card AS ID_CARD, is_approved AS IS_APPROVED, joined_at AS JOINED_AT
+	    FROM Userinfo
+	    WHERE ID = #{ID} AND PW = #{PW}
+	</select>
+
+    <!-- 회원탈퇴 -->
+    <delete id="delete" parameterType="string">
+	    DELETE FROM Userinfo WHERE ID = #{value, jdbcType=VARCHAR}
+	</delete>
+
+    <!-- 회원정보 수정 -->
+    <update id="update" parameterType="com.core.model.UserinfoVO">
+	    UPDATE Userinfo
+	    SET user_pw = #{PW}, user_name = #{NICK}
+	    WHERE user_id = #{ID}
+	</update>
 
   <!-- 1) 제안 저장 -->
   <insert id="insertProposal"
@@ -123,11 +114,4 @@
         ORDER BY SIMILARITY DESC
     </select>
     
-<<<<<<< HEAD
-    
-    
-    
-
-=======
->>>>>>> a8fa2c974ac8cef7d968a350b28952a9c1e5754c
 </mapper>

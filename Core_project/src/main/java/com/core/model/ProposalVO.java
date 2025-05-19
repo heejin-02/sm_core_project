@@ -24,14 +24,6 @@ public class ProposalVO {
 	private int AGREE_CNT;
 	private int DISAG_CNT;
 	public void setId(String Id) {
-<<<<<<< HEAD
-		this.ID=Id;
-		
-	}
-=======
-        this.ID = Id;
-    }
-	
-	
->>>>>>> a8fa2c974ac8cef7d968a350b28952a9c1e5754c
+		this.ID=Id;		
+}
 }

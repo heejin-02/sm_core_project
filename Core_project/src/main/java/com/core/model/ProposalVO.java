@@ -12,8 +12,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ProposalVO {
 	private int PRPSL_NO ;
-	private String ID;
-	private String CATEGORY;
+	private String ID; //사용자 아이디
+	private String CATEGORY; 
 	private String TITLE;
 	private String CONTENT;
 	private String EXPECTATION_EFFECT;
@@ -24,7 +24,14 @@ public class ProposalVO {
 	private int AGREE_CNT;
 	private int DISAG_CNT;
 	public void setId(String Id) {
+<<<<<<< HEAD
 		this.ID=Id;
 		
 	}
+=======
+        this.ID = Id;
+    }
+	
+	
+>>>>>>> a8fa2c974ac8cef7d968a350b28952a9c1e5754c
 }

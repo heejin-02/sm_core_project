@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
+<<<<<<< HEAD
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
@@ -29,6 +30,13 @@
         WHERE user_email = #{user_email}
     </update>
     <resultMap id="ProposalResult" type="com.core.model.ProposalVO">
+=======
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.core.mapper.CoreMapper">
+  <resultMap id="ProposalResult" type="com.core.model.ProposalVO">
+>>>>>>> a8fa2c974ac8cef7d968a350b28952a9c1e5754c
     <id     property="PRPSL_NO"         column="PRPSL_NO"/>
     <result property="ID"               column="ID"/>
     <result property="CATEGORY"         column="CATEGORY"/>
@@ -115,8 +123,11 @@
         ORDER BY SIMILARITY DESC
     </select>
     
+<<<<<<< HEAD
     
     
     
 
+=======
+>>>>>>> a8fa2c974ac8cef7d968a350b28952a9c1e5754c
 </mapper>

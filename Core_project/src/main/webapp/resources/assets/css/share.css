@@ -10,6 +10,10 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	vertical-align: baseline;
 }
 
+body, html {
+	height: 100%;
+}
+
 body {
 	display: flex;
 	flex-direction: column;
@@ -23,6 +27,9 @@ body {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	height: auto;
+	min-height: 100%;
+	padding-bottom: 150px;
 }
 
 .main_banner {
@@ -132,7 +139,7 @@ body {
 	font-size: 20px;
 	border: none;
 	padding: 15px 25px;
-	width: 200px;
+	width: 250px;
 	border-radius: 5px;
 }
 

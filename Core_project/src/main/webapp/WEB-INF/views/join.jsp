@@ -21,28 +21,34 @@
 		
 		<!-- 정보입력 -->
 		<div id="join">
-			<form action="join" method="post">
-				<span class="input_title">이름</span>
-				<input type="text" placeholder="이름를 입력해주세요.">
-				<br>
-				<span class="input_title">아이디</span>
-				<input type="text" placeholder="아이디를 입력해주세요.">
-				<br>
-				<p id="id_check">아이디 중복 검사</p>
-				<br>
-				<span class="input_title">비밀번호</span>
-				<input type="text" placeholder="비밀번호를 입력해주세요.">
-				<br>
-				<span class="input_title">재학중인학교</span>
-				<input type="text" placeholder="아이디를 입력해주세요.">
-				<br>
-				<span class="input_title">재학증명자료</span>
-				<input type="file" id="file_input">
-				<br>
-				<input class="basic_btn" type="submit" value="회원가입">
+		<form action="join" method="post" enctype="multipart/form-data">
+			    <span class="input_title">아이디</span>
+			    <input type="text" name="ID" placeholder="아이디를 입력해주세요." required>
+			    <br>
+			
+			    <span class="input_title">비밀번호</span>
+			    <input type="password" name="PW" placeholder="비밀번호를 입력해주세요." required>
+			    <br>
+			
+			    <span class="input_title">비밀번호 확인</span>
+			    <input type="password" name="PW_confirm" placeholder="비밀번호 확인을 입력해주세요." required>
+			    <br>
+			
+			    <span class="input_title">닉네임</span>
+			    <input type="text" name="NICK" placeholder="닉네임을 입력해주세요." required>
+			    <br>
+			
+			    <span class="input_title">지역</span>
+			    <input type="text" name="REGION" placeholder="지역을 입력해주세요.">
+			    <br>
+			
+			    <span class="input_title">재학증명자료</span>
+			    <input type="file" name="ID_CARD" id="file_input">
+			    <br>
+			
+			    <input class="basic_btn" type="submit" value="회원가입">
 			</form>
 		</div>
-		
 	</div>
 </body>
 </html>

@@ -11,13 +11,15 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Discuss_roomVO {
-	private int DROOM_NO;
-	private String DROOM_CATEGORY;
-	private String DROOM_TITLE;
-	private String DROOM_INFO;
-	private String ID;
-	private int DROOM_LIMIT;
-	private String DROOM_MG;
-	private LocalDateTime CREATED_AT;
-	private String DROOM_ST;
+	
+	
+	private int droom_no;
+	private String droom_category;
+	private String droom_title;
+	private String droom_info;
+	private String id;
+	private int droom_limit;
+	private String droom_mg;
+	private LocalDateTime create_at;
+	private String droom_st;
 }

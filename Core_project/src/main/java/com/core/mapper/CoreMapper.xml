@@ -7,26 +7,27 @@
 
     <!-- 회원가입 -->
     <insert id="join" parameterType="com.core.model.UserinfoVO">
-        INSERT INTO Userinfo (user_email, user_pw, user_name)
-        VALUES (#{user_email}, #{user_pw}, #{user_name})
-    </insert>
+	    INSERT INTO Userinfo (id,pw,nick,region,)
+	    VALUES (#{ID}, #{PW}, #{NICK})
+	</insert>
 
     <!-- 로그인 -->
     <select id="login" parameterType="com.core.model.UserinfoVO" resultType="com.core.model.UserinfoVO">
-        SELECT * FROM Userinfo
-        WHERE user_email = #{user_email} AND user_pw = #{user_pw}
-    </select>
+	    SELECT user_id AS ID, user_pw AS PW, user_name AS NICK, region AS REGION, id_card AS ID_CARD, is_approved AS IS_APPROVED, joined_at AS JOINED_AT
+	    FROM Userinfo
+	    WHERE ID = #{ID} AND PW = #{PW}
+	</select>
 
     <!-- 회원탈퇴 -->
     <delete id="delete" parameterType="string">
-        DELETE FROM Userinfo WHERE user_email = #{user_email}
-    </delete>
+	    DELETE FROM Userinfo WHERE ID = #{value, jdbcType=VARCHAR}
+	</delete>
 
     <!-- 회원정보 수정 -->
     <update id="update" parameterType="com.core.model.UserinfoVO">
-        UPDATE Userinfo
-        SET user_pw = #{user_pw}, user_name = #{user_name}
-        WHERE user_email = #{user_email}
-    </update>
+	    UPDATE Userinfo
+	    SET user_pw = #{PW}, user_name = #{NICK}
+	    WHERE user_id = #{ID}
+	</update>
 
 </mapper>

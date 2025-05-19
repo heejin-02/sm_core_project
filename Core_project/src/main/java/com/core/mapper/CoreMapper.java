@@ -6,7 +6,6 @@ import com.core.model.UserinfoVO;
 @Mapper
 public interface CoreMapper {
 
-	
 	//로그인
 	 public UserinfoVO login(UserinfoVO vo);
 	// 회원가입

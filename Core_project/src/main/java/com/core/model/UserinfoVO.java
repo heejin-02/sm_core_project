@@ -2,6 +2,8 @@ package com.core.model;
 
 import java.time.LocalDateTime;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,6 +21,6 @@ public class UserinfoVO { //유저정보
 	private String is_approved; // 인증 여부
 	private LocalDateTime joined_at; // 가입일자
 	
-	
+	private MultipartFile file;
 
 }

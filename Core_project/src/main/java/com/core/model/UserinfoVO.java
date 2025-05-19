@@ -22,4 +22,5 @@ public class UserinfoVO { //유저정보
 	private LocalDateTime joined_at; // 가입일자
 	
 
+
 }

@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProposalVO {
+
 	private int prpsl_no;
 	private String id ;
 	private String category;
@@ -23,4 +24,5 @@ public class ProposalVO {
 	private String result_content;
 	private int agree_cnt;
 	private int disag_cnt;
+
 }

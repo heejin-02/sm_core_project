@@ -70,12 +70,7 @@ public class coreController {
 	    return "similar_search"; // 가입 완료 후 이동할 페이지
 	}
 
-	// 로그인 메서드(login)
-
-	private void model_addAttribute(String string, String id) {
-		// TODO Auto-generated method stub
-
-	}
+	
 
 	@GetMapping("/login")
 	public String loginform() {

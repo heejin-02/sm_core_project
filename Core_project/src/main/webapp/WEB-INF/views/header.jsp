@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="resources/assets/css/share.css" />
-<link rel="stylesheet" href="resources/assets/css/header.css" />
+<link rel="stylesheet" href="resources/assets/css/headerAndFooter.css" />
 <link rel="stylesheet" href="resources/assets/css/fontFace.css" />
 </head>
 <body>

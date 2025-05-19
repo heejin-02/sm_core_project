@@ -15,7 +15,7 @@
 }
 
 #nav {
-	width: 50%;
+	width: 40%;
 	display: flex;
 	justify-content: space-between;
 }
@@ -30,4 +30,22 @@
 
 #nav a:hover {
 	font-weight: 600;
+	transition-duration: 0.5s;
+}
+
+footer {
+	width: 100%;
+	height: 100px;
+	background-color: #231F20;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 100px;
+}
+
+footer p {
+	color: rgb(84, 84, 84);
+	font-family: Pretendard;
+	font-weight: 400;
+	font-size: 20px;
 }

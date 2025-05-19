@@ -18,4 +18,7 @@ public class UserinfoVO { //유저정보
 	private String ID_CARD; // 신분증 사진
 	private String IS_APPROVED; // 인증 여부
 	private LocalDateTime JOINED_AT; // 가입일자
+	
+	
+
 }

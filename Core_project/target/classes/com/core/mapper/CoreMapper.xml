@@ -12,8 +12,7 @@
 	</insert>
 
 	<!-- 로그인 -->
-	<select id="login" parameterType="com.core.model.UserinfoVO"
-		resultType="com.core.model.UserinfoVO">
+	<select id="login" parameterType="com.core.model.UserinfoVO" resultType="com.core.model.UserinfoVO">
 		SELECT *
 		FROM Userinfo
 		WHERE ID = #{id} AND PW = #{pw}

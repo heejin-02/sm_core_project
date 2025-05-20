@@ -30,13 +30,13 @@
 		</div>
 		
 		<!-- 카테고리 탭 -->
-		<div class="tabs">
-		  <c:forEach var="cat" items="${categories}">
-		    <a href="${pageContext.request.contextPath}/proposal_list?category=${cat}"
-		       class="tab ${cat == selectedCategory ? 'active' : ''}">
-		      <span>${cat}</span>
-		    </a>
-		  </c:forEach>
+     	<div class="tabs">
+			<c:forEach var="cat" items="${categories}">
+			  <a href="${pageContext.request.contextPath}/proposal_list?category=${cat}"
+			     class="tab ${cat eq selectedCategory ? 'active' : ''}">
+			    ${cat}
+			  </a>
+			</c:forEach>
 		</div>
 		
 		<!-- 제안 리스트 -->

@@ -223,7 +223,7 @@ public class coreController {
     @PostMapping("/search")
     public String searchPolicy(@RequestParam("input") String input, Model model) {
 
-        String apiUrl = "http://127.0.0.1:8000/predict";
+        String apiUrl = "http://192.168.219.72:8000/predict";
 
         // 요청 본문 설정
         Map<String, String> requestBody = new HashMap<>();

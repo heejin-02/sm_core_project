@@ -19,14 +19,14 @@
     <result property="DISAG_CNT"        column="DISAG_CNT"/>
   </resultMap>
   <resultMap id="AiAnalysisResult" type="com.core.model.Ai_analysisVO">
-    <id     property="ANALYSIS_NO"    column="ANALYSIS_NO"/>
-    <result property="PRPSL_NO"       column="PRPSL_NO"/>
-    <result property="ANALYSIS_MODEL" column="ANALYSIS_MODEL"/>
-    <result property="ANALYSIS_RESULT" column="ANALYSIS_RESULT"/>
-    <result property="SIMILARITY"     column="SIMILARITY"/>
-    <result property="RECO_POLICY"    column="RECO_POLICY"/>
-    <result property="ANALIZED_AT"    column="ANALIZED_AT"/>
-  </resultMap>
+  <id     property="analysisNo"    column="ANALYSIS_NO"/>
+  <result property="prpslNo"       column="PRPSL_NO"/>
+  <result property="analysisModel" column="ANALYSIS_MODEL"/>
+  <result property="analysisResult" column="ANALYSIS_RESULT"/>
+  <result property="similarity"     column="SIMILARITY"/>
+  <result property="recoPolicy"     column="RECO_POLICY"/>
+  <result property="analizedAt"     column="ANALIZED_AT"/>
+</resultMap>
 
   <!-- 회원가입 -->
    <insert id="join" parameterType="com.core.model.UserinfoVO">

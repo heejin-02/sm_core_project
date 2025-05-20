@@ -2,6 +2,8 @@ package com.core.model;
 
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,8 +25,8 @@ public class ProposalVO {
 	private String RESULT_CONTENT;
 	private int AGREE_CNT;
 	private int DISAG_CNT;
-	public java.util.Date getPrpslDtAsDate() {
-        return java.util.Date
-             .from(PRPSL_DT.atZone(java.time.ZoneId.systemDefault()).toInstant());
-    }
+	public Date getPrpslDtAsDate() {
+	    if (this.PRPSL_DT == null) return null;
+	    return Date.from(this.PRPSL_DT.atZone(ZoneId.systemDefault()).toInstant());
+	}
 }

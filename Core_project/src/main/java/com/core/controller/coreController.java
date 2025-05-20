@@ -184,12 +184,14 @@ public class coreController {
     public String similarSearch(
             @RequestParam(value = "idea", required = false) String idea,
             Model model) {
-        if (idea != null && !idea.isEmpty()) {
-            List<Ai_analysisVO> list = coreMapper.similarSearch(idea);
+
+        if (idea != null && !idea.trim().isEmpty()) {
+            List<Ai_analysisVO> list = coreMapper.similarSearch(idea.trim());
             model.addAttribute("similarList", list);
             model.addAttribute("searched", true);
         }
-        return "similar_search"; // /WEB-INF/views/similar_search.jsp
+
+        return "similar_search";
     }
 	
 	

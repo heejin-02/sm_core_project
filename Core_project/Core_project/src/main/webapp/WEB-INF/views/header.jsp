@@ -22,7 +22,7 @@
  			<a href="discuss_list">토론장</a>
  			<span>|</span>
  			<a href="join">회원가입</a>
- 			<a href="<c:url value='/login' />">로그인</a>
+ 			<a href="login">로그인</a>
  		</nav>
  	</header>
 </body>

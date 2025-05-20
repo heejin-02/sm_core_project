@@ -12,7 +12,7 @@
 </head>
 
 <body>
-	<div id="wrapper">
+	<div class="wrapper">
 		
 		<!-- 헤더(네비게이션) -->
 		<%@ include file="header.jsp" %>
@@ -48,13 +48,13 @@
 						</td>
 					</tr>
 
-					<!-- 닉네임 -->
+					<!-- 이름 -->
 					<tr>
 						<td class="join_login_title">
-							<span class="input_title">닉네임</span>
+							<span class="input_title">이름</span>
 						</td>
 						<td class="join_login_input">
-							<input type="text" name="nick" placeholder="닉네임을 입력해주세요.">
+							<input type="text" name="nick" placeholder="이름을 입력해주세요.">
 						</td>
 					</tr>
 					

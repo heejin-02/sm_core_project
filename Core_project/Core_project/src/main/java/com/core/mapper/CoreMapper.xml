@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
-    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.core.mapper.CoreMapper">
-<<<<<<< HEAD:Core_project/Core_project/src/main/java/com/core/mapper/CoreMapper.xml
 <resultMap id="ProposalResult" type="com.core.model.ProposalVO">
     <id     property="PRPSL_NO"         column="PRPSL_NO"/>
     <result property="ID"               column="ID"/>
@@ -50,35 +49,19 @@
   WHERE id = #{id, jdbcType=VARCHAR}
     AND pw = #{pw, jdbcType=VARCHAR}
 </select>
-=======
->>>>>>> dc275ca6745981e66533fa19f93ab572ea3c16c3:Core_project/src/main/java/com/core/mapper/CoreMapper.xml
 
-	<!-- 회원가입 -->
-	<insert id="join" parameterType="com.core.model.UserinfoVO">
-		INSERT INTO userinfo (id,pw,nick,region,id_card, is_approved, joined_at)
-		VALUES (#{id},#{pw},#{nick},#{region},#{id_card},#{is_approved},#{joined_at})
-	</insert>
+    <!-- 회원탈퇴 -->
+    <delete id="delete" parameterType="string">
+       DELETE FROM Userinfo WHERE ID = #{value, jdbcType=VARCHAR}
+   </delete>
 
-	<!-- 로그인 -->
-	<select id="login" parameterType="com.core.model.UserinfoVO" resultType="com.core.model.UserinfoVO">
-		SELECT *
-		FROM Userinfo
-		WHERE ID = #{id} AND PW = #{pw}
-	</select>
+    <!-- 회원정보 수정 -->
+    <update id="update" parameterType="com.core.model.UserinfoVO">
+       UPDATE Userinfo
+       SET user_pw = #{PW}, user_name = #{NICK}
+       WHERE user_id = #{ID}
+   </update>
 
-	<!-- 회원탈퇴 -->
-	<delete id="delete" parameterType="string">
-		DELETE FROM Userinfo WHERE ID = #{value, jdbcType=VARCHAR}
-	</delete>
-
-	<!-- 회원정보 수정 -->
-	<update id="update" parameterType="com.core.model.UserinfoVO">
-		UPDATE Userinfo
-		SET user_pw = #{PW}, user_name = #{NICK}
-		WHERE user_id = #{ID}
-	</update>
-
-<<<<<<< HEAD:Core_project/Core_project/src/main/java/com/core/mapper/CoreMapper.xml
   <!-- 1) 제안 저장 -->
   <insert id="insertProposal"
           parameterType="com.core.model.ProposalVO"
@@ -150,6 +133,4 @@
     ORDER BY SIMILARITY DESC
   </select>
     
-=======
->>>>>>> dc275ca6745981e66533fa19f93ab572ea3c16c3:Core_project/src/main/java/com/core/mapper/CoreMapper.xml
 </mapper>

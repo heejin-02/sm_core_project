@@ -1,0 +1,11 @@
+<<<<<<< HEAD:Core_project/target/m2e-wtp/web-resources/META-INF/MANIFEST.MF
+Manifest-Version: 1.0
+Build-Jdk-Spec: 21
+Created-By: Maven Integration for Eclipse
+
+=======
+Manifest-Version: 1.0
+Build-Jdk-Spec: 11
+Created-By: Maven Integration for Eclipse
+
+>>>>>>> 70a5ff9379f5da8a1e597cc00ea0e0e0ef3429d8:Core_project/Core_project/target/m2e-wtp/web-resources/META-INF/MANIFEST.MF

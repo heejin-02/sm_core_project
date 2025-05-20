@@ -8,3 +8,16 @@
 .basic_btn {
 	margin-top: 20px;
 }
+
+.tabs {
+    width: 80%;
+    background-color: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tabs a {
+    width: 20%;
+    background-color: yellow;
+}

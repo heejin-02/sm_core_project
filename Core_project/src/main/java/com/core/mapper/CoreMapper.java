@@ -21,7 +21,7 @@ public interface CoreMapper {
 	// 회원정보 수정
 	 public int update(UserinfoVO vo); 
 
-
+/*
     //정책 제안 저장
     void insertProposal(ProposalVO proposal);
 
@@ -39,5 +39,5 @@ public interface CoreMapper {
      * @param idea 검색 키워드
      * @return Ai_analysisVO 리스트
      */
-    List<Ai_analysisVO> similarSearch(@Param("idea") String idea);
+    //List<Ai_analysisVO> similarSearch(@Param("idea") String idea);
 }

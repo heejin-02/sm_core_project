@@ -26,9 +26,7 @@
 	 			<p class="banner_body">다양한 정책에 대해 좋은 생각이 있다면 공유해주세요.</p>
 	 		</div>
 
-			<a href="${pageContext.request.contextPath}/proposal_post" class="basic_btn">
-  정책 제안하기
-</a>
+			<button class="basic_btn">정책 제안하기</button>
 		</div>
 		
 		<!-- 카테고리 탭 -->
@@ -36,7 +34,7 @@
 		  <c:forEach var="cat" items="${categories}">
 		    <a href="${pageContext.request.contextPath}/proposal_list?category=${cat}"
 		       class="tab ${cat == selectedCategory ? 'active' : ''}">
-		      ${cat}
+		      <span>${cat}</span>
 		    </a>
 		  </c:forEach>
 		</div>
@@ -86,21 +84,21 @@
 		            </div>
 		
 		            <%-- 등록일 --%>
-		            <div class="search_box_footer">
-		              <small>
-		                <fmt:formatDate value="${p.prpslDtAsDate}" pattern="yyyy.MM.dd"/>
-		                제안
-		              </small>
-		            </div>
-		          </div>
+					<div class="search_box_footer">
+					  <small>
+					    <fmt:formatDate value="${p.prpslDtAsDate}" pattern="yyyy.MM.dd"/>
+					      제안
+					    </small>
+					  </div>
+					</div>
 		        </c:forEach>
 		      </div>
 		    </c:otherwise>
 		  </c:choose>
 		
-		  <!-- 새 제안 작성 버튼 -->
-		  <button class="basic_btn">제안 더보기</button>
 		</div>
+		<!-- 새 제안 작성 버튼 -->
+		<button class="basic_btn">제안 더보기</button>
 		
 		<!-- footer -->
 		<%@ include file="footer.jsp" %>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,8 +22,17 @@
  			<a href="proposal_list">정책 제안소</a>
  			<a href="discuss_list">토론장</a>
  			<span>|</span>
- 			<a href="join">회원가입</a>
- 			<a href="login">로그인</a>
+ 			<!-- 로그인 안 된 상태 -->
+			<c:if test="${empty sessionScope.midx}">
+			   <a href="join">회원가입</a>
+			   <a href="login">로그인</a>
+			</c:if>
+			
+			<!-- 로그인 된 상태 -->
+			<c:if test="${not empty sessionScope.midx}">
+			   <a href="mypage">${sessionScope.nickname}님</a>
+			   <a href="logout">로그아웃</a>
+			</c:if>
  		</nav>
  	</header>
 </body>

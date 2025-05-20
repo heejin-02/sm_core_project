@@ -22,7 +22,7 @@ body {
 	align-items: center;
 }
 
-#wrapper {
+.wrapper {
 	width: 100%;
 	height: 100%;
 	display: flex;
@@ -34,15 +34,22 @@ body {
 .main_banner {
 	width: 100%;
 	background-repeat: no-repeat;
-	background-position: center center;
-	background-size: cover;
-	padding-top: 165px;
-	padding-bottom: 195px;
+	background-position: center bottom;
+	background-size: contain;
+	min-height: 450px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	margin-bottom: 60px;
+}
+
+.title {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 20px;
 }
 
 .sub_banner {
@@ -128,10 +135,10 @@ body {
 	flex-direction: column;
 	justify-content: center;
 	align-items: start;
+	margin-bottom: 50px;
 }
 
 .basic_btn {
-	margin-top: 50px;
 	background-color: #262626;
 	color: white;
 	font-family: Pretendard;

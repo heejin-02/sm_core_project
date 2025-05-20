@@ -12,7 +12,7 @@
 </head>
 
 <body>
-	<div id="wrapper">
+	<div class="wrapper">
 		
 		<!-- 헤더(네비게이션) -->
 		<%@ include file="header.jsp" %>

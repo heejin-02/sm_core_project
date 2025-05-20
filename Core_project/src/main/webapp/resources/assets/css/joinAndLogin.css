@@ -67,3 +67,7 @@
     font-weight: 400;
     font-size: 15px;
 }
+
+.join_login table {
+	margin-bottom: 50px;
+}

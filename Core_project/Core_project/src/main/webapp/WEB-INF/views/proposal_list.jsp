@@ -26,11 +26,17 @@
 	 			<p class="banner_body">다양한 정책에 대해 좋은 생각이 있다면 공유해주세요.</p>
 	 		</div>
 
-			<button class="basic_btn">정책 제안하기</button>
+			<a href="${pageContext.request.contextPath}/proposal_post" class="basic_btn">
+        정책 제안하기
+      </a>
 		</div>
 		
 		<!-- 카테고리 탭 -->
 		<div class="tabs">
+		  <a href="${pageContext.request.contextPath}/proposal_list"
+     class="tab ${selectedCategory == '전체' ? 'active' : ''}">
+    전체
+  </a>
 		  <c:forEach var="cat" items="${categories}">
 		    <a href="${pageContext.request.contextPath}/proposal_list?category=${cat}"
 		       class="tab ${cat == selectedCategory ? 'active' : ''}">

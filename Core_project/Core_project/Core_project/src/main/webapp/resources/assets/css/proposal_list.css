@@ -1,5 +1,6 @@
 @charset "UTF-8";
 
+/* 배너 */
 .main_banner {
 	background-image: url("../../images/proposal_banner.png");
 	background-color: #F0F7FF;
@@ -13,6 +14,7 @@
 	margin-top: 20px;
 }
 
+/* 탭 컨테이너 */
 .tabs {
     width: 80%;
     display: flex;
@@ -23,9 +25,9 @@
     margin-bottom: 40px;
 }
 
+/* 탭 기본 스타일 */
 .tabs a {
     width: 20%;
-    align-content: center;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -34,21 +36,22 @@
     font-size: 20px;
     font-weight: 400;
     color: #282828;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding: 20px 0;
 }
 
-.tabs a:not(:nth-child(5)) {
+/* 탭 사이 구분선 */
+.tabs a:not(:last-child) {
     border-right: 2px solid #282828;
 }
 
-/* todo: 나중에 클래스로 바꿔서 선택된 애한테 넘겨주기 */
-.tabs a:nth-child(1) {
-    background-color: #4C9DF8;
-    color: white;
+/* 활성화된 탭 */
+.tabs a.active {
+    background-color: #4C9DF8; /* 파란 배경 */
+    color: #FFFFFF;            /* 흰 글자 */
     font-weight: 600;
 }
 
+/* 제안 목록 레이아웃 */
 #proposal_list {
     width: 80%;
     display: flex;
@@ -69,4 +72,10 @@
     box-sizing: border-box;
     padding: 20px 15px;
     border: 2px solid #282828;
+}
+
+.tabs a.active {
+  background-color: #4C9DF8 !important;
+  color:            #FFFFFF !important;
+  font-weight:      600 !important;
 }

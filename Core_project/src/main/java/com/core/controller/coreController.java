@@ -113,6 +113,11 @@ public class coreController {
 	}
 
 	// 정책 제안 올리기 메서드(proposal_post)
+	// 정책 제안소 이동 메서드
+	@GetMapping("/proposal_list")
+	public String proposal_list() {
+		return "proposal_list"; // join.jsp 보여줌
+	}
 
 	// 정책 제안 목록 띄우기 메서드(proposal_list)
 

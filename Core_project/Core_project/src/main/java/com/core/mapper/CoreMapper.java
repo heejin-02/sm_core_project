@@ -12,7 +12,6 @@ public interface CoreMapper {
 	 public void join(UserinfoVO vo);
 	// 회원탈퇴
 	 public int delete(String user_email);
-	// 회원정보 수정
-	 public int update(UserinfoVO vo); 
+	 
 
 }

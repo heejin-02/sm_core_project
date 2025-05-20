@@ -2,7 +2,11 @@
 
 .main_banner {
 	background-image: url("../../images/proposal_banner.png");
-	background-color: #FFFBF1;
+	background-color: #F0F7FF;
+}
+
+.banner_title {
+	color: #F8C866;
 }
 
 .basic_btn {
@@ -11,23 +15,58 @@
 
 .tabs {
     width: 80%;
-    background-color: red;
     display: flex;
     justify-content: center;
     align-items: center;
     border: 2px solid #282828;
+    border-radius: 5px;
+    margin-bottom: 40px;
 }
 
 .tabs a {
     width: 20%;
-    background-color: yellow;
     align-content: center;
     display: flex;
     justify-content: center;
     align-items: center;
     text-decoration: none;
+    font-family: Pretendard;
+    font-size: 20px;
+    font-weight: 400;
+    color: #282828;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
 .tabs a:not(:nth-child(5)) {
     border-right: 2px solid #282828;
+}
+
+/* todo: 나중에 클래스로 바꿔서 선택된 애한테 넘겨주기 */
+.tabs a:nth-child(1) {
+    background-color: #4C9DF8;
+    color: white;
+    font-weight: 600;
+}
+
+#proposal_list {
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+}
+
+.search_box_container {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: start;
+    flex-wrap: wrap;
+}
+
+.search_box {
+    width: 33%;
+    box-sizing: border-box;
+    padding: 20px 15px;
+    border: 2px solid #282828;
 }

@@ -84,21 +84,21 @@
 		            </div>
 		
 		            <%-- 등록일 --%>
-		            <%-- <div class="search_box_footer">
-		              <small>
-		                <fmt:formatDate value="${p.PRPSL_DT}" pattern="yyyy.MM.dd"/>
-		                제안
-		              </small>
-		            </div> --%>
-		          </div>
+					<div class="search_box_footer">
+					  <small>
+					    <fmt:formatDate value="${p.prpslDtAsDate}" pattern="yyyy.MM.dd"/>
+					      제안
+					    </small>
+					  </div>
+					</div>
 		        </c:forEach>
 		      </div>
 		    </c:otherwise>
 		  </c:choose>
 		
-		  <!-- 새 제안 작성 버튼 -->
-		  <button class="basic_btn">제안 더보기</button>
 		</div>
+		<!-- 새 제안 작성 버튼 -->
+		<button class="basic_btn">제안 더보기</button>
 		
 		<!-- footer -->
 		<%@ include file="footer.jsp" %>

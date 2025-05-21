@@ -31,8 +31,38 @@
 
     <h3>처리 현황</h3>
     <p>${proposal.PRCS_NM} (${proposal.ST_CD})</p>
-    <p>👍 ${proposal.AGREE_CNT} 👎 ${proposal.DISAG_CNT}</p>
+
+    <!-- 👍👎 버튼 항상 보이게 -->
+    <div style="margin-top: 20px;">
+      <button onclick="vote('${proposal.PRPSL_NO}', 'LIKE')">👍 ${proposal.AGREE_CNT}</button>
+      <button onclick="vote('${proposal.PRPSL_NO}', 'DISLIKE')">👎 ${proposal.DISAG_CNT}</button>
+    </div>
   </div>
+
+  <script>
+  function vote(proposalId, voteType) {
+    fetch('${pageContext.request.contextPath}/proposal/vote?id=' + proposalId + '&voteType=' + voteType, {
+      method: 'POST'
+    })
+    .then(response => {
+      if (!response.ok) throw new Error("이미 투표했거나 오류 발생");
+      return response.text();
+    })
+    .then(msg => {
+      if (voteType === 'LIKE') {
+        alert('좋아요를 눌렀습니다');
+      } else if (voteType === 'DISLIKE') {
+        alert('싫어요를 눌렀습니다');
+      } else {
+        alert(msg); // 예외 처리
+      }
+      location.reload();
+    })
+    .catch(err => {
+      alert(err.message);
+    });
+  }
+</script>
 
   <%@ include file="footer.jsp"%>
 </body>

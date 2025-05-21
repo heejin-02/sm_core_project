@@ -10,7 +10,7 @@
 }
 
 .basic_btn {
-  margin-top: 20px;
+  margin-top: 50px;
 }
 
 .tabs {
@@ -70,7 +70,8 @@
 }
 
 .search_box:hover {
-  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    border: 2px solid #4C9DF8;
+    box-shadow: 0 0 10px #4C9DF850;
 }
 
 .search_box_inner_link {
@@ -129,16 +130,14 @@
 }
 
 .search_box_comment {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .search_box_comment_goodbad {
-  display: flex;
-  gap: 20px;
-  margin-top: 5px;
+    display: flex;
+    gap: 10px;
 }
 
 .search_box_comment_goodbad div {

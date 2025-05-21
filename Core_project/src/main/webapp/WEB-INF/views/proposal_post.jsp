@@ -20,7 +20,7 @@
 		</div>
 		
 		<div class="pro_post">
-			<form action="proposal_post" method="post" enctype="multipart/form-data">
+			<form action="proposal_post" method="post">
 				<table>
 					<!-- 카테고리 -->
 					<tr>

@@ -172,5 +172,26 @@
       UPDATE PROPOSAL SET DISAG_CNT = DISAG_CNT + 1 WHERE PRPSL_NO = #{prpslNo}
   </update>
 
-    
+   <insert id="insertDiscussRoom" parameterType="com.core.model.Discuss_roomVO" useGeneratedKeys="true" keyProperty="droom_no">
+    INSERT INTO DISCUSS_ROOM (
+      DROOM_CATEGORY, DROOM_TITLE, DROOM_INFO, ID,
+      DROOM_LIMIT, DROOM_MG, CREATE_AT, DROOM_ST
+    ) VALUES (
+      #{droom_category}, #{droom_title}, #{droom_info}, #{id},
+      #{droom_limit}, #{droom_mg}, #{create_at}, #{droom_st}
+    )
+  </insert>
+
+  <!-- 전체 목록 -->
+  <select id="selectAllRooms" resultType="com.core.model.Discuss_roomVO">
+    SELECT * FROM DISCUSS_ROOM ORDER BY CREATE_AT DESC
+  </select>
+
+  <!-- 상태별 목록 -->
+  <select id="selectRoomsByStatus" resultType="com.core.model.Discuss_roomVO">
+    SELECT * FROM DISCUSS_ROOM
+    WHERE DROOM_ST = #{droom_st}
+    ORDER BY CREATE_AT DESC
+  </select>
+   
 </mapper>

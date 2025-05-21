@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.core.model.Ai_analysisVO;
+import com.core.model.Discuss_roomVO;
 import com.core.model.ProposalVO;
 import com.core.model.ProposalVoteVO;
 import com.core.model.UserinfoVO;
@@ -48,4 +49,13 @@ public interface CoreMapper {
     // 좋아요/싫어요 개수 증가
     int incrementAgree(int prpslNo);
     int incrementDisagree(int prpslNo);
+    
+    // 토론방 생성
+    void insertDiscussRoom(Discuss_roomVO room);
+
+    // 토론방 전체 목록 조회
+    List<Discuss_roomVO> selectAllRooms();
+
+    // 상태별 토론방 조회 (예: 진행 중, 종료됨)
+    List<Discuss_roomVO> selectRoomsByStatus(@Param("droom_st") String droom_st);
 }

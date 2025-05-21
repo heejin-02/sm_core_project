@@ -42,10 +42,10 @@
     border-right: 2px solid #282828;
 }
 
-/* todo: 나중에 클래스로 바꿔서 선택된 애한테 넘겨주기 */
-.tabs a:nth-child(1) {
-    background-color: #4C9DF8;
-    color: white;
+/* 활성화된 탭 */
+.tabs a.active {
+    background-color: #4C9DF8; /* 파란 배경 */
+    color: #FFFFFF;            /* 흰 글자 */
     font-weight: 600;
 }
 
@@ -63,6 +63,7 @@
     gap: 5px;
     align-items: start;
     flex-wrap: wrap;
+    margin-bottom: 50px;
 }
 
 .search_box {
@@ -70,4 +71,79 @@
     box-sizing: border-box;
     padding: 20px 15px;
     border: 2px solid #282828;
+    border-radius: 5px;
+    background-color: #F0F7FF;
 }
+
+.search_box_header, .search_box_content {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.category {
+    font-family: Pretendard;
+	font-size: 15px;
+	color: #4C9DF8;
+}
+
+.search_box_content_date {
+	font-family: Pretendard;
+	font-size: 14px;
+	color: #595959;
+	margin-bottom: 2px;
+}
+
+.search_box_content_title {
+    font-family: Pretendard;
+	font-size: 20px;
+	font-weight: 600;
+	color: #262626;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	margin-bottom: 6px;
+}
+
+.search_box_content_body {
+    font-family: Pretendard;
+	font-size: 15px;
+	color: #444444;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 3;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	margin-bottom: 5px;
+}
+
+.search_box_proponent {
+	display: flex;
+	justify-content: start;
+	align-items: center;
+	color: #444444;
+	margin-top: 30px;
+}
+
+.search_box_proponent_name {
+	margin-left: 5px;
+	padding-top: 2px;
+}
+
+.search_box_comment {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.search_box_comment_goodbad {
+    display: flex;
+    gap: 2
+    0px;
+}
+
+.search_box_comment_goodbad div {
+	display: flex;
+	gap: 5px;
+    align-items: center;
+} 

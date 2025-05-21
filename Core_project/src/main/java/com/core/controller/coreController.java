@@ -59,12 +59,11 @@ public class coreController {
 
    // 회원가입 처리 (POST 요청)
    @PostMapping("/join")
-   public String join(UserinfoVO vo, 
-           @RequestParam(value="id_card", required=false) MultipartFile file, 
-              Model model) {
-       System.out.println("id: " + vo.getId());
+   public String join(UserinfoVO vo, Model model) {
 
-       // 필수 필드 null 또는 빈값 체크
+       System.out.println("id: " + vo.getId());
+       MultipartFile file = vo.getFile();
+       // 필수 입력값 체크
        if (vo.getId() == null || vo.getId().isEmpty() ||
            vo.getPw() == null || vo.getPw().isEmpty() ||
            vo.getNick() == null || vo.getNick().isEmpty() ||
@@ -74,35 +73,21 @@ public class coreController {
            return "join"; 
        }
 
-       // 파일 처리
+       // 파일명만 저장
        if (file != null && !file.isEmpty()) {
-           try {
-               String uploadDir = "C:/upload/";
-               File dir = new File(uploadDir);
-               if (!dir.exists()) dir.mkdirs();
-
-               String filename = file.getOriginalFilename();
-               file.transferTo(new File(uploadDir + filename));
-
-               vo.setId_card(filename); // 파일명 저장
-           } catch (IOException e) {
-               e.printStackTrace();
-               model.addAttribute("msg", "파일 업로드 실패");
-               return "join";
-           }
+           String filename = file.getOriginalFilename();
+           vo.setId_card(filename);
+           System.out.println("파일명 저장: " + filename);
        } else {
            vo.setId_card("default.jpg");
        }
-       
-       // 기본값 세팅
+
        vo.setIs_approved("N");
        vo.setJoined_at(LocalDateTime.now());
 
-       // DB 저장
-       mapper.join(vo);
+       mapper.join(vo); // DB 저장
 
-       model.addAttribute("id", vo.getId());
-       return "similar_search"; // 가입 완료 후 이동할 페이지
+       return "similar_search";
    }
 
    // 로그인 메서드(login)

@@ -25,7 +25,7 @@
 	 			<p class="banner_body">다양한 정책에 대해 좋은 생각이 있다면 공유해주세요.</p>
 	 		</div>
 
-			<button class="basic_btn">정책 제안하기</button>
+			<button class="basic_btn" onclick="location.href='proposal_post'">정책 제안하기</button>
 		</div>
 		
 		<!-- 카테고리 탭 -->

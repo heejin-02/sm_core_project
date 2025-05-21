@@ -8,6 +8,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
 <body>
-	
+	토론 목록
+	<a href="discuss_post">작성</a>
 </body>
 </html>

@@ -141,7 +141,9 @@ public class coreController {
     // 1) 정책 제안 작성 폼 보여주기
     @GetMapping("/proposal_post")
     public String showProposalForm(Model model, HttpSession session) {
-        if (session.getAttribute("loginUser") == null) {
+        if (session.getAttribute("midx") == null) {
+        	String test = (String)session.getAttribute("midx");
+        	System.out.println(test);
             return "redirect:/login";
         }
         // 카테고리 목록
@@ -252,13 +254,19 @@ public class coreController {
    
    
    //토론방 목록 띄우기 메서드(discuss_list)
-   
+    @RequestMapping("/discuss_list")
+    public String discuss_list() {
+       return "discuss_list";
+    }
    
    
    
    
    //토론방 생성하기 메서드(discuss_post)
-   
+    @RequestMapping("/discuss_post")
+    public String discuss_post() {
+       return "discuss_post";
+    }
    
    
    

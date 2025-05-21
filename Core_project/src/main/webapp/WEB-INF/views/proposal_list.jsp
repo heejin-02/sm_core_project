@@ -56,9 +56,9 @@
 		          	<div class="search_box">
 						<%-- 카테고리--%>
 						<div class="search_box_header">
-						<span class="category ${fn:toLowerCase(p.CATEGORY)}">
+							<span class="category ${fn:toLowerCase(p.CATEGORY)}">
 							${p.CATEGORY}
-						</span>
+							</span>
 						
 						</div>
 

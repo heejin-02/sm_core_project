@@ -1,0 +1,16 @@
+@charset "UTF-8";
+
+.main_banner {
+	background-image: url("../../images/discuss_banner.png");
+	background-color: #F0F7FF;
+}
+
+.basic_btn {
+	margin-top: 20px;
+}
+
+.discuss_search {
+    margin-top: 40px;
+    display: flex;
+    gap: 10px;
+}

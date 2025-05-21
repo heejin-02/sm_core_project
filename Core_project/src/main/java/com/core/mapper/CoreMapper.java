@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.core.model.Ai_analysisVO;
 import com.core.model.ProposalVO;
+import com.core.model.ProposalVoteVO;
 import com.core.model.UserinfoVO;
 
 @Mapper
@@ -37,4 +38,14 @@ public interface CoreMapper {
      * @return Ai_analysisVO 리스트
      */
     List<Ai_analysisVO> similarSearch(@Param("idea") String idea);
+    
+ // 사용자가 이미 투표했는지 확인
+    ProposalVoteVO checkVote(@Param("prpslNo") int prpslNo, @Param("userId") String userId);
+
+    // 투표 기록 저장
+    int insertVote(ProposalVoteVO vote);
+
+    // 좋아요/싫어요 개수 증가
+    int incrementAgree(int prpslNo);
+    int incrementDisagree(int prpslNo);
 }

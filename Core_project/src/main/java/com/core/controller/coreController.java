@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -31,6 +32,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.core.mapper.CoreMapper;
 import com.core.model.Ai_analysisVO;
 import com.core.model.ProposalVO;
+import com.core.model.ProposalVoteVO;
 import com.core.model.UserinfoVO;
 
 
@@ -137,47 +139,43 @@ public class coreController {
    
    
    
-   //정책 제안 올리기 메서드(proposal_post)
-    // 1) 정책 제안 작성 폼 보여주기
-    @GetMapping("/proposal_post")
-    public String showProposalForm(Model model, HttpSession session) {
-        if (session.getAttribute("midx") == null) {
-        	String test = (String)session.getAttribute("midx");
-        	System.out.println(test);
-            return "redirect:/login";
-        }
-        // 카테고리 목록
-        List<String> categories = Arrays.asList("학교생활", "지역사회", "문화생활", "사회문제");
-        model.addAttribute("categories", categories);
-        model.addAttribute("proposal", new ProposalVO());
-        return "proposal_post";
-    }
+// 정책 제안 폼 보여주기
+   @GetMapping("/proposal_post")
+   public String showProposalForm(Model model, HttpSession session) {
+       UserinfoVO mvo = (UserinfoVO) session.getAttribute("mvo");
+       if (mvo == null) {
+           return "redirect:/login";
+       }
+       List<String> categories = Arrays.asList("학교생활", "지역사회", "문화생활", "사회문제");
+       model.addAttribute("categories", categories);
+       model.addAttribute("proposal", new ProposalVO());
+       return "proposal_post";
+   }
 
-    // 2) 정책 제안 제출 처리
-    @PostMapping("/proposal_post")
-    public String submitProposal(
-            @ModelAttribute("proposal") ProposalVO proposal,
-            Model model,
-            HttpSession session,
-            RedirectAttributes rttr) {
+   // 정책 제안 제출 처리
+   @PostMapping("/proposal_post")
+   public String submitProposal(
+           @ModelAttribute("proposal") ProposalVO proposal,
+           HttpSession session,
+           RedirectAttributes rttr) {
 
-        if (session.getAttribute("loginUser") == null) {
-            return "redirect:/login";
-        }
+       UserinfoVO mvo = (UserinfoVO) session.getAttribute("mvo");
+       if (mvo == null) {
+           return "redirect:/login";
+       }
 
-        // 작성자(ID) 세팅
-        proposal.setID(session.getAttribute("loginUser").toString());
-        // 초기 상태 세팅
-        proposal.setST_CD("접수");       // 예: 접수 상태 코드
-        proposal.setPRCS_NM("대기");     // 예: 처리 대기
+       // VO 필드 세팅
+       proposal.setID(mvo.getId());
+       proposal.setST_CD("접수");
+       proposal.setPRCS_NM("대기");
+       proposal.setAGREE_CNT(0);
+       proposal.setDISAG_CNT(0);
+       proposal.setPRPSL_DT(LocalDateTime.now());
 
-        // DB 저장
-        mapper.insertProposal(proposal);
-
-        // 완료 메시지
-        rttr.addFlashAttribute("msg", "제안이 성공적으로 등록되었습니다.");
-        return "redirect:/proposal_list";
-    }
+       mapper.insertProposal(proposal);
+       rttr.addFlashAttribute("msg", "제안이 성공적으로 등록되었습니다.");
+       return "redirect:/proposal_list";
+   }
 
    
    
@@ -201,6 +199,20 @@ public class coreController {
         model.addAttribute("proposals", proposals);
 
         return "proposal_list";
+    }
+    @GetMapping("/proposal_detail")
+    public String showProposalDetail(
+            @RequestParam("id") int id,
+            Model model) {
+
+        ProposalVO proposal = mapper.selectProposalById(id);
+        if (proposal == null) {
+            // (Optional) redirect or 404 handling
+            return "redirect:/proposal_list";
+        }
+
+        model.addAttribute("proposal", proposal);
+        return "proposal_detail";
     }
    
    
@@ -236,7 +248,47 @@ public class coreController {
 
         return "similar_search";  // JSP 파일 이름
     }
-   
+    @PostMapping("/proposal/vote")
+    @ResponseBody
+    public ResponseEntity<String> voteProposal(
+            @RequestParam("id") int proposalId,
+            @RequestParam("voteType") String voteType,
+            HttpSession session) {
+
+        UserinfoVO user = (UserinfoVO) session.getAttribute("mvo");
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
+        }
+
+        System.out.println("===== VOTE DEBUG =====");
+        System.out.println("user: " + (user != null ? user.getId() : "null"));
+        System.out.println("proposalId: " + proposalId);
+        System.out.println("voteType: " + voteType);
+        System.out.println("=======================");
+
+        if (!"LIKE".equalsIgnoreCase(voteType) && !"DISLIKE".equalsIgnoreCase(voteType)) {
+            return ResponseEntity.badRequest().body("잘못된 투표 타입입니다.");
+        }
+
+        ProposalVoteVO existingVote = mapper.checkVote(proposalId, user.getId());
+        if (existingVote != null) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("이미 투표하셨습니다.");
+        }
+
+        ProposalVoteVO newVote = new ProposalVoteVO(proposalId, user.getId(), voteType);
+        int result = mapper.insertVote(newVote);
+        if (result == 0) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("투표 저장 실패");
+        }
+
+        if ("LIKE".equalsIgnoreCase(voteType)) {
+            mapper.incrementAgree(proposalId);
+        } else {
+            mapper.incrementDisagree(proposalId);
+        }
+
+        return ResponseEntity.ok("투표 완료");
+    }
    
    
    //토론방 목록 띄우기 메서드(discuss_list)

@@ -200,6 +200,20 @@ public class coreController {
 
         return "proposal_list";
     }
+    @GetMapping("/proposal_detail")
+    public String showProposalDetail(
+            @RequestParam("id") int id,
+            Model model) {
+
+        ProposalVO proposal = mapper.selectProposalById(id);
+        if (proposal == null) {
+            // (Optional) redirect or 404 handling
+            return "redirect:/proposal_list";
+        }
+
+        model.addAttribute("proposal", proposal);
+        return "proposal_detail";
+    }
    
    
    

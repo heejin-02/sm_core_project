@@ -67,14 +67,12 @@
 							<span class="search_box_content_date">
 								<fmt:formatDate value="${p.prpslDtAsDate}" pattern="yyyy.MM.dd"/>제안
 							</span>
+							<br>
 							<!-- js에서 클릭 이벤트로 처리하기 -->
-							<!-- <a href="${pageContext.request.contextPath}/proposal_detail?id=${p.PRPSL_NO}"
+							<a href="${pageContext.request.contextPath}/proposal_detail?id=${p.PRPSL_NO}"
 							class="search_box_content_title">
 							${p.TITLE}
-							</a> -->
-							<p class="search_box_content_title">
-								${p.TITLE}
-							</p>
+							<br>	
 							<p class="search_box_content_body">
 								${p.CONTENT}
 							</p>

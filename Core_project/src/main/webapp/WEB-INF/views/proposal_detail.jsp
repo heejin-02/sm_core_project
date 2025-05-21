@@ -45,7 +45,7 @@
       method: 'POST'
     })
     .then(response => {
-      if (!response.ok) throw new Error("이미 투표했거나 오류 발생");
+      if (!response.ok) throw new Error("이미 투표했거나 비로그인 상태이거나 오류 발생");
       return response.text();
     })
     .then(msg => {

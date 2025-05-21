@@ -18,6 +18,8 @@ public interface CoreMapper {
     public int join(UserinfoVO vo);
    // 회원탈퇴
     public int delete(String user_email);
+    // 아이디중복확인
+    public int checkId(String id);
 
 
     /** 정책 제안 저장 */

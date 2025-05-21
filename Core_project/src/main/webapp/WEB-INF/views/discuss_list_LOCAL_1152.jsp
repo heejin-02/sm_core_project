@@ -84,7 +84,6 @@
 					</div>
 				</c:forEach>
 			</div>
-			<!-- todoo: 페이지 넘기기 추가 -->
 		</div>
 
 		<%@ include file="footer.jsp"%>

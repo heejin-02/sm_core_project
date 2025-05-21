@@ -58,6 +58,15 @@ public class coreController {
    public String joinForm() {
       return "join"; // join.jsp 보여줌
    }
+   
+   // 아이디 중복 확인 AJAX 메서드
+   @GetMapping("/checkId")
+   @ResponseBody
+   public String checkId(@RequestParam("id") String id) {
+       int count = mapper.checkId(id);
+       return (count == 0) ? "OK" : "DUPLICATE";
+   }
+   
 
    // 회원가입 처리 (POST 요청)
    @PostMapping("/join")

@@ -8,7 +8,19 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
 <body>
-	토론 목록
-	<a href="discuss_post">작성</a>
+	<div class="wrapper">
+
+		<!-- 헤더(네비게이션) -->
+      	<%@ include file="header.jsp" %>
+		
+		<!-- 배너 -->
+		<div class="sub_banner">
+			<p class="sub_banner_title">정책 아이디어 제안</p>
+		</div>
+
+		<!-- 푸터 -->
+      	<%@ include file="footer.jsp" %>
+
+	</div>
 </body>
 </html>

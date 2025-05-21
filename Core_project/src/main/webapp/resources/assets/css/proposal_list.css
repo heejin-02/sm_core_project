@@ -133,17 +133,15 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
 }
 
 .search_box_comment_goodbad {
     display: flex;
-    gap: 2
-    0px;
+    gap: 10px;
 }
 
 .search_box_comment_goodbad div {
 	display: flex;
-	gap: 5px;
+	gap: 3px;
     align-items: center;
 } 

@@ -23,7 +23,7 @@
 		
 		<!-- 내용 입력 -->
 		<div class="pro_post">
-			<form action="proposal_post" method="post" enctype="multipart/form-data">
+			<form action="proposal_post" method="post">
 				<table>
 					<!-- 카테고리 -->
 					<tr>
@@ -56,7 +56,7 @@
 							<span class="input_title">제안명</span>
 						</td>
 						<td class="post_input">
-							<input type="text" name="input_post_title" placeholder="제안명을 입력해주세요.">
+							<input type="text" name="title" placeholder="제안명을 입력해주세요.">
 						</td>
 					</tr>
 					
@@ -66,7 +66,7 @@
 							<span class="input_title">제안 배경 및 현황</span>
 						</td>
 						<td class="post_input">
-							<textarea name="input_post_background" placeholder="제안 배경 및 현황을 입력해주세요."></textarea>
+							<textarea name="proposal_background" placeholder="제안 배경 및 현황을 입력해주세요."></textarea>
 						</td>
 					</tr>
 					
@@ -76,7 +76,7 @@
 							<span class="input_title">제안 내용</span>
 						</td>
 						<td class="post_input">
-							<textarea name="input_post_body" placeholder="제안 내용을 입력해주세요."></textarea>
+							<textarea name="content" placeholder="제안 내용을 입력해주세요."></textarea>
 						</td>
 					</tr>
 					
@@ -86,7 +86,7 @@
 							<span class="input_title">기대 효과</span>
 						</td>
 						<td class="post_input">
-							<textarea name="input_post_effect" placeholder="기대효과를 입력해주세요."></textarea>
+							<textarea name="expectation_effect" placeholder="기대효과를 입력해주세요."></textarea>
 						</td>
 					</tr>
 				</table>

@@ -137,47 +137,43 @@ public class coreController {
    
    
    
-   //정책 제안 올리기 메서드(proposal_post)
-    // 1) 정책 제안 작성 폼 보여주기
-    @GetMapping("/proposal_post")
-    public String showProposalForm(Model model, HttpSession session) {
-        if (session.getAttribute("midx") == null) {
-        	String test = (String)session.getAttribute("midx");
-        	System.out.println(test);
-            return "redirect:/login";
-        }
-        // 카테고리 목록
-        List<String> categories = Arrays.asList("학교생활", "지역사회", "문화생활", "사회문제");
-        model.addAttribute("categories", categories);
-        model.addAttribute("proposal", new ProposalVO());
-        return "proposal_post";
-    }
+// 정책 제안 폼 보여주기
+   @GetMapping("/proposal_post")
+   public String showProposalForm(Model model, HttpSession session) {
+       UserinfoVO mvo = (UserinfoVO) session.getAttribute("mvo");
+       if (mvo == null) {
+           return "redirect:/login";
+       }
+       List<String> categories = Arrays.asList("학교생활", "지역사회", "문화생활", "사회문제");
+       model.addAttribute("categories", categories);
+       model.addAttribute("proposal", new ProposalVO());
+       return "proposal_post";
+   }
 
-    // 2) 정책 제안 제출 처리
-    @PostMapping("/proposal_post")
-    public String submitProposal(
-            @ModelAttribute("proposal") ProposalVO proposal,
-            Model model,
-            HttpSession session,
-            RedirectAttributes rttr) {
+   // 정책 제안 제출 처리
+   @PostMapping("/proposal_post")
+   public String submitProposal(
+           @ModelAttribute("proposal") ProposalVO proposal,
+           HttpSession session,
+           RedirectAttributes rttr) {
 
-        if (session.getAttribute("loginUser") == null) {
-            return "redirect:/login";
-        }
+       UserinfoVO mvo = (UserinfoVO) session.getAttribute("mvo");
+       if (mvo == null) {
+           return "redirect:/login";
+       }
 
-        // 작성자(ID) 세팅
-        proposal.setID(session.getAttribute("loginUser").toString());
-        // 초기 상태 세팅
-        proposal.setST_CD("접수");       // 예: 접수 상태 코드
-        proposal.setPRCS_NM("대기");     // 예: 처리 대기
+       // VO 필드 세팅
+       proposal.setID(mvo.getId());
+       proposal.setST_CD("접수");
+       proposal.setPRCS_NM("대기");
+       proposal.setAGREE_CNT(0);
+       proposal.setDISAG_CNT(0);
+       proposal.setPRPSL_DT(LocalDateTime.now());
 
-        // DB 저장
-        mapper.insertProposal(proposal);
-
-        // 완료 메시지
-        rttr.addFlashAttribute("msg", "제안이 성공적으로 등록되었습니다.");
-        return "redirect:/proposal_list";
-    }
+       mapper.insertProposal(proposal);
+       rttr.addFlashAttribute("msg", "제안이 성공적으로 등록되었습니다.");
+       return "redirect:/proposal_list";
+   }
 
    
    

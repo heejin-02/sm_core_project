@@ -1,5 +1,6 @@
 package com.core.controller;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -15,39 +16,42 @@ import com.core.model.Discuss_roomVO;
 import com.core.model.UserinfoVO;
 
 @Controller
-@RequestMapping("/discuss")
 public class DiscussController {
 
     @Autowired
-    private CoreMapper discussMapper;
+    private CoreMapper mapper;
 
-    // 토론 목록 페이지
-    @GetMapping("/list")
-    public String showDiscussList(Model model) {
-        List<Discuss_roomVO> allRooms = discussMapper.selectAllRooms();
-        model.addAttribute("rooms", allRooms);
-        return "discuss_list"; // discuss_list.jsp
+    // ✅ discuss_list 띄워주는거
+    @GetMapping("/discuss_list")
+    public String showDiscussList(@RequestParam(value = "keyword", required = false) String keyword, Model model) {
+        List<Discuss_roomVO> rooms;
+        if (keyword != null && !keyword.trim().isEmpty()) {
+            rooms = mapper.searchRoomsByTitle(keyword);
+        } else {
+            rooms = mapper.selectAllRooms();
+        }
+        model.addAttribute("rooms", rooms);
+        model.addAttribute("keyword", keyword);
+        return "discuss_list";  
     }
 
-    // 토론방 생성 폼
-    @GetMapping("/post")
+    @GetMapping("/discuss_post")
     public String showCreateForm(Model model) {
         model.addAttribute("room", new Discuss_roomVO());
-        return "discuss_post"; // discuss_post.jsp
+        return "discuss_post";  
     }
 
-    // 토론방 생성 처리
-    @PostMapping("/post")
+    @PostMapping("/discuss_post")
     public String createRoom(@ModelAttribute("room") Discuss_roomVO room, HttpSession session) {
         UserinfoVO user = (UserinfoVO) session.getAttribute("mvo");
         if (user == null) return "redirect:/login";
 
         room.setId(user.getId());
-        room.setCreate_at(LocalDateTime.now());
+        room.setCreate_at(Timestamp.valueOf(LocalDateTime.now()));
         room.setDroom_st("진행중");
         room.setDroom_mg(user.getId());
 
-        discussMapper.insertDiscussRoom(room);
-        return "redirect:/discuss/list";
+        mapper.insertDiscussRoom(room);
+        return "redirect:/discuss_list";
     }
 }

@@ -50,12 +50,7 @@ public interface CoreMapper {
     int incrementAgree(int prpslNo);
     int incrementDisagree(int prpslNo);
     
-    // 토론방 생성
-    void insertDiscussRoom(Discuss_roomVO room);
-
-    // 토론방 전체 목록 조회
     List<Discuss_roomVO> selectAllRooms();
-
-    // 상태별 토론방 조회 (예: 진행 중, 종료됨)
-    List<Discuss_roomVO> selectRoomsByStatus(@Param("droom_st") String droom_st);
+    List<Discuss_roomVO> searchRoomsByTitle(@Param("keyword") String keyword);
+    void insertDiscussRoom(Discuss_roomVO room);
 }

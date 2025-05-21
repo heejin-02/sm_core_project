@@ -4,7 +4,9 @@
          "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.core.mapper.CoreMapper">
-<resultMap id="ProposalResult" type="com.core.model.ProposalVO">
+
+  <!-- 1. Proposal 관련 매핑 -->
+  <resultMap id="ProposalResult" type="com.core.model.ProposalVO">
     <id     property="PRPSL_NO"         column="PRPSL_NO"/>
     <result property="ID"               column="ID"/>
     <result property="CATEGORY"         column="CATEGORY"/>
@@ -18,6 +20,8 @@
     <result property="AGREE_CNT"        column="AGREE_CNT"/>
     <result property="DISAG_CNT"        column="DISAG_CNT"/>
   </resultMap>
+
+  <!-- 2. AI 분석 결과 매핑 -->
   <resultMap id="AiAnalysisResult" type="com.core.model.Ai_analysisVO">
     <id     property="ANALYSIS_NO"    column="ANALYSIS_NO"/>
     <result property="PRPSL_NO"       column="PRPSL_NO"/>
@@ -28,151 +32,109 @@
     <result property="ANALIZED_AT"    column="ANALIZED_AT"/>
   </resultMap>
 
+  <!-- 3. 토론방 매핑 -->
+  <resultMap id="DiscussRoomResult" type="com.core.model.Discuss_roomVO">
+    <id     property="droom_no"       column="DROOM_NO" />
+    <result property="droom_category" column="DROOM_CATEGORY" />
+    <result property="droom_title"    column="DROOM_TITLE" />
+    <result property="droom_info"     column="DROOM_INFO" />
+    <result property="id"             column="ID" />
+    <result property="droom_limit"    column="DROOM_LIMIT" />
+    <result property="droom_mg"       column="DROOM_MG" />
+<result property="create_at" column="CREATE_AT" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp"/>
+    <result property="droom_st"       column="DROOM_ST" />
+  </resultMap>
+
   <!-- 회원가입 -->
-   <insert id="join" parameterType="com.core.model.UserinfoVO">
-      INSERT INTO Userinfo (id,pw,nick,region,id_card, is_approved, joined_at)
-      VALUES (#{id},#{pw},#{nick},#{region},#{id_card},#{is_approved},#{joined_at})
-   </insert>
+  <insert id="join" parameterType="com.core.model.UserinfoVO">
+    INSERT INTO Userinfo (id,pw,nick,region,id_card, is_approved, joined_at)
+    VALUES (#{id},#{pw},#{nick},#{region},#{id_card},#{is_approved},#{joined_at})
+  </insert>
 
-   <!-- 로그인 -->
-   <select id="login" parameterType="com.core.model.UserinfoVO" resultType="com.core.model.UserinfoVO">
-      SELECT * FROM Userinfo WHERE id = #{id} AND pw = #{pw}
-   </select>
+  <!-- 로그인 -->
+  <select id="login" parameterType="com.core.model.UserinfoVO" resultType="com.core.model.UserinfoVO">
+    SELECT * FROM Userinfo WHERE id = #{id} AND pw = #{pw}
+  </select>
 
-    <!-- 회원탈퇴 -->
-    <delete id="delete" parameterType="string">
-       DELETE FROM Userinfo WHERE ID = #{value, jdbcType=VARCHAR}
-   </delete>
+  <!-- 회원탈퇴 -->
+  <delete id="delete" parameterType="string">
+    DELETE FROM Userinfo WHERE ID = #{value, jdbcType=VARCHAR}
+  </delete>
 
-    <!-- 회원정보 수정 -->
-    <update id="update" parameterType="com.core.model.UserinfoVO">
-       UPDATE Userinfo
-       SET user_pw = #{PW}, user_name = #{NICK}
-       WHERE user_id = #{ID}
-   </update>
+  <!-- 정책 제안 -->
+  <insert id="insertProposal" parameterType="com.core.model.ProposalVO" keyProperty="PRPSL_NO">
+    INSERT INTO PROPOSAL (
+      ID, CATEGORY, TITLE, CONTENT, EXPECTATION_EFFECT, PRPSL_DT,
+      ST_CD, PRCS_NM, RESULT_CONTENT, AGREE_CNT, DISAG_CNT
+    ) VALUES (
+      #{ID, jdbcType=VARCHAR}, #{CATEGORY, jdbcType=VARCHAR}, #{TITLE, jdbcType=VARCHAR},
+      #{CONTENT, jdbcType=VARCHAR}, #{EXPECTATION_EFFECT, jdbcType=VARCHAR}, #{PRPSL_DT, jdbcType=TIMESTAMP},
+      #{ST_CD, jdbcType=VARCHAR}, #{PRCS_NM, jdbcType=VARCHAR}, #{RESULT_CONTENT, jdbcType=VARCHAR},
+      #{AGREE_CNT, jdbcType=INTEGER}, #{DISAG_CNT, jdbcType=INTEGER}
+    )
+  </insert>
 
-  <!-- 1) 제안 저장 -->
-  <insert id="insertProposal"
-        parameterType="com.core.model.ProposalVO"
-        keyProperty="PRPSL_NO">
-  INSERT INTO PROPOSAL
-    (ID, CATEGORY, TITLE, CONTENT, EXPECTATION_EFFECT, PRPSL_DT,
-     ST_CD, PRCS_NM, RESULT_CONTENT, AGREE_CNT, DISAG_CNT)
-  VALUES
-    (#{ID, jdbcType=VARCHAR},
-     #{CATEGORY, jdbcType=VARCHAR},
-     #{TITLE, jdbcType=VARCHAR},
-     #{CONTENT, jdbcType=VARCHAR},
-     #{EXPECTATION_EFFECT, jdbcType=VARCHAR},
-     #{PRPSL_DT, jdbcType=TIMESTAMP},
-     #{ST_CD, jdbcType=VARCHAR},
-     #{PRCS_NM, jdbcType=VARCHAR},
-     #{RESULT_CONTENT, jdbcType=VARCHAR},
-     #{AGREE_CNT, jdbcType=INTEGER},
-     #{DISAG_CNT, jdbcType=INTEGER})
-</insert>
-
-
-
-  <!-- 2) 전체 제안 목록 조회 -->
   <select id="selectAllProposals" resultMap="ProposalResult">
-    SELECT
-      PRPSL_NO,
-      ID,
-      CATEGORY,
-      TITLE,
-      CONTENT,
-      EXPECTATION_EFFECT,
-      PRPSL_DT,
-      ST_CD,
-      PRCS_NM,
-      RESULT_CONTENT,
-      AGREE_CNT,
-      DISAG_CNT
-    FROM PROPOSAL
-    ORDER BY PRPSL_DT DESC
+    SELECT * FROM PROPOSAL ORDER BY PRPSL_DT DESC
   </select>
 
-  <!-- 3) 단일 제안 조회 -->
-  <select id="selectProposalById"
-          parameterType="int"
-          resultMap="ProposalResult">
-    SELECT
-      PRPSL_NO,
-      ID,
-      CATEGORY,
-      TITLE,
-      CONTENT,
-      EXPECTATION_EFFECT,
-      PRPSL_DT,
-      ST_CD,
-      PRCS_NM,
-      RESULT_CONTENT,
-      AGREE_CNT,
-      DISAG_CNT
-    FROM PROPOSAL
-    WHERE PRPSL_NO = #{id}
+  <select id="selectProposalById" parameterType="int" resultMap="ProposalResult">
+    SELECT * FROM PROPOSAL WHERE PRPSL_NO = #{id}
   </select>
 
-<!-- 유사도 분석 결과 목록 조회 -->
-    <select id="similarSearch"
-          parameterType="string"
-          resultMap="AiAnalysisResult">
-    SELECT
-      ANALYSIS_NO,
-      PRPSL_NO,
-      ANALYSIS_MODEL,
-      ANALYSIS_RESULT,
-      SIMILARITY,
-      RECO_POLICY,
-      ANALIZED_AT
-    FROM AI_ANALYSIS
+  <select id="selectByCategory" parameterType="string" resultMap="ProposalResult">
+    SELECT * FROM PROPOSAL WHERE CATEGORY = #{category} ORDER BY PRPSL_DT DESC
+  </select>
+
+  <select id="similarSearch" parameterType="string" resultMap="AiAnalysisResult">
+    SELECT * FROM AI_ANALYSIS
     WHERE ANALYSIS_RESULT LIKE '%' || #{idea} || '%'
     ORDER BY SIMILARITY DESC
   </select>
-  
-  <!-- 카테고리별 정책 제안 목록 조회 -->
-  <select id="selectByCategory" 
-        parameterType="string" 
-        resultMap="ProposalResult">
-  SELECT
-    PRPSL_NO,
-    ID,
-    CATEGORY,
-    TITLE,
-    CONTENT,
-    EXPECTATION_EFFECT,
-    PRPSL_DT,
-    ST_CD,
-    PRCS_NM,
-    RESULT_CONTENT,
-    AGREE_CNT,
-    DISAG_CNT
-  FROM PROPOSAL
-  WHERE CATEGORY = #{category}
-  ORDER BY PRPSL_DT DESC
-</select>
 
-<select id="checkVote" resultType="com.core.model.ProposalVoteVO">
-      SELECT PRPSL_NO AS prpslNo, USER_ID AS userId, VOTE_TYPE AS voteType
-      FROM PROPOSAL_VOTE
-      WHERE PRPSL_NO = #{prpslNo} AND USER_ID = #{userId}
+  <!-- 투표 관련 -->
+  <select id="checkVote" resultType="com.core.model.ProposalVoteVO">
+    SELECT PRPSL_NO AS prpslNo, USER_ID AS userId, VOTE_TYPE AS voteType
+    FROM PROPOSAL_VOTE
+    WHERE PRPSL_NO = #{prpslNo} AND USER_ID = #{userId}
   </select>
 
   <insert id="insertVote" parameterType="com.core.model.ProposalVoteVO">
-      INSERT INTO PROPOSAL_VOTE (PRPSL_NO, USER_ID, VOTE_TYPE)
-      VALUES (#{prpslNo}, #{userId}, #{voteType})
+    INSERT INTO PROPOSAL_VOTE (PRPSL_NO, USER_ID, VOTE_TYPE)
+    VALUES (#{prpslNo}, #{userId}, #{voteType})
   </insert>
 
   <update id="incrementAgree">
-      UPDATE PROPOSAL SET AGREE_CNT = AGREE_CNT + 1 WHERE PRPSL_NO = #{prpslNo}
+    UPDATE PROPOSAL SET AGREE_CNT = AGREE_CNT + 1 WHERE PRPSL_NO = #{prpslNo}
   </update>
 
   <update id="incrementDisagree">
-      UPDATE PROPOSAL SET DISAG_CNT = DISAG_CNT + 1 WHERE PRPSL_NO = #{prpslNo}
+    UPDATE PROPOSAL SET DISAG_CNT = DISAG_CNT + 1 WHERE PRPSL_NO = #{prpslNo}
   </update>
 
-   <insert id="insertDiscussRoom" parameterType="com.core.model.Discuss_roomVO" useGeneratedKeys="true" keyProperty="droom_no">
+  <!-- 🗣 토론방 쿼리들 -->
+  <select id="selectAllRooms" resultMap="DiscussRoomResult">
+  SELECT
+    DROOM_NO,
+    DROOM_CATEGORY,
+    DROOM_TITLE,
+    DROOM_INFO,
+    ID,
+    DROOM_LIMIT,
+    DROOM_MG,
+    CREATED_AT,
+    DROOM_ST
+  FROM DISCUSS_ROOM
+  ORDER BY CREATED_AT DESC
+</select>
+
+  <select id="searchRoomsByTitle" parameterType="string" resultMap="DiscussRoomResult">
+    SELECT * FROM DISCUSS_ROOM
+    WHERE DROOM_TITLE LIKE '%' || #{keyword} || '%'
+    ORDER BY CREATE_AT DESC
+  </select>
+
+  <insert id="insertDiscussRoom" parameterType="com.core.model.Discuss_roomVO" useGeneratedKeys="true" keyProperty="droom_no">
     INSERT INTO DISCUSS_ROOM (
       DROOM_CATEGORY, DROOM_TITLE, DROOM_INFO, ID,
       DROOM_LIMIT, DROOM_MG, CREATE_AT, DROOM_ST
@@ -182,16 +144,4 @@
     )
   </insert>
 
-  <!-- 전체 목록 -->
-  <select id="selectAllRooms" resultType="com.core.model.Discuss_roomVO">
-    SELECT * FROM DISCUSS_ROOM ORDER BY CREATE_AT DESC
-  </select>
-
-  <!-- 상태별 목록 -->
-  <select id="selectRoomsByStatus" resultType="com.core.model.Discuss_roomVO">
-    SELECT * FROM DISCUSS_ROOM
-    WHERE DROOM_ST = #{droom_st}
-    ORDER BY CREATE_AT DESC
-  </select>
-   
 </mapper>

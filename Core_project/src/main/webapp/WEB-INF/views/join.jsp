@@ -74,7 +74,7 @@
 							<span class="input_title">재학증명자료</span>
 						</td>
 						<td class="join_login_input">
-							<input type="file" name="id_card" id="file_input">
+							<input type="file" name="file" id="file_input">
 						</td>
 					</tr>
 				</table>

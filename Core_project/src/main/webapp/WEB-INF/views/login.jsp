@@ -24,7 +24,13 @@
 	
 		<!-- 정보입력 -->
 		<div class="join_login">
-			<form action="login" method="post" enctype="multipart/form-data">
+			<form action="login" method="post">
+				<!-- 에러 메시지 출력 (폼 바깥) -->
+	            <c:if test="${not empty msg}">
+	               <div style="text-align:center; margin-bottom:15px;">
+	                  <p style="color:red; font-weight:bold;">${msg}</p>
+	               </div>
+	            </c:if>
 				<table>
 					<!-- 아이디 -->
 					<tr>

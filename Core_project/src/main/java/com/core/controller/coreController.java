@@ -1,11 +1,22 @@
 package com.core.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
+
+import java.io.File;
+import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +24,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -21,88 +33,106 @@ import com.core.model.Ai_analysisVO;
 import com.core.model.ProposalVO;
 import com.core.model.UserinfoVO;
 
+
 @Controller
 public class coreController {
 
-   // 기본 메서드
-	@Autowired
-	private CoreMapper coreMapper;
+   @Autowired
+   private CoreMapper mapper;
 
    @RequestMapping("/similar_search")
-    public String similarSearch() {
-        return "similar_search"; 
-    }
-   
+   public String similarSearch() {
+      return "similar_search";
+   }
+
    @RequestMapping("/")
-    public String home() {
-        return "similar_search";
-    }
-   
-// 회원가입 메서드(join)
+   public String home() {
+      return "similar_search";
+   }
+
+   // 회원가입 메서드(join)
    // 회원가입 폼 페이지 보여주기 (GET 요청)
-      @GetMapping("/join")
-      public String joinForm() {
-          return "join"; // join.jsp 보여줌
-      }
+   @GetMapping("/join")
+   public String joinForm() {
+      return "join"; // join.jsp 보여줌
+   }
 
-      // 회원가입 처리 (POST 요청)
-      @PostMapping("/join")
-      public String join(
-          @RequestParam("PW") String pw,
-          @RequestParam("PW_confirm") String pwConfirm,
-          UserinfoVO vo,
-          @RequestParam(value = "ID_CARD", required = false) MultipartFile idCardFile,
-          Model model) {
+   // 회원가입 처리 (POST 요청)
+   @PostMapping("/join")
+   public String join(UserinfoVO vo, Model model) {
 
-          if (!pw.equals(pwConfirm)) {
-              model.addAttribute("msg", "비밀번호가 일치하지 않습니다.");
-              return "join";
-          }
-
-          int result = coreMapper.join(vo);
-
-          if (result > 0) {
-              return "login";
-          } else {
-              model.addAttribute("msg", "회원가입 실패, 다시 시도하세요.");
-              return "join";
-          }
-      }
-   
-   
-   //로그인 메서드(login)
-   
-      @RequestMapping("/login")
-       public String login(UserinfoVO vo, HttpSession session,  Model model) {
-           UserinfoVO mvo = coreMapper.login(vo);
-
-           if (mvo != null) {
-               session.setAttribute("mvo", mvo); // 로그인 성공 시 세션 저장
-               return "similar_search";
-           } else {
-               model.addAttribute("msg", "아이디 또는 비밀번호가 일치하지 않습니다.");
-                return "login";  // 다시 로그인 페이지로 이동
-           }
+       System.out.println("id: " + vo.getId());
+       MultipartFile file = vo.getFile();
+       // 필수 입력값 체크
+       if (vo.getId() == null || vo.getId().isEmpty() ||
+           vo.getPw() == null || vo.getPw().isEmpty() ||
+           vo.getNick() == null || vo.getNick().isEmpty() ||
+           vo.getRegion() == null || vo.getRegion().isEmpty()) {
+           System.out.println("❗ 필수 입력값 누락");
+           model.addAttribute("msg", "모든 항목을 입력해주세요.");
+           return "join"; 
        }
+
+       // 파일명만 저장
+       if (file != null && !file.isEmpty()) {
+           String filename = file.getOriginalFilename();
+           vo.setId_card(filename);
+           System.out.println("파일명 저장: " + filename);
+       } else {
+           vo.setId_card("default.jpg");
+       }
+
+       vo.setIs_approved("N");
+       vo.setJoined_at(LocalDateTime.now());
+
+       mapper.join(vo); // DB 저장
+
+       return "similar_search";
+   }
+
+   // 로그인 메서드(login)
+
+   @GetMapping("/login")
+   public String loginform() {
+      return "login"; 
+   }
+   
+   @PostMapping("/login")
+   public String login(UserinfoVO vo, HttpSession session, Model model) {
+      UserinfoVO mvo = mapper.login(vo);
+
+      if (mvo != null) {
+         // 객체 전체 저장
+         session.setAttribute("mvo", mvo);
+
+         // 개별 속성도 따로 저장 (JSP에서 직접 접근 가능하게!)
+         session.setAttribute("midx", mvo.getId());        // 로그인 여부 확인용
+         session.setAttribute("nickname", mvo.getNick());  // 닉네임 출력용
+
+         return "redirect:/"; // 홈으로 리다이렉트 (갱신을 위해 추천)
+      } else {
+         model.addAttribute("msg", "아이디 또는 비밀번호가 일치하지 않습니다.");
+         return "login";
+      }
+   }
+
 
    // 로그아웃 메서드(logout)
-       @RequestMapping("/logout")
-       public String logout(HttpSession session) {
-           session.invalidate(); // 세션 무효화
-           return "similar_search";
-       }
+   @RequestMapping("/logout")
+   public String logout(HttpSession session) {
+      session.invalidate(); // 세션 무효화
+      return "similar_search";
+   }
 
-      
-      
    // 회원탈퇴 메서드
-       @RequestMapping("/delete")
-       public String delete(@RequestParam("ID") String id, HttpSession session) {
-           int cnt = coreMapper.delete(id);
-           if (cnt > 0) {
-               session.invalidate();
-           }
-           return "similar_search";
-       }
+   @RequestMapping("/delete")
+   public String delete(@RequestParam("id") String id, HttpSession session) {
+      int cnt = mapper.delete(id);
+      if (cnt > 0) {
+         session.invalidate();
+      }
+      return "similar_search";
+   }
    
    
    
@@ -140,7 +170,7 @@ public class coreController {
         proposal.setPRCS_NM("대기");     // 예: 처리 대기
 
         // DB 저장
-        coreMapper.insertProposal(proposal);
+        mapper.insertProposal(proposal);
 
         // 완료 메시지
         rttr.addFlashAttribute("msg", "제안이 성공적으로 등록되었습니다.");
@@ -162,9 +192,9 @@ public class coreController {
         // 제안 목록 조회
         List<ProposalVO> proposals;
         if ("전체".equals(category)) {
-            proposals = coreMapper.selectAllProposals();
+            proposals = mapper.selectAllProposals();
         } else {
-            proposals = coreMapper.selectByCategory(category);
+            proposals = mapper.selectByCategory(category);
         }
         model.addAttribute("proposals", proposals);
 
@@ -174,24 +204,35 @@ public class coreController {
    
    
    
-   //유사도 목록 띄우기 메서드(similar_search)
-    /**
-     * @param idea 검색 키워드
-     * @param model 뷰로 전달할 모델
-     * @return similar_search.jsp 뷰 이름
-     */
-    @GetMapping("/similar_search")
-    public String similarSearch(
-            @RequestParam(value = "idea", required = false) String idea,
-            Model model) {
+ // 유사도 목록 띄우기 메서드(search)
+    @PostMapping("/search")
+    public String searchPolicy(@RequestParam("input") String input, Model model) {
 
-        if (idea != null && !idea.trim().isEmpty()) {
-            List<Ai_analysisVO> list = coreMapper.similarSearch(idea.trim());
-            model.addAttribute("similarList", list);
-            model.addAttribute("searched", true);
+        String apiUrl = "http://192.168.219.72:8000/predict";
+
+        // 요청 본문 설정
+        Map<String, String> requestBody = new HashMap<>();
+        requestBody.put("input", input);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<Map<String, String>> request = new HttpEntity<>(requestBody, headers);
+
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<Map> response = restTemplate.postForEntity(apiUrl, request, Map.class);
+
+        if (response.getStatusCode() == HttpStatus.OK) {
+            Map<String, Object> result = response.getBody();
+
+            // ✅ FastAPI 응답에서 results 리스트 꺼내기
+            model.addAttribute("query", result.get("query"));
+            model.addAttribute("list", result.get("results"));  // <-- JSP에서 ${list} 사용 가능
+        } else {
+            model.addAttribute("error", "FastAPI 서버 요청 실패");
         }
 
-        return "similar_search";
+        return "similar_search";  // JSP 파일 이름
     }
    
    

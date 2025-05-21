@@ -20,6 +20,6 @@ public class UserinfoVO { //유저정보
 	private String id_card; // 신분증 사진
 	private String is_approved; // 인증 여부
 	private LocalDateTime joined_at; // 가입일자
-	
+	private MultipartFile file;
 
 }

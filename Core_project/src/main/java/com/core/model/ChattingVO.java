@@ -11,14 +11,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ChattingVO {
 
-	private int CHAT_NO;
-	private int DROOM_NO;
-	private String CHATTER;
-	private String CHAT_CONTENT;
-	private String CHAT_EMOTICON;
-	private String CHAT_FILE;
-	private LocalDateTime CREATED_AT;
-	private String BLOCK_YN;
+	private int chat_no;
+	private int droom_no;
+	private String chatter;
+	private String chat_content;
+	private String chat_emoticon;
+	private String chat_file;
+	private LocalDateTime create_at;
+	private String block_yn;
 	
 	
 }

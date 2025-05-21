@@ -13,6 +13,10 @@
   margin-top: 50px;
 }
 
+.main_banner .basic_btn {
+	margin-top: 20px;
+}
+
 .tabs {
   width: 80%;
   display: flex;
@@ -56,17 +60,17 @@
   display: flex;
   width: 100%;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 10px;
   justify-content: flex-start;
 }
 
 .search_box {
-  width: calc(33.333% - 13.5px);
-  box-sizing: border-box;
-  border: 2px solid #282828;
-  border-radius: 5px;
-  background-color: #F0F7FF;
-  transition: box-shadow 0.2s;
+    width: calc(33.333% - 13.5px);
+    box-sizing: border-box;
+    border: 2px solid #282828;
+    border-radius: 5px;
+    background-color: #F0F7FF;
+    transition: box-shadow 0.2s;
 }
 
 .search_box:hover {
@@ -144,4 +148,10 @@
 	display: flex;
 	gap: 3px;
     align-items: center;
-} 
+}
+
+hr {
+    border: 0.5px solid #595959;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

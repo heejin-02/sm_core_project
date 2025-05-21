@@ -6,8 +6,8 @@
 <head>
 	<meta charset="UTF-8" />
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<link rel="stylesheet" href="resources/assets/css/share.css" />
 	<link rel="stylesheet" href="resources/assets/css/discuss_list.css" />
+	<link rel="stylesheet" href="resources/assets/css/share.css" />
 	<title>토론장</title>
 </head>
 <body>
@@ -36,19 +36,19 @@
 			<!-- 토론 검색 -->
 			<div class="discuss_search">
 				<form action="#">
-					<select name="search_range" id="">
+					<select name="search_range" class="search_range">
 						<option value="all">전체 범위</option>
 						<option value="ttile">제목</option>
 						<option value="body">내용</option>
 					</select>
-					<select name="search_category" id="">
+					<select name="search_category" class="search_category">
 						<option value="all">전체 카테고리</option>
 						<option value="shcool">학교생활</option>
 						<option value="local">지역사회</option>
 						<option value="culture">문화생활</option>
 						<option value="society">사회문제</option>
 					</select>
-					<input type="text" name="search_keyword" placeholder="관심 주제를 입력해주세요.">
+					<input class="search_bar" type="text" name="search_keyword" placeholder="관심 주제를 입력해주세요.">
 					<input class="submit_btn" type="submit" value="검색">
 				</form>
 			</div>

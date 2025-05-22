@@ -127,21 +127,24 @@ public class coreController {
 
 	@PostMapping("/login")
 	public String login(UserinfoVO vo, HttpSession session, Model model) {
-		UserinfoVO mvo = mapper.login(vo);
+	    UserinfoVO mvo = mapper.login(vo);
+	    if (mvo != null) {
+	        session.setAttribute("mvo", mvo);
+	        session.setAttribute("midx", mvo.getId());
+	        session.setAttribute("nickname", mvo.getNick());
 
-		if (mvo != null) {
-			// 객체 전체 저장
-			session.setAttribute("mvo", mvo);
-
-			// 개별 속성도 따로 저장 (JSP에서 직접 접근 가능하게!)
-			session.setAttribute("midx", mvo.getId()); // 로그인 여부 확인용
-			session.setAttribute("nickname", mvo.getNick()); // 닉네임 출력용
-
-			return "redirect:/"; // 홈으로 리다이렉트 (갱신을 위해 추천)
-		} else {
-			model.addAttribute("msg", "아이디 또는 비밀번호가 일치하지 않습니다.");
-			return "login";
-		}
+	        // 세션에 저장된 redirectAfterLogin이 있으면
+	        String redirect = (String) session.getAttribute("redirectAfterLogin");
+	        if (redirect != null) {
+	            session.removeAttribute("redirectAfterLogin");
+	            return "redirect:" + redirect;
+	        }
+	        // 기본 홈으로
+	        return "redirect:/";
+	    } else {
+	        model.addAttribute("msg", "아이디 또는 비밀번호가 일치하지 않습니다.");
+	        return "login";
+	    }
 	}
 
 	// 로그아웃 메서드(logout)
@@ -176,26 +179,31 @@ public class coreController {
 
 // 정책 제안 폼 보여주기
 	@GetMapping("/proposal_post")
-	public String showProposalForm(Model model, HttpSession session) {
-		UserinfoVO mvo = (UserinfoVO) session.getAttribute("mvo");
-		if (mvo == null) {
-			return "redirect:/login";
-		}
-		List<String> categories = Arrays.asList("학교생활", "지역사회", "문화생활", "사회문제");
-		model.addAttribute("categories", categories);
-		model.addAttribute("proposal", new ProposalVO());
-		return "proposal_post";
-	}
+    public String showProposalForm(Model model, HttpSession session) {
+        UserinfoVO mvo = (UserinfoVO) session.getAttribute("mvo");
+        if (mvo == null) {
+            // 로그인 이후 이 URL로 돌아오도록 세션에 저장
+            session.setAttribute("redirectAfterLogin", "/proposal_post");
+            return "redirect:/login";
+        }
+        List<String> categories = Arrays.asList("학교생활", "지역사회", "문화생활", "사회문제");
+        model.addAttribute("categories", categories);
+        model.addAttribute("proposal", new ProposalVO());
+        return "proposal_post";
+    }
 
 	// 정책 제안 제출 처리
-	@PostMapping("/proposal_post")
-	public String submitProposal(@ModelAttribute("proposal") ProposalVO proposal, HttpSession session,
-			RedirectAttributes rttr) {
+	 @PostMapping("/proposal_post")
+	    public String submitProposal(
+	            @ModelAttribute("proposal") ProposalVO proposal,
+	            HttpSession session,
+	            RedirectAttributes rttr) {
 
-		UserinfoVO mvo = (UserinfoVO) session.getAttribute("mvo");
-		if (mvo == null) {
-			return "redirect:/login";
-		}
+	        UserinfoVO mvo = (UserinfoVO) session.getAttribute("mvo");
+	        if (mvo == null) {
+	            session.setAttribute("redirectAfterLogin", "/proposal_post");
+	            return "redirect:/login";
+	        }
 
 		// VO 필드 세팅
 		proposal.setID(mvo.getId());
@@ -207,8 +215,8 @@ public class coreController {
 
 		mapper.insertProposal(proposal);
 		rttr.addFlashAttribute("msg", "제안이 성공적으로 등록되었습니다.");
-		return "redirect:/proposal_list";
-	}
+        return "redirect:/proposal_list";
+    }
 
 	// 정책 제안 목록 띄우기 메서드(proposal_list)
 	@GetMapping("/proposal_list")

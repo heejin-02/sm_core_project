@@ -26,7 +26,7 @@
         <p class="banner_title">다른 사람들과 의견을 나눠봐요</p>
         <p class="banner_body">토론을 통해 다른 사람과 의견을 나누고 더 좋은 아이디어를 찾아보세요.</p>
       </div>
-      <button class="basic_btn" onclick="location.href='${pageContext.request.contextPath}/discuss/post'">토론방 생성하기</button>
+      <button class="basic_btn" onclick="location.href='${pageContext.request.contextPath}/discuss_post'">토론방 생성하기</button>
     </div>
 
     <!-- 토론 목록 -->

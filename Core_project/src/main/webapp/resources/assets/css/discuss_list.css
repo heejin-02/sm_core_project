@@ -33,7 +33,7 @@
 }
 
 .search_bar {
-    width: 53% !important;
+    width: 69% !important;
 }
 
 .discuss_content_list {
@@ -89,7 +89,7 @@
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
-	margin-bottom: 6px;
+	margin-bottom: 10px;
 }
 
 .discuss_box_content_AItitle {
@@ -100,7 +100,6 @@
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
-	margin-bottom: 2px;
 }
 
 .discuss_box_content_AI {
@@ -117,6 +116,7 @@
 
 .discuss_box_footer {
     display: flex;
+	color: #444444;
 }
 
 .discuss_box_footer_name {

@@ -14,7 +14,13 @@
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<!-- 어노테이션을 이용해서 구현 가능하도록 해준다. ex. @Controller, @RequestMapping -->
 	<annotation-driven />
-
+	
+	<!-- transaction-manager 활성화 추가 -->
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+	<beans:bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    	<beans:property name="dataSource" ref="dataSource"/>
+	</beans:bean>
+	
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<!--
 	정적인 자원(이미지, js, html 등)들의 위치(파일 경로)를 명시해주는 태그

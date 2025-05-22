@@ -67,14 +67,22 @@
           <p>등록된 댓글이 없습니다.</p>
         </c:if>
         <c:forEach var="cmt" items="${comments}">
-          <div class="comment-item ${cmt.opinionType=='T' ? 'for' : 'against'}">
-            <div class="meta">
-              ${cmt.userId} |
-              <fmt:formatDate value="${cmt.createdAt}" pattern="yyyy.MM.dd HH:mm" />
-            </div>
-            <div class="body">${cmt.content}</div>
-          </div>
-        </c:forEach>
+  <div class="comment-item">
+    <!-- 메타정보: 작성자 · 날짜 · 찬반 -->
+    <div class="meta">
+      ${cmt.userId} |
+      <fmt:formatDate value="${cmt.createdAt}" pattern="yyyy.MM.dd HH:mm"/>
+      <span class="opinion-label">
+        <c:choose>
+          <c:when test="${cmt.opinionType=='T'}">(찬성)</c:when>
+          <c:otherwise>(반대)</c:otherwise>
+        </c:choose>
+      </span>
+    </div>
+    <!-- 댓글 내용 -->
+    <div class="body">${cmt.content}</div>
+  </div>
+</c:forEach>
       </div>
 
     </div>

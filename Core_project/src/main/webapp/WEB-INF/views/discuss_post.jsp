@@ -31,7 +31,7 @@
 							<span class="input_title">토론 주제</span>
 						</td>
 						<td class="post_input">
-							<input type="text" name="discuss_title" placeholder="토론 주제를 적어주세요.">
+							<input type="text" name="TITLE" placeholder="토론 주제를 적어주세요.">
 						</td>
 					</tr>
 					
@@ -41,7 +41,7 @@
 							<span class="input_title">제안 내용</span>
 						</td>
 						<td class="post_input">
-							<textarea name="discuss_body" placeholder="토론 내용을 입력해주세요."></textarea>
+							<textarea name="CONTENT" placeholder="토론 내용을 입력해주세요."></textarea>
 						</td>
 					</tr>
 					

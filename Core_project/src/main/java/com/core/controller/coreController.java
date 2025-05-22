@@ -346,17 +346,14 @@ public class coreController {
             return "redirect:/login";
         }
 
-        // VO 필드 세팅
         discuss.setAUTHOR_ID(mvo.getId());
-        discuss.setTITLE("제목");
-        discuss.setCONTENT("내용");
         discuss.setCREATED_AT(LocalDateTime.now());
 
+        // 제목과 내용은 폼에서 입력한 값 그대로 사용
         mapper.insertDiscuss(discuss);
         rttr.addFlashAttribute("msg", "게시글이 성공적으로 등록되었습니다.");
         return "redirect:/discuss_list";
     }
-   
    
    
    

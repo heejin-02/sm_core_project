@@ -188,6 +188,7 @@
      #{CONTENT, jdbcType=VARCHAR},
      #{AUTHOR_ID, jdbcType=VARCHAR},
      #{CREATED_AT, jdbcType=TIMESTAMP})
-	</insert>
+   </insert>
+
     
 </mapper>

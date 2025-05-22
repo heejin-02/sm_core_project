@@ -126,22 +126,22 @@
   <select id="selectByCategory" 
         parameterType="string" 
         resultMap="ProposalResult">
-  SELECT
-    PRPSL_NO,
-    ID,
-    CATEGORY,
-    TITLE,
-    CONTENT,
-    EXPECTATION_EFFECT,
-    PRPSL_DT,
-    ST_CD,
-    PRCS_NM,
-    RESULT_CONTENT,
-    AGREE_CNT,
-    DISAG_CNT
-  FROM PROPOSAL
-  WHERE CATEGORY = #{category}
-  ORDER BY PRPSL_DT DESC
-</select>
-    
+  	SELECT
+    	PRPSL_NO,
+    	ID,
+    	CATEGORY,
+    	TITLE,
+    	CONTENT,
+    	EXPECTATION_EFFECT,
+    	PRPSL_DT,
+    	ST_CD,
+    	PRCS_NM,
+    	RESULT_CONTENT,
+    	AGREE_CNT,
+    	DISAG_CNT
+  	FROM PROPOSAL
+  	WHERE CATEGORY = #{category}
+  	ORDER BY PRPSL_DT DESC
+	</select>
+
 </mapper>

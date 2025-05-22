@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.core.mapper.discuss">
+    <!-- 게시글 등록 (Oracle용) -->
+    <insert id="insertPost" parameterType="hashmap">
+        INSERT INTO DISCUSSION_POST (
+            DISCUSSION_ID, TITLE, CONTENT, AUTHOR_ID, CREATED_AT
+        ) VALUES (
+            DISCUSSION_POST_SEQ.NEXTVAL, #{title}, #{content}, #{authorId}, SYSTIMESTAMP
+        )
+    </insert>
+
+    <!-- 게시글 목록 -->
+    <select id="selectPostList" resultType="com.core.domain.discussPost" parameterType="hashmap">
+        SELECT DISCUSSION_ID, TITLE, CONTENT, AUTHOR_ID, TO_CHAR(CREATED_AT, 'YYYY-MM-DD HH24:MI:SS') AS createdAt
+        FROM DISCUSSION_POST
+        ORDER BY DISCUSSION_ID DESC
+    </select>
+
+    <!-- 게시글 상세 -->
+    <select id="selectPost" resultType="com.core.domain.discussPost" parameterType="hashmap">
+        SELECT DISCUSSION_ID, TITLE, CONTENT, AUTHOR_ID, TO_CHAR(CREATED_AT, 'YYYY-MM-DD HH24:MI:SS') AS createdAt
+        FROM DISCUSSION_POST
+        WHERE DISCUSSION_ID = #{discussionId}
+    </select>
+
+    <!-- 댓글 등록 -->
+    <insert id="insertComment" parameterType="hashmap">
+        INSERT INTO DISCUSSION_COMMENT (
+            COMMENT_ID, DISCUSSION_ID, USER_ID, OPINION_TYPE, CONTENT, CREATED_AT
+        ) VALUES (
+            DISCUSSION_COMMENT_SEQ.NEXTVAL, #{discussionId}, #{userId}, #{opinionType}, #{content}, SYSTIMESTAMP
+        )
+    </insert>
+
+    <!-- 댓글 목록 -->
+    <select id="selectCommentList" resultType="com.core.domain.discussComment" parameterType="hashmap">
+        SELECT COMMENT_ID, DISCUSSION_ID, USER_ID, OPINION_TYPE, CONTENT, TO_CHAR(CREATED_AT, 'YYYY-MM-DD HH24:MI:SS') AS createdAt
+        FROM DISCUSSION_COMMENT
+        WHERE DISCUSSION_ID = #{discussionId}
+        ORDER BY COMMENT_ID ASC
+    </select>
+</mapper>

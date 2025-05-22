@@ -37,4 +37,6 @@ public interface CoreMapper {
      * @return Ai_analysisVO 리스트
      */
     List<Ai_analysisVO> similarSearch(@Param("idea") String idea);
+    
+    
 }

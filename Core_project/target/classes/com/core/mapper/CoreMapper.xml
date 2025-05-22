@@ -177,5 +177,17 @@
       UPDATE PROPOSAL SET DISAG_CNT = DISAG_CNT + 1 WHERE PRPSL_NO = #{prpslNo}
   </update>
 
+	<!-- 토론 게시글 작성 -->
+  	<insert id="insertDiscuss"
+        parameterType="com.core.model.Discuss_postVO"
+        keyProperty="DISCUSSION_ID">
+  INSERT INTO DISCUSSION_POST
+    (TITLE, CONTENT, AUTHOR_ID, CREATED_AT)
+  VALUES
+    (#{TITLE, jdbcType=VARCHAR},
+     #{CONTENT, jdbcType=VARCHAR},
+     #{AUTHOR_ID, jdbcType=VARCHAR},
+     #{CREATED_AT, jdbcType=TIMESTAMP})
+	</insert>
     
 </mapper>

@@ -119,3 +119,11 @@
     margin-right: 20px;
 	padding-top: 4px;
 }
+
+.search_box_inner_link {
+    text-decoration: none;
+}
+
+.search_box_inner_link:hover {
+    text-decoration: none;
+}

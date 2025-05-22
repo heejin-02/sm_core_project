@@ -57,6 +57,7 @@
 			<div class="discuss_content_list">
 				<!-- todo: 반복문으로 내용 불러오기 -->
 				<div class="discuss_box">
+					<a class="search_box_inner_link" href="${pageContext.request.contextPath}/discuss_room?id=${p.discussion_id}">
 					<!-- 카테고리 -->
 					<div class="discuss_box_header">
 						<p>사회문제</p>
@@ -75,6 +76,7 @@
 							집에 가고 싶은 건에 대하여 집에 가고 싶은 건에 대하여 집에 가고 싶은 건에 대하여 집에 가고 싶은 건에 대하여 집에 가고 싶은 건에 대하여 집에 가고 싶은 건에 대하여 집에 가고 싶은 건에 대하여
 						</p>
 					</div>
+					
 
 					<div class="discuss_box_footer">
 						<!-- 제안자 -->
@@ -86,6 +88,7 @@
                   		<span class="discuss_box_footer_name">10명</span>
 					</div>
 				</div>
+				</a>
 			</div>
 			<!-- todoo: 페이지 넘기기 추가 -->
 		</div>

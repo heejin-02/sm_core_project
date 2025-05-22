@@ -31,6 +31,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.core.mapper.CoreMapper;
 import com.core.model.Ai_analysisVO;
+import com.core.model.Discuss_postVO;
 import com.core.model.ProposalVO;
 import com.core.model.ProposalVoteVO;
 import com.core.model.UserinfoVO;
@@ -333,10 +334,35 @@ public class coreController {
        return "discuss_post";
     }
    
+ // 토론 게시글 제출 처리
+    @PostMapping("/discuss_post")
+    public String submitDiscuss(
+            @ModelAttribute("discuss") Discuss_postVO discuss,
+            HttpSession session,
+            RedirectAttributes rttr) {
+
+        UserinfoVO mvo = (UserinfoVO) session.getAttribute("mvo");
+        if (mvo == null) {
+            return "redirect:/login";
+        }
+
+        // VO 필드 세팅
+        discuss.setAUTHOR_ID(mvo.getId());
+        discuss.setTITLE("제목");
+        discuss.setCONTENT("내용");
+        discuss.setCREATED_AT(LocalDateTime.now());
+
+        mapper.insertDiscuss(discuss);
+        rttr.addFlashAttribute("msg", "게시글이 성공적으로 등록되었습니다.");
+        return "redirect:/discuss_list";
+    }
    
    
    
    
-   //토론방 안 채팅 띄우기 메서드(discuss_room)
-   // (제일 나중에하기)
+   //토론방 안 게시글, 찬반 댓글 띄우기 메서드(discuss_room)
+    @RequestMapping("/discuss_room")
+   public String discuss_room() {
+	   return "discuss_room";
+    }
 }

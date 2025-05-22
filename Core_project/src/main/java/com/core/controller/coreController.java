@@ -327,6 +327,5 @@ public class coreController {
 		return "discuss_post";
 	}
 
-	// 토론방 안 채팅 띄우기 메서드(discuss_room)
-	// (제일 나중에하기)
+
 }

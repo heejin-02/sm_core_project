@@ -48,7 +48,7 @@ public class coreController {
    }
 
    @RequestMapping("/")
-   public String home() {
+   public String home(@ModelAttribute("joinSuccess") Object joinSuccess) {
       return "similar_search";
    }
 
@@ -70,7 +70,7 @@ public class coreController {
 
    // 회원가입 처리 (POST 요청)
    @PostMapping("/join")
-   public String join(UserinfoVO vo, Model model) {
+   public String join(UserinfoVO vo, RedirectAttributes rttr, Model model, HttpSession session) {
 
        System.out.println("id: " + vo.getId());
        MultipartFile file = vo.getFile();
@@ -97,6 +97,11 @@ public class coreController {
        vo.setJoined_at(LocalDateTime.now());
 
        mapper.join(vo); // DB 저장
+
+       model.addAttribute("joinSuccess", true);
+       session.setAttribute("mvo", vo); // 사용자 VO 전체 저장
+       session.setAttribute("midx", vo.getId());
+       session.setAttribute("nickname", vo.getNick());
 
        return "similar_search";
    }
@@ -137,12 +142,25 @@ public class coreController {
 
    // 회원탈퇴 메서드
    @RequestMapping("/delete")
-   public String delete(@RequestParam("id") String id, HttpSession session) {
-      int cnt = mapper.delete(id);
-      if (cnt > 0) {
-         session.invalidate();
-      }
-      return "similar_search";
+   public String delete(HttpSession session, RedirectAttributes rttr) {
+       UserinfoVO user = (UserinfoVO) session.getAttribute("mvo");
+       
+       if (user == null) {
+           rttr.addFlashAttribute("msg", "로그인이 필요합니다.");
+           return "redirect:/login";
+       }
+
+       String id = user.getId(); // 세션에서 ID 꺼냄
+       int cnt = mapper.delete(id);
+       
+       if (cnt > 0) {
+           session.invalidate(); // DB 삭제 성공 시 로그아웃
+           rttr.addFlashAttribute("msg", "회원탈퇴가 완료되었습니다.");
+       } else {
+           rttr.addFlashAttribute("msg", "회원탈퇴에 실패했습니다.");
+       }
+
+       return "redirect:/";
    }
    
    
@@ -248,7 +266,7 @@ public class coreController {
         if (response.getStatusCode() == HttpStatus.OK) {
             Map<String, Object> result = response.getBody();
 
-            // ✅ FastAPI 응답에서 results 리스트 꺼내기
+            // FastAPI 응답에서 results 리스트 꺼내기
             model.addAttribute("query", result.get("query"));
             model.addAttribute("list", result.get("results"));  // <-- JSP에서 ${list} 사용 가능
         } else {

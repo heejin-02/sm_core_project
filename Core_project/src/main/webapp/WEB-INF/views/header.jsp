@@ -32,6 +32,11 @@
 			<c:if test="${not empty sessionScope.midx}">
 			   <a href="mypage">${sessionScope.nickname}님</a>
 			   <a href="logout">로그아웃</a>
+			   
+			   <!-- 회원탈퇴 폼 추가 -->
+			   <form action="delete" method="post" onsubmit="return confirm('정말 탈퇴하시겠습니까?');" style="display:inline;">
+			     <button type="submit" style="background:none; border:none; color:#00f; cursor:pointer; padding:0; font:inherit;">회원탈퇴</button>
+			   </form>
 			</c:if>
  		</nav>
  	</header>

@@ -1,0 +1,57 @@
+@charset "UTF-8";
+
+.sub_banner {
+    background-color: #F1F8FF;
+}
+
+.sub_banner_title {
+	color: #4C9DF8;
+}
+
+.post_input {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.post_input .category {
+    width: 100%;
+	display: flex;
+	justify-content: flex-start;
+    gap: 5px;
+}
+
+.post_input .category span {
+    font-family: Pretendard;
+    font-size: 15px;
+    color: #262626;
+}
+
+.post_input:not(:has(.category)) input {
+	padding: 10px;
+	border: 2px solid #3E3E3E;
+	width: 100%;
+	box-sizing: border-box;
+	border-radius: 5px;
+	background-color: #F6F6F6;
+	font-family: Pretendard;
+	font-weight: 400;
+	font-size: 15px;
+}
+
+.post_input textarea {
+    padding: 10px;
+	border: 2px solid #3E3E3E;
+	width: 100%;
+	box-sizing: border-box;
+	border-radius: 5px;
+	background-color: #F6F6F6;
+	font-family: Pretendard;
+	font-weight: 400;
+	font-size: 15px;
+    resize: none;
+    height: 200px;
+}
+
+.pro_post table {
+	margin-bottom: 50px;
+}

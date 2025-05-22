@@ -12,31 +12,57 @@
   <link rel="stylesheet" href="resources/assets/css/proposal_detail.css"/>
 </head>
 <body>
-  <%@ include file="header.jsp"%>
+  
+  <div class="wrapper">
+    <%@ include file="header.jsp"%>
 
-  <div class="detail_wrapper">
-    <h1>${proposal.TITLE}</h1>
-    <p class="meta">
-      Category: ${proposal.CATEGORY} |
-      작성자: ${proposal.ID} |
-      <fmt:formatDate value="${proposal.prpslDtAsDate}" pattern="yyyy.MM.dd"/>
-    </p>
-    <hr/>
+    <div class="sub_banner">
+			<p class="sub_banner_title">정책 아이디어 열람</p>
+		</div>
 
-    <h3>제안 배경 및 현황</h3>
-    <p>${proposal.CONTENT}</p>
+    <!-- 타이틀 배너 -->
+    <div class="title_banner">
+      <p class="title_banner_category">${proposal.CATEGORY}</p>
+      <p class="title_banner_title">${proposal.TITLE}</p>
+      <div class="title_banner_info">
+        <span><span class="title_banner_info_title">제안일  </span><fmt:formatDate value="${proposal.prpslDtAsDate}" pattern="yyyy.MM.dd"/></span>
+        <span>|</span>
+        <span><span class="title_banner_info_title">제안자  </span>${proposal.ID}</span>
+        <span>|</span>
+        <span><span class="title_banner_info_title">추천  </span>${proposal.AGREE_CNT}</span>
+        <span>|</span>
+        <span><span class="title_banner_info_title">비추천  </span>${proposal.DISAG_CNT}</span>
+      </div>
+    </div>
 
-    <h3>기대 효과</h3>
-    <p>${proposal.EXPECTATION_EFFECT}</p>
+    <div class="content_container">
+      <div class="content_container_content">
+        <span>제안 배경 및 현황</span>
+        <span>${proposal.RESULT_CONTENT}</span>
+      </div>
 
-    <h3>처리 현황</h3>
-    <p>${proposal.PRCS_NM} (${proposal.ST_CD})</p>
+      <hr>
+
+      <div class="content_container_content">
+        <span>제안 내용</span>
+        <span>${proposal.CONTENT}</span>
+      </div>
+
+      <hr>
+
+      <div class="content_container_content">
+        <span>기대 효과</span>
+        <span>${proposal.EXPECTATION_EFFECT}</span>
+      </div>
+    </div>
 
     <!-- 👍👎 버튼 항상 보이게 -->
     <div style="margin-top: 20px;">
       <button onclick="vote('${proposal.PRPSL_NO}', 'LIKE')">👍 ${proposal.AGREE_CNT}</button>
       <button onclick="vote('${proposal.PRPSL_NO}', 'DISLIKE')">👎 ${proposal.DISAG_CNT}</button>
     </div>
+
+    <%@ include file="footer.jsp"%>
   </div>
 
   <script>
@@ -64,6 +90,5 @@
   }
 </script>
 
-  <%@ include file="footer.jsp"%>
 </body>
 </html>

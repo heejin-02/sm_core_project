@@ -32,7 +32,7 @@ public class DiscussController {
         }
         model.addAttribute("rooms", rooms);
         model.addAttribute("keyword", keyword);
-        return "discuss_list";  
+        return "discuss_list";
     }
 
     @GetMapping("/discuss_post")

@@ -34,7 +34,7 @@
 			   <a href="logout">로그아웃</a>
 			   
 			   <!-- 회원탈퇴 폼 추가 -->
-			   <form action="delete" method="post" onsubmit="return confirm('정말 탈퇴하시겠습니까?');" style="display:inline;">
+			   <form action="delete" method="post" onsubmit="return confirm('정말 탈퇴하시겠습니까?');">
 			     <button type="submit">회원탈퇴</button>
 			   </form>
 			</c:if>

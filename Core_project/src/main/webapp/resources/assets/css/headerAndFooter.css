@@ -24,8 +24,8 @@
 	text-decoration: none;
 	color: #353535;
 	font-family: 'Pretendard', sans-serif;
-  	font-weight: 400;
-  	font-size: 16px;
+	font-weight: 400;
+	font-size: 16px;
 }
 
 #nav a:hover {
@@ -54,11 +54,24 @@ footer p {
 	all: unset;
 	color: #353535;
 	font-family: 'Pretendard', sans-serif;
-  	font-weight: 400;
-  	font-size: 16px;
+	font-weight: 400;
+	font-size: 16px;
 }
 
 #nav button:hover {
 	font-weight: 600;
 	transition-duration: 0.5s;
+}
+
+.nav_btn_center {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/* 지금 있는 사이트 색 표시 */
+nav a.active {
+	color: #353535; 
+	font-weight: 800 !important;           
+	text-decoration: none !important;    
 }

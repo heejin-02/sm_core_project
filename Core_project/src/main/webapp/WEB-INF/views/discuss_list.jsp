@@ -81,24 +81,21 @@
           <a href="${pageContext.request.contextPath}/discuss_room?id=${post.discussionId}"
              class="discuss_box_link">
             <div class="discuss_box">
-<<<<<<< HEAD
               <!-- 카테고리, 상태 -->
               <div class="discuss_box_header">
                 <p class="discuss_box_header_category">${room.droom_category}</p>
               </div>
 
               <!-- 제목, 내용 -->
-=======
->>>>>>> 325e987150e75fd6b2e8e1e8a2602beaac4f0d03
+
               <div class="discuss_box_content">
                 <p class="discuss_box_content_date">
                   <fmt:formatDate value="${post.createdAt}" pattern="yyyy.MM.dd"/> 작성
                 </p>
-<<<<<<< HEAD
                 <p class="discuss_box_content_title">${room.droom_title}</p>
                 <p class="discuss_box_content_AItitle">AI 토론 요약</p>
                 <p class="discuss_box_content_AI">${room.droom_info}</p>
-=======
+
                 <p class="discuss_box_content_title">${post.title}</p>
                 <p class="discuss_box_content_AI">
                   ${post.content}
@@ -106,7 +103,7 @@
               </div>
               <div class="discuss_box_footer">
                 <span class="discuss_box_footer_name">${post.authorId}</span>
->>>>>>> 325e987150e75fd6b2e8e1e8a2602beaac4f0d03
+
               </div>
               <div class="discuss_box_footer">
            		<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#444444"><path d="M480-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM160-240v-32q0-34 17.5-62.5T224-378q62-31 126-46.5T480-440q66 0 130 15.5T736-378q29 15 46.5 43.5T800-272v32q0 33-23.5 56.5T720-160H240q-33 0-56.5-23.5T160-240Zm80 0h480v-32q0-11-5.5-20T700-306q-54-27-109-40.5T480-360q-56 0-111 13.5T260-306q-9 5-14.5 14t-5.5 20v32Zm240-320q33 0 56.5-23.5T560-640q0-33-23.5-56.5T480-720q-33 0-56.5 23.5T400-640q0 33 23.5 56.5T480-560Zm0-80Zm0 400Z"/></svg>

@@ -51,8 +51,8 @@ public interface CoreMapper {
     // 좋아요/싫어요 개수 증가
     int incrementAgree(int prpslNo);
     int incrementDisagree(int prpslNo);
-    
+
     List<Discuss_roomVO> selectAllRooms();
     List<Discuss_roomVO> searchRoomsByTitle(@Param("keyword") String keyword);
-    void insertDiscussRoom(Discuss_roomVO room);
+    void insertDiscussRoom(Discuss_roomVO room);    
 }

@@ -153,5 +153,12 @@
        });
    });
    </script>
+   
+	   <!-- FlashAttributes 처리 -->
+	<c:if test="${not empty joinSuccess}">
+	<script>
+	    alert("회원가입 완료!");
+	</script>
+	</c:if>
 </body>
 </html>

@@ -20,4 +20,5 @@ public class Discuss_roomVO {
     private String droom_mg;            // DROOM_MG
     private Timestamp create_at;        // CREATED_AT
     private String droom_st;            // DROOM_ST
+
 }

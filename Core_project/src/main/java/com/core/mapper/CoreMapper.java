@@ -35,13 +35,7 @@ public interface CoreMapper {
     /** 카테고리별 정책 제안 목록 조회 */
     List<ProposalVO> selectByCategory(@Param("category") String category);
     
-    /**
-     * 유사도 분석 결과 목록 조회
-     * @param idea 검색 키워드
-     * @return Ai_analysisVO 리스트
-     */
-    List<Ai_analysisVO> similarSearch(@Param("idea") String idea);
-    
+
  // 사용자가 이미 투표했는지 확인
     ProposalVoteVO checkVote(@Param("prpslNo") int prpslNo, @Param("userId") String userId);
 

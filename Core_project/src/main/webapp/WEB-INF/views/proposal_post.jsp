@@ -13,6 +13,7 @@
 <body>
 	<div class="wrapper">
 
+		<!--헤더 -->
 		<%@ include file="header.jsp" %>
 
 		<div class="sub_banner">
@@ -25,7 +26,7 @@
 					<!-- 카테고리 -->
 					<tr>
 						<td class="post_title">
-							<span class="input_title">카테고리</span>
+							<span>카테고리</span>
 						</td>
 						<td class="post_input">
 							<div class="category">
@@ -50,7 +51,7 @@
 					<!-- 제안명 -->
 					<tr>
 						<td class="post_title">
-							<span class="input_title">제안명</span>
+							<span>제안명</span>
 						</td>
 						<td class="post_input">
 							<input type="text" name="TITLE" placeholder="제안명을 입력해주세요.">
@@ -60,7 +61,7 @@
 					<!-- 제안 배경 및 현황 -> RESULT_CONTENT에 매핑됨 -->
 					<tr>
 						<td class="post_title">
-							<span class="input_title">제안 배경 및 현황</span>
+							<span>제안 배경 및 현황</span>
 						</td>
 						<td class="post_input">
 							<textarea name="RESULT_CONTENT" placeholder="제안 배경 및 현황을 입력해주세요."></textarea>
@@ -70,7 +71,7 @@
 					<!-- 제안 내용 -->
 					<tr>
 						<td class="post_title">
-							<span class="input_title">제안 내용</span>
+							<span>제안 내용</span>
 						</td>
 						<td class="post_input">
 							<textarea name="CONTENT" placeholder="제안 내용을 입력해주세요."></textarea>
@@ -80,7 +81,7 @@
 					<!-- 기대 효과 -->
 					<tr>
 						<td class="post_title">
-							<span class="input_title">기대 효과</span>
+							<span>기대 효과</span>
 						</td>
 						<td class="post_input">
 							<textarea name="EXPECTATION_EFFECT" placeholder="기대효과를 입력해주세요."></textarea>

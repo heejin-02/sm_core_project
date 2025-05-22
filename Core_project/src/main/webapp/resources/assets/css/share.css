@@ -158,3 +158,48 @@ input:focus {
 	outline: none;
 	border: 2px solid #000000;
 }
+
+.pro_post {
+	width: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.post_title {
+	width: 20%;
+    /* background-color: yellow; */
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+.pro_post form {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.pro_post form table {
+	width: 100%;
+}
+
+.pro_post form table tr {
+	width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.post_title span {
+    font-family: Pretendard;
+    font-weight: 600;
+    font-size: 20px;
+    color: #262626;
+}
+
+.post_input {
+	width: 80%;
+	display: flex;
+}

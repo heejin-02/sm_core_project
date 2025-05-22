@@ -14,5 +14,5 @@ public class Discussion_postVO {
     private String title;           // TITLE
     private String content;         // CONTENT
     private String authorId;        // AUTHOR_ID
-    private LocalDateTime createdAt; // CREATED_AT
+    private java.sql.Timestamp createdAt; // ← LocalDateTime → Timestamp 로 변경
 }

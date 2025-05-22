@@ -2,7 +2,7 @@
 
 .main_banner {
 	background-image: url("../../images/discuss_banner.png");
-	background-color: #F0F7FF;
+	background-color: #F7F7F7;
 }
 
 .basic_btn {
@@ -10,7 +10,112 @@
 }
 
 .discuss_search {
-    margin-top: 40px;
+    width: 100%;
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 40px;
     gap: 10px;
+    margin-bottom: 20px;
+}
+
+.search_range, .search_category {
+	width: 15%;
+    background-color: #F6F6F6;
+	border: 2px solid #3E3E3E;
+	border-radius: 10px;
+	box-sizing: border-box;
+	height: 45px;
+	padding: 10px;
+	font-family: Pretendard;
+	font-weight: 400;
+	font-size: 16px;
+}
+
+.search_bar {
+    width: 53% !important;
+}
+
+.discuss_content_list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.discuss_box {
+	width: calc(50% - 5px);
+	display: flex;
+	flex-direction: column;
+	box-sizing: border-box;
+	padding: 20px 15px;
+	background-color: #FFFCF2;
+	border: 2px solid #262626;
+	border-radius: 5px;
+	transition: box-shadow 0.2s;
+}
+
+.discuss_box_header {
+    width: 100%;
+    font-family: Pretendard;
+	font-size: 15px;
+	color: #d59e2f;
+    margin-bottom: 10px;
+}
+
+.discuss_box_content {
+    border-bottom: 1px solid #F8C866;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.discuss_box_content_date {
+    font-family: Pretendard;
+	font-size: 14px;
+	color: #595959;
+	margin-bottom: 2px;
+}
+
+.discuss_box_content_title {
+    font-family: Pretendard;
+	font-size: 20px;
+	font-weight: 600;
+	color: #262626;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	margin-bottom: 6px;
+}
+
+.discuss_box_content_AItitle {
+    font-family: Pretendard;
+    font-weight: 600;
+	font-size: 15px;
+	color: #444444;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	margin-bottom: 2px;
+}
+
+.discuss_box_content_AI {
+    font-family: Pretendard;
+	font-size: 15px;
+	color: #444444;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	margin-bottom: 5px;
+}
+
+.discuss_box_footer {
+    display: flex;
+}
+
+.discuss_box_footer_name {
+    margin-left: 5px;
+    margin-right: 20px;
+	padding-top: 4px;
 }

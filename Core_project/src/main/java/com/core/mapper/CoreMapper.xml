@@ -23,40 +23,53 @@
 
   <!-- 2. AI 분석 결과 매핑 -->
   <resultMap id="AiAnalysisResult" type="com.core.model.Ai_analysisVO">
-    <id     property="ANALYSIS_NO"    column="ANALYSIS_NO"/>
-    <result property="PRPSL_NO"       column="PRPSL_NO"/>
-    <result property="ANALYSIS_MODEL" column="ANALYSIS_MODEL"/>
-    <result property="ANALYSIS_RESULT" column="ANALYSIS_RESULT"/>
-    <result property="SIMILARITY"     column="SIMILARITY"/>
-    <result property="RECO_POLICY"    column="RECO_POLICY"/>
-    <result property="ANALIZED_AT"    column="ANALIZED_AT"/>
+    <id     property="ANALYSIS_NO"     column="ANALYSIS_NO"/>
+    <result property="PRPSL_NO"         column="PRPSL_NO"/>
+    <result property="ANALYSIS_MODEL"   column="ANALYSIS_MODEL"/>
+    <result property="ANALYSIS_RESULT"  column="ANALYSIS_RESULT"/>
+    <result property="SIMILARITY"       column="SIMILARITY"/>
+    <result property="RECO_POLICY"      column="RECO_POLICY"/>
+    <result property="ANALIZED_AT"      column="ANALIZED_AT"/>
   </resultMap>
 
-  <!-- 3. 토론방 매핑 -->
-  <resultMap id="DiscussRoomResult" type="com.core.model.Discuss_roomVO">
-    <id     property="droom_no"       column="DROOM_NO" />
-    <result property="droom_category" column="DROOM_CATEGORY" />
-    <result property="droom_title"    column="DROOM_TITLE" />
-    <result property="droom_info"     column="DROOM_INFO" />
-    <result property="id"             column="ID" />
-    <result property="droom_limit"    column="DROOM_LIMIT" />
-    <result property="droom_mg"       column="DROOM_MG" />
-<result property="create_at" column="CREATE_AT" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp"/>
-    <result property="droom_st"       column="DROOM_ST" />
+  <!-- 3. 토론 게시글 매핑 -->
+  <resultMap id="DiscussionPostResult" type="com.core.model.Discussion_postVO">
+  <id     property="discussionId" column="DISCUSSION_ID"/>
+  <result property="title"        column="TITLE"/>
+  <result property="content"      column="CONTENT"/>
+  <result property="authorId"     column="AUTHOR_ID"/>
+  <result property="createdAt"    column="CREATED_AT"
+          jdbcType="TIMESTAMP"
+          javaType="java.sql.Timestamp"/>  
+</resultMap>
+
+<resultMap id="DiscussionCommentResult" type="com.core.model.Discussion_commentVO">
+    <id     property="commentId"    column="COMMENT_ID"/>
+    <result property="discussionId" column="DISCUSSION_ID"/>
+    <result property="userId"       column="USER_ID"/>
+    <result property="opinionType"  column="OPINION_TYPE"/>
+    <result property="content"      column="CONTENT"/>
+    <result property="createdAt"    column="CREATED_AT"
+            jdbcType="TIMESTAMP"
+            javaType="java.sql.Timestamp"/>
   </resultMap>
 
   <!-- 회원가입 -->
   <insert id="join" parameterType="com.core.model.UserinfoVO">
-    INSERT INTO Userinfo (id,pw,nick,region,id_card, is_approved, joined_at)
-    VALUES (#{id},#{pw},#{nick},#{region},#{id_card},#{is_approved},#{joined_at})
+    INSERT INTO Userinfo (id, pw, nick, region, id_card, is_approved, joined_at)
+    VALUES (#{id}, #{pw}, #{nick}, #{region}, #{id_card}, #{is_approved}, #{joined_at})
   </insert>
 
   <!-- 로그인 -->
-  <select id="login" parameterType="com.core.model.UserinfoVO" resultType="com.core.model.UserinfoVO">
-    SELECT * FROM Userinfo WHERE id = #{id} AND pw = #{pw}
+  <select id="login"
+          parameterType="com.core.model.UserinfoVO"
+          resultType="com.core.model.UserinfoVO">
+    SELECT * FROM Userinfo
+     WHERE id = #{id}
+       AND pw = #{pw}
   </select>
-  
-  <!-- 아이디 중복 확인 -->
+
+<!-- 아이디 중복 확인 -->
   <select id="checkId" parameterType="string" resultType="int">
     SELECT COUNT(*) FROM Userinfo WHERE id = #{id}
   </select>
@@ -66,16 +79,18 @@
     DELETE FROM Userinfo WHERE ID = #{value, jdbcType=VARCHAR}
   </delete>
 
-  <!-- 정책 제안 -->
-  <insert id="insertProposal" parameterType="com.core.model.ProposalVO" keyProperty="PRPSL_NO">
+  <!-- 4. 정책 제안 -->
+  <insert id="insertProposal"
+          parameterType="com.core.model.ProposalVO"
+          keyProperty="PRPSL_NO">
     INSERT INTO PROPOSAL (
-      ID, CATEGORY, TITLE, CONTENT, EXPECTATION_EFFECT, PRPSL_DT,
-      ST_CD, PRCS_NM, RESULT_CONTENT, AGREE_CNT, DISAG_CNT
+      ID, CATEGORY, TITLE, CONTENT, EXPECTATION_EFFECT,
+      PRPSL_DT, ST_CD, PRCS_NM, RESULT_CONTENT,
+      AGREE_CNT, DISAG_CNT
     ) VALUES (
-      #{ID, jdbcType=VARCHAR}, #{CATEGORY, jdbcType=VARCHAR}, #{TITLE, jdbcType=VARCHAR},
-      #{CONTENT, jdbcType=VARCHAR}, #{EXPECTATION_EFFECT, jdbcType=VARCHAR}, #{PRPSL_DT, jdbcType=TIMESTAMP},
-      #{ST_CD, jdbcType=VARCHAR}, #{PRCS_NM, jdbcType=VARCHAR}, #{RESULT_CONTENT, jdbcType=VARCHAR},
-      #{AGREE_CNT, jdbcType=INTEGER}, #{DISAG_CNT, jdbcType=INTEGER}
+      #{ID}, #{CATEGORY}, #{TITLE}, #{CONTENT}, #{EXPECTATION_EFFECT},
+      #{PRPSL_DT}, #{ST_CD}, #{PRCS_NM}, #{RESULT_CONTENT},
+      #{AGREE_CNT}, #{DISAG_CNT}
     )
   </insert>
 
@@ -83,76 +98,128 @@
     SELECT * FROM PROPOSAL ORDER BY PRPSL_DT DESC
   </select>
 
-  <select id="selectProposalById" parameterType="int" resultMap="ProposalResult">
+  <select id="selectProposalById"
+          parameterType="int"
+          resultMap="ProposalResult">
     SELECT * FROM PROPOSAL WHERE PRPSL_NO = #{id}
   </select>
 
-  <select id="selectByCategory" parameterType="string" resultMap="ProposalResult">
-    SELECT * FROM PROPOSAL WHERE CATEGORY = #{category} ORDER BY PRPSL_DT DESC
+  <select id="selectByCategory"
+          parameterType="string"
+          resultMap="ProposalResult">
+    SELECT * FROM PROPOSAL
+     WHERE CATEGORY = #{category}
+     ORDER BY PRPSL_DT DESC
   </select>
 
-  <select id="similarSearch" parameterType="string" resultMap="AiAnalysisResult">
+  <!-- 유사도 분석 -->
+  <select id="similarSearch"
+          parameterType="string"
+          resultMap="AiAnalysisResult">
     SELECT * FROM AI_ANALYSIS
-    WHERE ANALYSIS_RESULT LIKE '%' || #{idea} || '%'
-    ORDER BY SIMILARITY DESC
+     WHERE ANALYSIS_RESULT LIKE '%' || #{idea} || '%'
+     ORDER BY SIMILARITY DESC
   </select>
 
   <!-- 투표 관련 -->
   <select id="checkVote" resultType="com.core.model.ProposalVoteVO">
-    SELECT PRPSL_NO AS prpslNo, USER_ID AS userId, VOTE_TYPE AS voteType
-    FROM PROPOSAL_VOTE
-    WHERE PRPSL_NO = #{prpslNo} AND USER_ID = #{userId}
+    SELECT PRPSL_NO AS prpslNo,
+           USER_ID  AS userId,
+           VOTE_TYPE
+      FROM PROPOSAL_VOTE
+     WHERE PRPSL_NO = #{prpslNo}
+       AND USER_ID  = #{userId}
   </select>
 
   <insert id="insertVote" parameterType="com.core.model.ProposalVoteVO">
-    INSERT INTO PROPOSAL_VOTE (PRPSL_NO, USER_ID, VOTE_TYPE)
-    VALUES (#{prpslNo}, #{userId}, #{voteType})
+    INSERT INTO PROPOSAL_VOTE
+      (PRPSL_NO, USER_ID, VOTE_TYPE)
+    VALUES
+      (#{prpslNo}, #{userId}, #{voteType})
   </insert>
 
   <update id="incrementAgree">
-    UPDATE PROPOSAL SET AGREE_CNT = AGREE_CNT + 1 WHERE PRPSL_NO = #{prpslNo}
+    UPDATE PROPOSAL
+       SET AGREE_CNT = AGREE_CNT + 1
+     WHERE PRPSL_NO = #{prpslNo}
   </update>
 
   <update id="incrementDisagree">
-    UPDATE PROPOSAL SET DISAG_CNT = DISAG_CNT + 1 WHERE PRPSL_NO = #{prpslNo}
+    UPDATE PROPOSAL
+       SET DISAG_CNT = DISAG_CNT + 1
+     WHERE PRPSL_NO = #{prpslNo}
   </update>
 
-  <!-- 🗣 토론방 쿼리들 -->
-  <select id="selectAllRooms" resultMap="DiscussRoomResult">
-  SELECT
-    DROOM_NO,
-    DROOM_CATEGORY,
-    DROOM_TITLE,
-    DROOM_INFO,
-    ID,
-    DROOM_LIMIT,
-    DROOM_MG,
-    CREATED_AT,
-    DROOM_ST
-  FROM DISCUSS_ROOM
-  ORDER BY CREATED_AT DESC
-</select>
-
-  <select id="searchRoomsByTitle" parameterType="string" resultMap="DiscussRoomResult">
-    SELECT * FROM DISCUSS_ROOM
-    WHERE DROOM_TITLE LIKE '%' || #{keyword} || '%'
-    ORDER BY CREATE_AT DESC
+  <!-- 전체 조회 -->
+  <select id="selectAllPosts" resultMap="DiscussionPostResult">
+    SELECT DISCUSSION_ID, TITLE, CONTENT, AUTHOR_ID, CREATED_AT
+      FROM DISCUSSION_POST
+     ORDER BY CREATED_AT DESC
   </select>
 
-  <insert id="insertDiscussRoom" parameterType="com.core.model.Discuss_roomVO" useGeneratedKeys="true" keyProperty="droom_no">
-    INSERT INTO DISCUSS_ROOM (
-      DROOM_CATEGORY, DROOM_TITLE, DROOM_INFO, ID,
-      DROOM_LIMIT, DROOM_MG, CREATE_AT, DROOM_ST
+  <!-- 제목 검색 -->
+  <select id="searchPostsByTitle"
+          parameterType="string"
+          resultMap="DiscussionPostResult">
+    SELECT DISCUSSION_ID, TITLE, CONTENT, AUTHOR_ID, CREATED_AT
+      FROM DISCUSSION_POST
+     WHERE TITLE LIKE '%' || #{keyword} || '%'
+     ORDER BY CREATED_AT DESC
+  </select>
+
+  <!-- 삽입 -->
+  <insert id="insertDiscussionPost"
+          parameterType="com.core.model.Discussion_postVO"
+          useGeneratedKeys="true"
+          keyProperty="discussionId"
+          keyColumn="DISCUSSION_ID">
+    INSERT INTO DISCUSSION_POST (TITLE, CONTENT, AUTHOR_ID, CREATED_AT)
+    VALUES (#{title}, #{content}, #{authorId}, #{createdAt})
+  </insert>
+
+  <!-- 단일 조회 -->
+  <select id="selectPostById"
+          parameterType="int"
+          resultMap="DiscussionPostResult">
+    SELECT DISCUSSION_ID, TITLE, CONTENT, AUTHOR_ID, CREATED_AT
+      FROM DISCUSSION_POST
+     WHERE DISCUSSION_ID = #{id}
+  </select>
+  
+  <select id="selectCommentsByDiscussionId"
+          parameterType="int"
+          resultMap="DiscussionCommentResult">
+    SELECT COMMENT_ID,
+           DISCUSSION_ID,
+           USER_ID,
+           OPINION_TYPE,
+           CONTENT,
+           CREATED_AT
+      FROM DISCUSSION_COMMENT
+     WHERE DISCUSSION_ID = #{discussionId}
+     ORDER BY CREATED_AT ASC
+  </select>
+
+ <insert id="insertDiscussionComment"
+          parameterType="com.core.model.Discussion_commentVO">
+    <selectKey keyProperty="commentId"
+               resultType="int"
+               order="BEFORE">
+      SELECT COMMENT_SEQ.NEXTVAL FROM DUAL
+    </selectKey>
+    INSERT INTO DISCUSSION_COMMENT (
+      COMMENT_ID,
+      DISCUSSION_ID,
+      USER_ID,
+      OPINION_TYPE,
+      CONTENT
     ) VALUES (
-      #{droom_category}, #{droom_title}, #{droom_info}, #{id},
-      #{droom_limit}, #{droom_mg}, #{create_at}, #{droom_st}
+      #{commentId},
+      #{discussionId},
+      #{userId},
+      #{opinionType},
+      #{content}
     )
   </insert>
-  <!-- 🗣 토론방 들어가기 -->
-  <select id="selectRoomById" parameterType="int" resultMap="DiscussRoomResult">
-  SELECT *
-  FROM DISCUSS_ROOM
-  WHERE DROOM_NO = #{id}
- </select>
 
 </mapper>

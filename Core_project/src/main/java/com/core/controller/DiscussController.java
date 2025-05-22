@@ -3,7 +3,6 @@ package com.core.controller;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import com.core.mapper.CoreMapper;
-import com.core.model.Discuss_roomVO;
+import com.core.model.Discussion_commentVO;
+import com.core.model.Discussion_postVO;
 import com.core.model.UserinfoVO;
 
 @Controller
@@ -21,46 +21,98 @@ public class DiscussController {
     @Autowired
     private CoreMapper mapper;
 
-    // ✅ discuss_list 띄워주는거
+    /** 1) 토론 목록 (discuss_list.jsp) */
     @GetMapping("/discuss_list")
-    public String showDiscussList(@RequestParam(value = "keyword", required = false) String keyword, Model model) {
-        List<Discuss_roomVO> rooms;
+    public String showDiscussionList(
+            @RequestParam(value = "keyword", required = false) String keyword,
+            Model model) {
+
+        List<Discussion_postVO> posts;
         if (keyword != null && !keyword.trim().isEmpty()) {
-            rooms = mapper.searchRoomsByTitle(keyword);
+            posts = mapper.searchPostsByTitle(keyword);
         } else {
-            rooms = mapper.selectAllRooms();
+            posts = mapper.selectAllPosts();
         }
-        model.addAttribute("rooms", rooms);
+
+        model.addAttribute("posts", posts);
         model.addAttribute("keyword", keyword);
         return "discuss_list";
     }
 
+    /** 2) 토론 생성 폼 (discuss_post.jsp) — 로그인 필요 */
     @GetMapping("/discuss_post")
-    public String showCreateForm(Model model) {
-        model.addAttribute("room", new Discuss_roomVO());
-        return "discuss_post";  
+    public String showCreateForm(HttpSession session, Model model) {
+        UserinfoVO user = (UserinfoVO) session.getAttribute("mvo");
+        if (user == null) {
+            return "redirect:/login";
+        }
+        model.addAttribute("post", new Discussion_postVO());
+        return "discuss_post";
     }
 
+    /** 3) 토론 생성 처리 */
     @PostMapping("/discuss_post")
-    public String createRoom(@ModelAttribute("room") Discuss_roomVO room, HttpSession session) {
+    public String createDiscussion(
+            @ModelAttribute("post") Discussion_postVO post,
+            HttpSession session) {
+
         UserinfoVO user = (UserinfoVO) session.getAttribute("mvo");
-        if (user == null) return "redirect:/login";
+        if (user == null) {
+            return "redirect:/login";
+        }
 
-        room.setId(user.getId());
-        room.setCreate_at(Timestamp.valueOf(LocalDateTime.now()));
-        room.setDroom_st("진행중");
-        room.setDroom_mg(user.getId());
-
-        mapper.insertDiscussRoom(room);
+        post.setAuthorId(user.getId());
+        post.setCreatedAt(Timestamp.valueOf(LocalDateTime.now()));
+        mapper.insertDiscussionPost(post);
         return "redirect:/discuss_list";
     }
+
+    /**
+     * 4) 토론방 상세 보기 (discuss_room.jsp)
+     *    - 게시글 + 댓글 목록을 한 번에 모델에 담아서 반환
+     */
     @GetMapping("/discuss_room")
-    public String showRoomDetail(@RequestParam("id") int droomNo, Model model) {
-        Discuss_roomVO room = mapper.selectRoomById(droomNo);
-        if (room == null) {
-            return "redirect:/discuss_list"; // 없으면 목록으로
+    public String showDiscussionRoom(
+            @RequestParam("id") int discussionId,
+            Model model) {
+
+        Discussion_postVO post = mapper.selectPostById(discussionId);
+        if (post == null) {
+            return "redirect:/discuss_list";
         }
-        model.addAttribute("room", room);
+        model.addAttribute("post", post);
+
+        // 댓글 목록 조회
+        List<Discussion_commentVO> comments =
+            mapper.selectCommentsByDiscussionId(discussionId);
+        model.addAttribute("comments", comments);
+
         return "discuss_room";
+    }
+
+    /** 5) 댓글 쓰기 */
+    @PostMapping("/discuss_room/comment")
+    public String postComment(
+            @RequestParam int discussionId,
+            @RequestParam String opinionType,
+            @RequestParam String content,
+            HttpSession session) {
+
+        UserinfoVO user = (UserinfoVO) session.getAttribute("mvo");
+        if (user == null) {
+            return "redirect:/login";
+        }
+
+        Discussion_commentVO c = new Discussion_commentVO();
+        c.setDiscussionId(discussionId);
+        c.setUserId(user.getId());
+        c.setOpinionType(opinionType);       // "T" or "F"
+        c.setContent(content);
+        // CREATED_AT은 DB DEFAULT가 SYSDATE/SYSTIMESTAMP 이므로 생략 가능하지만,
+        // 명시하려면 아래와 같이 설정해도 됩니다.
+        c.setCreatedAt(Timestamp.valueOf(LocalDateTime.now()));
+
+        mapper.insertDiscussionComment(c);
+        return "redirect:/discuss_room?id=" + discussionId;
     }
 }

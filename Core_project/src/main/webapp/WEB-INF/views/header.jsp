@@ -31,8 +31,10 @@
 			<!-- 로그인 된 상태 -->
 			<c:if test="${not empty sessionScope.midx}">
 			   <a href="mypage">${sessionScope.nickname}님</a>
+			   <a href="edit_profile">회원정보 수정</a>  <!-- 여기 추가 -->
 			   <a href="logout">로그아웃</a>
-			   
+			</c:if>
+						   
 			   <!-- 회원탈퇴 폼 추가 -->
 			   <form action="delete" method="post" onsubmit="return confirm('정말 탈퇴하시겠습니까?');" style="display:inline;">
 			     <button type="submit">회원탈퇴</button>

@@ -61,6 +61,10 @@
     SELECT COUNT(*) FROM Userinfo WHERE id = #{id}
   </select>
 
+  <!-- 회원 정보 수정 -->
+  <update id="updateUserInfo" parameterType="com.core.model.UserinfoVO">
+    UPDATE userinfo SET pw = #{pw}, nick = #{nick}, region = #{region} WHERE id = #{id}
+  </update>
 
   <!-- 회원탈퇴 -->
   <delete id="delete" parameterType="string">

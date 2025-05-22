@@ -21,6 +21,8 @@ public interface CoreMapper {
     public int delete(String user_email);
     // 아이디중복확인
     public int checkId(String id);
+    // 회원정보수정
+    public int updateUserInfo(UserinfoVO updatedUser);
 
 
     /** 정책 제안 저장 */
@@ -51,4 +53,5 @@ public interface CoreMapper {
     void insertDiscussRoom(Discuss_roomVO room);  
     // 토론방 들어가기
     Discuss_roomVO selectRoomById(@Param("id") int droom_no);
+	
 }

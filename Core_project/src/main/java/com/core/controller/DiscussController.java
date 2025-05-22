@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import com.core.mapper.CoreMapper;
+import com.core.model.Discussion_commentVO;
 import com.core.model.Discussion_postVO;
 import com.core.model.UserinfoVO;
 
@@ -66,9 +67,12 @@ public class DiscussController {
         return "redirect:/discuss_list";
     }
 
-    /** 4) 토론 상세 보기 (discuss_room.jsp) */
+    /**
+     * 4) 토론방 상세 보기 (discuss_room.jsp)
+     *    - 게시글 + 댓글 목록을 한 번에 모델에 담아서 반환
+     */
     @GetMapping("/discuss_room")
-    public String showDiscussionDetail(
+    public String showDiscussionRoom(
             @RequestParam("id") int discussionId,
             Model model) {
 
@@ -77,6 +81,38 @@ public class DiscussController {
             return "redirect:/discuss_list";
         }
         model.addAttribute("post", post);
+
+        // 댓글 목록 조회
+        List<Discussion_commentVO> comments =
+            mapper.selectCommentsByDiscussionId(discussionId);
+        model.addAttribute("comments", comments);
+
         return "discuss_room";
+    }
+
+    /** 5) 댓글 쓰기 */
+    @PostMapping("/discuss_room/comment")
+    public String postComment(
+            @RequestParam int discussionId,
+            @RequestParam String opinionType,
+            @RequestParam String content,
+            HttpSession session) {
+
+        UserinfoVO user = (UserinfoVO) session.getAttribute("mvo");
+        if (user == null) {
+            return "redirect:/login";
+        }
+
+        Discussion_commentVO c = new Discussion_commentVO();
+        c.setDiscussionId(discussionId);
+        c.setUserId(user.getId());
+        c.setOpinionType(opinionType);       // "T" or "F"
+        c.setContent(content);
+        // CREATED_AT은 DB DEFAULT가 SYSDATE/SYSTIMESTAMP 이므로 생략 가능하지만,
+        // 명시하려면 아래와 같이 설정해도 됩니다.
+        c.setCreatedAt(Timestamp.valueOf(LocalDateTime.now()));
+
+        mapper.insertDiscussionComment(c);
+        return "redirect:/discuss_room?id=" + discussionId;
     }
 }

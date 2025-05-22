@@ -43,6 +43,17 @@
           javaType="java.sql.Timestamp"/>  
 </resultMap>
 
+<resultMap id="DiscussionCommentResult" type="com.core.model.Discussion_commentVO">
+    <id     property="commentId"    column="COMMENT_ID"/>
+    <result property="discussionId" column="DISCUSSION_ID"/>
+    <result property="userId"       column="USER_ID"/>
+    <result property="opinionType"  column="OPINION_TYPE"/>
+    <result property="content"      column="CONTENT"/>
+    <result property="createdAt"    column="CREATED_AT"
+            jdbcType="TIMESTAMP"
+            javaType="java.sql.Timestamp"/>
+  </resultMap>
+
   <!-- 회원가입 -->
   <insert id="join" parameterType="com.core.model.UserinfoVO">
     INSERT INTO Userinfo (id, pw, nick, region, id_card, is_approved, joined_at)
@@ -169,5 +180,41 @@
       FROM DISCUSSION_POST
      WHERE DISCUSSION_ID = #{id}
   </select>
+  
+  <select id="selectCommentsByDiscussionId"
+          parameterType="int"
+          resultMap="DiscussionCommentResult">
+    SELECT COMMENT_ID,
+           DISCUSSION_ID,
+           USER_ID,
+           OPINION_TYPE,
+           CONTENT,
+           CREATED_AT
+      FROM DISCUSSION_COMMENT
+     WHERE DISCUSSION_ID = #{discussionId}
+     ORDER BY CREATED_AT ASC
+  </select>
+
+ <insert id="insertDiscussionComment"
+          parameterType="com.core.model.Discussion_commentVO">
+    <selectKey keyProperty="commentId"
+               resultType="int"
+               order="BEFORE">
+      SELECT COMMENT_SEQ.NEXTVAL FROM DUAL
+    </selectKey>
+    INSERT INTO DISCUSSION_COMMENT (
+      COMMENT_ID,
+      DISCUSSION_ID,
+      USER_ID,
+      OPINION_TYPE,
+      CONTENT
+    ) VALUES (
+      #{commentId},
+      #{discussionId},
+      #{userId},
+      #{opinionType},
+      #{content}
+    )
+  </insert>
 
 </mapper>

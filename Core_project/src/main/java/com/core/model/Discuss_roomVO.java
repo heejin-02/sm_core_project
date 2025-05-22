@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Discuss_roomVO {
 	
-	
 	private int droom_no;
 	private String droom_category;
 	private String droom_title;

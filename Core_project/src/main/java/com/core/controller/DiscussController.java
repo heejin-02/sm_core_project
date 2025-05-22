@@ -54,4 +54,13 @@ public class DiscussController {
         mapper.insertDiscussRoom(room);
         return "redirect:/discuss_list";
     }
+    @GetMapping("/discuss_room")
+    public String showRoomDetail(@RequestParam("id") int droomNo, Model model) {
+        Discuss_roomVO room = mapper.selectRoomById(droomNo);
+        if (room == null) {
+            return "redirect:/discuss_list"; // 없으면 목록으로
+        }
+        model.addAttribute("room", room);
+        return "discuss_room";
+    }
 }

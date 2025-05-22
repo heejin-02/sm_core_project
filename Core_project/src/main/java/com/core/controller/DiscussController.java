@@ -3,7 +3,6 @@ package com.core.controller;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import com.core.mapper.CoreMapper;
-import com.core.model.Discuss_roomVO;
+import com.core.model.Discussion_postVO;
 import com.core.model.UserinfoVO;
 
 @Controller
@@ -21,50 +20,39 @@ public class DiscussController {
     @Autowired
     private CoreMapper mapper;
 
-    /**
-     * 1) 토론 목록 페이지 (discuss_list.jsp)
-     *    URL: /discuss_list
-     */
+    /** 1) 토론 목록 (discuss_list.jsp) */
     @GetMapping("/discuss_list")
-    public String showDiscussList(
+    public String showDiscussionList(
             @RequestParam(value = "keyword", required = false) String keyword,
             Model model) {
 
-        List<Discuss_roomVO> rooms;
+        List<Discussion_postVO> posts;
         if (keyword != null && !keyword.trim().isEmpty()) {
-            rooms = mapper.searchRoomsByTitle(keyword);
+            posts = mapper.searchPostsByTitle(keyword);
         } else {
-            rooms = mapper.selectAllRooms();
+            posts = mapper.selectAllPosts();
         }
 
-        model.addAttribute("rooms", rooms);
+        model.addAttribute("posts", posts);
         model.addAttribute("keyword", keyword);
-        return "discuss_list";  
+        return "discuss_list";
     }
 
-    /**
-     * 2) 토론방 생성 폼 (discuss_post.jsp)
-     *    URL: /discuss_post
-     *    로그인된 사용자만 접근 가능
-     */
+    /** 2) 토론 생성 폼 (discuss_post.jsp) — 로그인 필요 */
     @GetMapping("/discuss_post")
     public String showCreateForm(HttpSession session, Model model) {
         UserinfoVO user = (UserinfoVO) session.getAttribute("mvo");
         if (user == null) {
-            // 로그인 안 된 상태면 /login 으로 보내기
             return "redirect:/login";
         }
-        model.addAttribute("room", new Discuss_roomVO());
+        model.addAttribute("post", new Discussion_postVO());
         return "discuss_post";
     }
 
-    /**
-     * 3) 토론방 생성 처리
-     *    URL: POST /discuss_post
-     */
+    /** 3) 토론 생성 처리 */
     @PostMapping("/discuss_post")
-    public String createRoom(
-            @ModelAttribute("room") Discuss_roomVO room,
+    public String createDiscussion(
+            @ModelAttribute("post") Discussion_postVO post,
             HttpSession session) {
 
         UserinfoVO user = (UserinfoVO) session.getAttribute("mvo");
@@ -72,32 +60,23 @@ public class DiscussController {
             return "redirect:/login";
         }
 
-        room.setId(user.getId());
-        room.setCreate_at(Timestamp.valueOf(LocalDateTime.now()));
-        room.setDroom_st("진행중");
-        room.setDroom_mg(user.getId());
-
-        mapper.insertDiscussRoom(room);
-        // 생성 후 목록으로
+        post.setAuthorId(user.getId());
+        post.setCreatedAt(Timestamp.valueOf(LocalDateTime.now()));
+        mapper.insertDiscussionPost(post);
         return "redirect:/discuss_list";
     }
 
-    /**
-     * 4) 토론방 상세 보기 (discuss_room.jsp)
-     *    URL: /discuss_room?id={droom_no}
-     */
+    /** 4) 토론 상세 보기 (discuss_room.jsp) */
     @GetMapping("/discuss_room")
-    public String showRoomDetail(
-            @RequestParam("id") int droomNo,
+    public String showDiscussionDetail(
+            @RequestParam("id") int discussionId,
             Model model) {
 
-        Discuss_roomVO room = mapper.selectRoomById(droomNo);
-        if (room == null) {
-            // 잘못된 id 이면 목록으로
+        Discussion_postVO post = mapper.selectPostById(discussionId);
+        if (post == null) {
             return "redirect:/discuss_list";
         }
-        model.addAttribute("room", room);
+        model.addAttribute("post", post);
         return "discuss_room";
     }
-
 }

@@ -1,6 +1,5 @@
 @charset "UTF-8";
 
-/* ✅ 배너 설정 */
 .main_banner {
 	background-image: url("../../images/discuss_banner.png");
 	background-color: #F7F7F7;
@@ -10,62 +9,47 @@
 	margin-top: 20px;
 }
 
-/* ✅ 검색창 전체 박스 정렬 */
 .discuss_search {
-	width: 100%;
-	display: flex;
-	justify-content: center;
-	margin-top: 40px;
-	margin-bottom: 30px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 40px;
+    gap: 10px;
+    margin-bottom: 20px;
 }
 
-.search_form_flex {
-	display: flex;
-	gap: 10px;
-	justify-content: center;
-	align-items: center;
-	width: 100%;
-	max-width: 1000px;
-}
-
-.search_form_flex select,
-.search_form_flex input[type="text"] {
+.search_range, .search_category {
+	width: 15%;
+    background-color: #F6F6F6;
+	border: 2px solid #3E3E3E;
+	border-radius: 10px;
+	box-sizing: border-box;
+	height: 45px;
 	padding: 10px;
-	font-size: 15px;
 	font-family: Pretendard;
-	border-radius: 8px;
-	border: 2px solid #3E3E3E;
-	background-color: #F6F6F6;
+	font-weight: 400;
+	font-size: 16px;
 }
 
-.search_form_flex select {
-	width: 150px;
+.search_bar {
+    width: 53% !important;
 }
 
-.search_form_flex input[type="text"] {
-	width: 350px;
-}
-
-.search_form_flex .submit_btn {
-	background-color: #F8C866;
-	border: 2px solid #3E3E3E;
-	border-radius: 8px;
-	padding: 10px 20px;
-	font-weight: 600;
-	cursor: pointer;
-}
-
-/* ✅ 토론 카드 리스트 */
 .discuss_content_list {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: flex-start;
-	gap: 10px;
+	width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 10px;
 }
 
-/* ✅ 각 토론 박스 */
-.discuss_box {
+.discuss_box_link {
 	width: calc(50% - 5px);
+}
+
+.discuss_box {
+	width: 100%;
 	display: flex;
 	flex-direction: column;
 	box-sizing: border-box;
@@ -77,38 +61,28 @@
 }
 
 .discuss_box_header {
-	width: 100%;
-	font-family: Pretendard;
+    width: 100%;
+    font-family: Pretendard;
 	font-size: 15px;
 	color: #d59e2f;
-	margin-bottom: 10px;
+    margin-bottom: 10px;
 }
 
-.discuss_box_status {
-	margin-left: 8px;
-	font-weight: 600;
-	font-size: 14px;
-	color: #888;
-}
-
-/* ✅ 본문 전체 감싸기 (AI 포함) */
 .discuss_box_content {
-	border-bottom: 1px solid #F8C866;
-	padding-bottom: 10px;
-	margin-bottom: 10px;
+    border-bottom: 1px solid #F8C866;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
 }
 
-/* ✅ 날짜 */
 .discuss_box_content_date {
-	font-family: Pretendard;
+    font-family: Pretendard;
 	font-size: 14px;
 	color: #595959;
 	margin-bottom: 2px;
 }
 
-/* ✅ 제목 */
 .discuss_box_content_title {
-	font-family: Pretendard;
+    font-family: Pretendard;
 	font-size: 20px;
 	font-weight: 600;
 	color: #262626;
@@ -118,18 +92,19 @@
 	margin-bottom: 6px;
 }
 
-/* ✅ AI 요약 타이틀 */
 .discuss_box_content_AItitle {
-	font-family: Pretendard;
-	font-weight: 600;
+    font-family: Pretendard;
+    font-weight: 600;
 	font-size: 15px;
 	color: #444444;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 	margin-bottom: 2px;
 }
 
-/* ✅ AI 요약 내용 */
 .discuss_box_content_AI {
-	font-family: Pretendard;
+    font-family: Pretendard;
 	font-size: 15px;
 	color: #444444;
 	display: -webkit-box;
@@ -140,27 +115,12 @@
 	margin-bottom: 5px;
 }
 
-/* ✅ 하단 버튼 영역 */
 .discuss_box_footer {
-	display: flex;
-	align-items: center;
-	justify-content: flex-start;
-	margin-top: 10px;
+    display: flex;
 }
 
 .discuss_box_footer_name {
-	margin-left: 5px;
-	margin-right: 20px;
+    margin-left: 5px;
+    margin-right: 20px;
 	padding-top: 4px;
-	font-family: Pretendard;
-}
-
-.btn_enter, .btn_review {
-	background-color: #F8C866;
-	border: 2px solid #262626;
-	border-radius: 6px;
-	padding: 8px 14px;
-	font-family: Pretendard;
-	cursor: pointer;
-	font-weight: 600;
 }

@@ -22,7 +22,7 @@
 
 .post_input .category span {
     font-family: Pretendard;
-    font-size: 15px;
+    font-size: 18px;
     color: #262626;
 }
 
@@ -54,4 +54,12 @@
 
 .pro_post table {
 	margin-bottom: 50px;
+}
+
+.post_title {
+	display: flex;
+}
+
+td.title_top span {
+	padding-bottom: 160px;
 }

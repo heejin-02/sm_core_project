@@ -33,15 +33,6 @@
 
       <div class="discuss_search">
         <form action="${pageContext.request.contextPath}/discuss_list" method="get" style="display:flex; gap:10px; align-items:center;">
-          <!-- 1) 전체 범위 셀렉트 -->
-          <select name="range" class="search_range">
-            <option value="">전체 범위</option>
-            <option value="진행중" ${
-                param.range=='진행중' ? 'selected':'' }>진행 중</option>
-            <option value="종료됨" ${
-                param.range=='종료됨' ? 'selected':'' }>종료된 토론</option>
-          </select>
-
           <!-- 2) 전체 카테고리 셀렉트 -->
           <select name="category" class="search_category">
             <option value="">전체 카테고리</option>

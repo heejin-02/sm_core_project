@@ -7,6 +7,7 @@ header {
 	background-color: white;
 	display: flex;
 	justify-content: center;
+	box-shadow: 10px 0px 10px #35353520;
 }
 
 #header {

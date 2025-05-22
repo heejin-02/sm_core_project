@@ -120,7 +120,6 @@ public class coreController {
 	}
 
 	// 로그인 메서드(login)
-
 	@GetMapping("/login")
 	public String loginform() {
 		return "login";

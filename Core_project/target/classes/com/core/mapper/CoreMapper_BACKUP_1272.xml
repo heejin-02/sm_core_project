@@ -51,10 +51,22 @@
     VALUES (#{id},#{pw},#{nick},#{region},#{id_card},#{is_approved},#{joined_at})
   </insert>
 
+<<<<<<< HEAD
   <!-- 로그인 -->
   <select id="login" parameterType="com.core.model.UserinfoVO" resultType="com.core.model.UserinfoVO">
     SELECT * FROM Userinfo WHERE id = #{id} AND pw = #{pw}
   </select>
+=======
+   <!-- 로그인 -->
+   <select id="login" parameterType="com.core.model.UserinfoVO" resultType="com.core.model.UserinfoVO">
+      SELECT * FROM Userinfo WHERE id = #{id} AND pw = #{pw}
+   </select>
+   
+   <!-- 아이디 중복 체크 -->
+   <select id="checkId" parameterType="string" resultType="int">
+       SELECT COUNT(*) FROM Userinfo WHERE id = #{value}
+   </select>
+>>>>>>> 85b9d072ba2c9e6ee4e28663fb0530fc08f38897
 
   <!-- 회원탈퇴 -->
   <delete id="delete" parameterType="string">
@@ -143,11 +155,5 @@
       #{droom_limit}, #{droom_mg}, #{create_at}, #{droom_st}
     )
   </insert>
-  <!-- 🗣 토론방 들어가기 -->
-  <select id="selectRoomById" parameterType="int" resultMap="DiscussRoomResult">
-  SELECT *
-  FROM DISCUSS_ROOM
-  WHERE DROOM_NO = #{id}
- </select>
 
 </mapper>

@@ -145,13 +145,22 @@
 }
 
 .search_box_comment_goodbad div {
-	display: flex;
-	gap: 3px;
+  display: flex;
   align-items: center;
+  gap: 5px;
+}
+.search_box_inner_link {
+  text-decoration: none;
+  color: inherit;
 }
 
 hr {
-    border: 0.5px solid #4C9DF8;
+    border: 0.5px solid #4C9DF850;
     margin-top: 10px;
     margin-bottom: 10px;
+}
+
+.search_box_inner_link * {
+  text-decoration: none;
+  color: inherit;
 }

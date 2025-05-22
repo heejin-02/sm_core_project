@@ -37,14 +37,19 @@
 }
 
 .discuss_content_list {
+	width: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
     gap: 10px;
 }
 
-.discuss_box {
+.discuss_box_link {
 	width: calc(50% - 5px);
+}
+
+.discuss_box {
+	width: 100%;
 	display: flex;
 	flex-direction: column;
 	box-sizing: border-box;

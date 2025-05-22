@@ -60,7 +60,7 @@
 					
 					<!-- 제안 배경 및 현황 -> RESULT_CONTENT에 매핑됨 -->
 					<tr>
-						<td class="post_title">
+						<td class="post_title title_top">
 							<span>제안 배경 및 현황</span>
 						</td>
 						<td class="post_input">
@@ -70,7 +70,7 @@
 					
 					<!-- 제안 내용 -->
 					<tr>
-						<td class="post_title">
+						<td class="post_title title_top">
 							<span>제안 내용</span>
 						</td>
 						<td class="post_input">
@@ -80,7 +80,7 @@
 					
 					<!-- 기대 효과 -->
 					<tr>
-						<td class="post_title">
+						<td class="post_title title_top">
 							<span>기대 효과</span>
 						</td>
 						<td class="post_input">

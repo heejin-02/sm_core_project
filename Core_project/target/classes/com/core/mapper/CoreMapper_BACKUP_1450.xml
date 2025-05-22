@@ -143,11 +143,5 @@
       #{droom_limit}, #{droom_mg}, #{create_at}, #{droom_st}
     )
   </insert>
-  <!-- 🗣 토론방 들어가기 -->
-  <select id="selectRoomById" parameterType="int" resultMap="DiscussRoomResult">
-  SELECT *
-  FROM DISCUSS_ROOM
-  WHERE DROOM_NO = #{id}
- </select>
 
 </mapper>

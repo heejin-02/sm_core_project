@@ -1,5 +1,14 @@
 @charset "UTF-8";
 
+header {
+	width: 100%;
+	position: fixed;
+	top: 0;
+	background-color: white;
+	display: flex;
+	justify-content: center;
+}
+
 #header {
 	/* background-color: red; */
 	width: 80%;

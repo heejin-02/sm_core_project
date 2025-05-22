@@ -104,7 +104,7 @@
     align-items: center;
     gap: 5px;
     border-radius: 5px;
-    transition-duration: 1s;
+    transition-duration: 0.5s;
 }
 
 .up_btn {

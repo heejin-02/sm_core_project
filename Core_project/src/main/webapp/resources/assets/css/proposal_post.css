@@ -8,6 +8,11 @@
 	color: #4C9DF8;
 }
 
+.post_input {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
 .post_input .category {
     width: 100%;
 	display: flex;
@@ -44,6 +49,7 @@
 	font-weight: 400;
 	font-size: 15px;
     resize: none;
+    height: 200px;
 }
 
 .pro_post table {

@@ -23,10 +23,10 @@
              <p class="banner_body">내 아이디어를 검색해 실제 정책 / 제안된 정책과의 유사도를 확인해보세요!</p>
           </div>
           <div id="search">
-             <form action="search" method="post">
-                <input class="search_bar" type="text" name="input" placeholder="아이디어를 입력해주세요.">
-                <input class="submit_btn" type="submit" value="검색">
-             </form>
+            <form action="search" method="post" onsubmit="return checkSearchInput();">
+	           	<input class="search_bar" type="text" name="input" id="searchInput" placeholder="아이디어를 입력해주세요.">
+	           	<input class="submit_btn" type="submit" value="검색">
+         	</form>
           </div>
        </div>
        
@@ -68,7 +68,18 @@
       <!-- 더보기 버튼 -->
       <!-- todo: 버튼 넘겨서 쭉 리스트 볼 수 있게 하기 -->
       <button class="basic_btn">유사도 분석 결과 더보기</button>
-       
+         
+       <script>
+         function checkSearchInput() {
+            const input = document.getElementById("searchInput").value.trim();
+            if (input === "") {
+               alert("검색어를 입력해 주세요.");
+               return false; // 제출 막기
+            }
+            return true; // 정상 제출
+         }
+      </script>
+      
        <!-- 푸터 -->
       <%@ include file="footer.jsp" %>
    

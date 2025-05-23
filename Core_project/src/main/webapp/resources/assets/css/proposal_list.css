@@ -93,7 +93,7 @@
 
 .category {
   font-size: 15px;
-  color: #4C9DF8;
+  color: #4C9DF8 !important;
 }
 
 .search_box_content_date {
@@ -117,7 +117,7 @@
   color: #444444;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 1;
   overflow: hidden;
   text-overflow: ellipsis;
 }

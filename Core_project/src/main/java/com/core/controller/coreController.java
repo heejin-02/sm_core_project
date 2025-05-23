@@ -378,6 +378,19 @@ public class coreController {
 	public String discuss_post() {
 		return "discuss_post";
 	}
+	
+	// 정책 상세페이지
+	@RequestMapping("/similar_search_detail")
+	public String similar_search_detail(@RequestParam("name") String name, @RequestParam("title") String title, @RequestParam("category") String category, @RequestParam("similar") String similarity, @RequestParam("date") String date, @RequestParam("summary") String summary, Model model) {
+		model.addAttribute("name", name);
+        model.addAttribute("title", title);
+        model.addAttribute("category", category);
+        model.addAttribute("similar", similarity);
+        model.addAttribute("date", date);
+        model.addAttribute("summary", summary);
+        
+		return "similar_search_detail";
+	}
 
 
 }

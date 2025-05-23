@@ -150,6 +150,58 @@ public class coreController {
 		session.invalidate(); // 세션 무효화
 		return "similar_search";
 	}
+	
+	@PostMapping("/edit_profile")
+	public String editProfile(UserinfoVO updatedUser, HttpSession session, RedirectAttributes rttr) {
+	    UserinfoVO user = (UserinfoVO) session.getAttribute("mvo");
+	    if (user == null) {
+	        return "redirect:/login";
+	    }
+
+	    updatedUser.setId(user.getId()); // 아이디는 세션값으로 고정
+
+	    // 비밀번호가 빈칸이면 기존 비밀번호 유지
+	    if (updatedUser.getPw() == null || updatedUser.getPw().isEmpty()) {
+	        updatedUser.setPw(user.getPw());
+	    }
+
+	    int result = mapper.updateUserInfo(updatedUser);
+	    if (result > 0) {
+	        session.setAttribute("mvo", updatedUser);
+	        session.setAttribute("nickname", updatedUser.getNick());
+	        rttr.addFlashAttribute("msg", "회원정보가 수정되었습니다.");
+	    } else {
+	        rttr.addFlashAttribute("msg", "회원정보 수정 실패");
+	    }
+	    return "redirect:/edit_profile";
+	}
+	
+	// 게시글 삭제
+	   @PostMapping("/proposal_delete")
+	   public String deleteProposal(@RequestParam("id") int proposalId, HttpSession session, RedirectAttributes rttr) {
+	       UserinfoVO user = (UserinfoVO) session.getAttribute("mvo");
+
+	       if (user == null) {
+	           rttr.addFlashAttribute("msg", "로그인이 필요합니다.");
+	           return "redirect:/login";
+	       }
+
+	       // 제안 작성자인지 확인
+	       ProposalVO proposal = mapper.selectProposalById(proposalId);
+	       if (proposal == null || !proposal.getID().equals(user.getId())) {
+	           rttr.addFlashAttribute("msg", "삭제 권한이 없습니다.");
+	           return "redirect:/proposal_list";
+	       }
+
+	       int result = mapper.deleteProposalById(proposalId);
+	       if (result > 0) {
+	           rttr.addFlashAttribute("msg", "제안이 삭제되었습니다.");
+	       } else {
+	           rttr.addFlashAttribute("msg", "제안 삭제 실패");
+	       }
+
+	       return "redirect:/proposal_list";
+	   }
 
 	// 회원탈퇴 메서드
 	@RequestMapping("/delete")

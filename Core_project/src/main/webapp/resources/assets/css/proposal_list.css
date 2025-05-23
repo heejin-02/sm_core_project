@@ -69,14 +69,13 @@
     box-sizing: border-box;
     border: 2px solid #282828;
     border-radius: 5px;
-    background-color: #F0F7FF;
+    background-color: #f5f9fd;
     transition-duration: 0.5s;
 }
 
 .search_box:hover {
-    box-shadow: 0 0 20px #4C9DF850;
-    border: 2px solid #4C9DF8;
-    scale: 1.02;
+    background-color: #ebf4ff;
+    border: 2px solid #0d396b;
 }
 
 .search_box_inner_link {
@@ -94,7 +93,7 @@
 
 .category {
   font-size: 15px;
-  color: #4C9DF8;
+  color: #4C9DF8 !important;
 }
 
 .search_box_content_date {
@@ -118,7 +117,7 @@
   color: #444444;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 1;
   overflow: hidden;
   text-overflow: ellipsis;
 }

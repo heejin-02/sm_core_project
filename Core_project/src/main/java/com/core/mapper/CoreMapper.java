@@ -22,6 +22,10 @@ public interface CoreMapper {
     public int delete(String user_email);
     // 아이디중복확인
     public int checkId(String id);
+    // 회원정보수정
+    public int updateUserInfo(UserinfoVO updatedUser);
+    // 게시글 삭제 
+    int deleteProposalById(int id);
 
 
     /** 정책 제안 저장 */
@@ -46,6 +50,7 @@ public interface CoreMapper {
     // 좋아요/싫어요 개수 증가
     int incrementAgree(int prpslNo);
     int incrementDisagree(int prpslNo);
+
     // 토론 게시글 전체 조회
     List<Discussion_postVO> selectAllPosts();
 
@@ -63,5 +68,4 @@ public interface CoreMapper {
 
     // 댓글 쓰기
     void insertDiscussionComment(Discussion_commentVO comment);
-	
 }

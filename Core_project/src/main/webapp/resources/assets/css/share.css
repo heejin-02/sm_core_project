@@ -47,6 +47,7 @@ body {
 	justify-content: center;
 	align-items: center;
 	margin-bottom: 60px;
+	margin-top: 60px;
 }
 
 .title {
@@ -64,6 +65,7 @@ body {
 	justify-content: center;
 	align-items: center;
 	margin-bottom: 60px;
+	margin-top: 60px;
 }
 
 .banner_title {
@@ -165,7 +167,7 @@ input:focus {
 }
 
 .pro_post {
-	width: 60%;
+	width: 80%;
     display: flex;
     justify-content: center;
     align-items: center;

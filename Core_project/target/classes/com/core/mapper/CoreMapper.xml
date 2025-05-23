@@ -74,9 +74,19 @@
     SELECT COUNT(*) FROM Userinfo WHERE id = #{id}
   </select>
 
+  <!-- 회원 정보 수정 -->
+  <update id="updateUserInfo" parameterType="com.core.model.UserinfoVO">
+    UPDATE userinfo SET pw = #{pw}, nick = #{nick}, region = #{region} WHERE id = #{id}
+  </update>
+
   <!-- 회원탈퇴 -->
   <delete id="delete" parameterType="string">
     DELETE FROM Userinfo WHERE ID = #{value, jdbcType=VARCHAR}
+  </delete>
+  
+   <!-- 게시글 삭제 -->
+  <delete id="deleteProposalById" parameterType="int">
+       DELETE FROM PROPOSAL WHERE PRPSL_NO = #{id}
   </delete>
 
   <!-- 4. 정책 제안 -->
@@ -203,11 +213,6 @@
  <!-- 댓글 쓰기 -->
  <insert id="insertDiscussionComment"
           parameterType="com.core.model.Discussion_commentVO">
-              <selectKey keyProperty="commentId"
-               resultType="int"
-               order="BEFORE">
-      SELECT COMMENT_SEQ.NEXTVAL FROM DUAL
-    </selectKey>
     INSERT INTO DISCUSSION_COMMENT (
       DISCUSSION_ID,
       USER_ID,

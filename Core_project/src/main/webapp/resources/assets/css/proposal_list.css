@@ -69,14 +69,13 @@
     box-sizing: border-box;
     border: 2px solid #282828;
     border-radius: 5px;
-    background-color: #F0F7FF;
+    background-color: #f5f9fd;
     transition-duration: 0.5s;
 }
 
 .search_box:hover {
-    box-shadow: 0 0 20px #4C9DF850;
-    border: 2px solid #4C9DF8;
-    scale: 1.02;
+    background-color: #ebf4ff;
+    border: 2px solid #0d396b;
 }
 
 .search_box_inner_link {

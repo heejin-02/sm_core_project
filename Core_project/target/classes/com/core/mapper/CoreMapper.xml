@@ -84,9 +84,15 @@
     DELETE FROM Userinfo WHERE ID = #{value, jdbcType=VARCHAR}
   </delete>
   
+<<<<<<< HEAD
   <!-- 게시글 삭제 -->
   <delete id="deleteProposalById" parameterType="int">
    	 DELETE FROM PROPOSAL WHERE PRPSL_NO = #{id}
+=======
+   <!-- 게시글 삭제 -->
+  <delete id="deleteProposalById" parameterType="int">
+       DELETE FROM PROPOSAL WHERE PRPSL_NO = #{id}
+>>>>>>> origin/dev/hyerim
   </delete>
 
   <!-- 4. 정책 제안 -->
@@ -212,24 +218,17 @@
 
  <insert id="insertDiscussionComment"
           parameterType="com.core.model.Discussion_commentVO">
-    <selectKey keyProperty="commentId"
-               resultType="int"
-               order="BEFORE">
-      SELECT COMMENT_SEQ.NEXTVAL FROM DUAL
-    </selectKey>
     INSERT INTO DISCUSSION_COMMENT (
-      COMMENT_ID,
       DISCUSSION_ID,
       USER_ID,
       OPINION_TYPE,
       CONTENT
     ) VALUES (
-      #{commentId},
       #{discussionId},
       #{userId},
       #{opinionType},
       #{content}
     )
   </insert>
-
+  
 </mapper>

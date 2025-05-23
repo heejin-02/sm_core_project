@@ -1,5 +1,15 @@
 @charset "UTF-8";
 
+header {
+	width: 100%;
+	position: fixed;
+	top: 0;
+	background-color: white;
+	display: flex;
+	justify-content: center;
+	box-shadow: 10px 0px 10px #35353520;
+}
+
 #header {
 	/* background-color: red; */
 	width: 80%;
@@ -52,7 +62,7 @@ footer p {
 
 #nav button {
 	all: unset;
-	color: #353535;
+	color: #979797;
 	font-family: 'Pretendard', sans-serif;
 	font-weight: 400;
 	font-size: 16px;

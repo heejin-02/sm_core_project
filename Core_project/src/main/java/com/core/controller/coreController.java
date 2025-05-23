@@ -177,6 +177,33 @@ public class coreController {
 
 	    return "redirect:/proposal_list";
 	}
+	
+	// 게시글 삭제
+	   @PostMapping("/proposal_delete")
+	   public String deleteProposal(@RequestParam("id") int proposalId, HttpSession session, RedirectAttributes rttr) {
+	       UserinfoVO user = (UserinfoVO) session.getAttribute("mvo");
+
+	       if (user == null) {
+	           rttr.addFlashAttribute("msg", "로그인이 필요합니다.");
+	           return "redirect:/login";
+	       }
+
+	       // 제안 작성자인지 확인
+	       ProposalVO proposal = mapper.selectProposalById(proposalId);
+	       if (proposal == null || !proposal.getID().equals(user.getId())) {
+	           rttr.addFlashAttribute("msg", "삭제 권한이 없습니다.");
+	           return "redirect:/proposal_list";
+	       }
+
+	       int result = mapper.deleteProposalById(proposalId);
+	       if (result > 0) {
+	           rttr.addFlashAttribute("msg", "제안이 삭제되었습니다.");
+	       } else {
+	           rttr.addFlashAttribute("msg", "제안 삭제 실패");
+	       }
+
+	       return "redirect:/proposal_list";
+	   }
 
 
 	// 회원탈퇴 메서드
@@ -355,6 +382,5 @@ public class coreController {
 		return "discuss_post";
 	}
 
-	// 토론방 안 채팅 띄우기 메서드(discuss_room)
-	// (제일 나중에하기)
+
 }

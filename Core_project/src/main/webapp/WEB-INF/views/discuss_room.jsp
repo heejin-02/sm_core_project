@@ -83,7 +83,10 @@
     <!-- 댓글 목록 -->
     <div class="comment_container">
       <c:if test="${empty comments}">
-        <p>등록된 댓글이 없습니다.</p>
+        <div class="no_results">
+            <svg xmlns="http://www.w3.org/2000/svg" height="100px" viewBox="0 -960 960 960" width="100px" fill="#e5e5e5"><path d="M280-400q-17 0-28.5-11.5T240-440q0-17 11.5-28.5T280-480q17 0 28.5 11.5T320-440q0 17-11.5 28.5T280-400Zm600-400v498q0 17-11.5 28.5T840-262q-15 0-27.5-10T800-302v-498H291q-20 0-30-12.5T251-840q0-15 10-27.5t30-12.5h509q33 0 56.5 23.5T880-800ZM680-520H571q-20 0-30-12.5T531-560q0-15 10-27.5t30-12.5h109q17 0 28.5 11.5T720-560q0 17-11.5 28.5T680-520ZM240-240l-92 92q-19 19-43.5 8.5T80-177v-591l-24-24q-11-11-11-28t11-28q11-11 28-11t28 11l736 736q11 11 11.5 27.5T848-56q-11 11-28 11t-28-11L606-240H240Zm297-297Zm-257 17q-17 0-28.5-11.5T240-560q0-17 11.5-28.5T280-600q17 0 28.5 11.5T320-560q0 17-11.5 28.5T280-520Zm400-120H440q-17 0-28.5-11.5T400-680q0-17 11.5-28.5T440-720h240q17 0 28.5 11.5T720-680q0 17-11.5 28.5T680-640ZM344-504ZM160-688v413l46-45h322L160-688Z"/></svg>
+            <p>등록된 의견이 없습니다.</p>
+          </div>
       </c:if>
       <c:if test="${not empty comments}">
         <div class="comment_box_container">
@@ -110,12 +113,12 @@
 
         </div>
 
-        <div class="comment_box_container scroll_container">
+        <div class="comment_box_container">
           <div class="comment_title">
             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#f84c4c"><path d="M120-320q-32 0-56-24t-24-56v-80q0-7 2-15t4-15l120-282q9-20 30-34t44-14h440v520L440-82q-15 15-35.5 17.5T365-72q-19-10-28-28t-4-37l45-183H120Zm480-34v-406H240L120-480v80h360l-54 220 174-174Zm200-486q33 0 56.5 23.5T880-760v360q0 33-23.5 56.5T800-320H680v-80h120v-360H680v-80h120Zm-200 80v406-406Z"/></svg>
             <span>반대</span>
           </div>
-          <div class="comment_opposition">
+          <div class="comment_opposition scroll_container">
             <c:forEach var="cmt" items="${comments}">
               <c:if test="${cmt.opinionType=='F'}">
                 <div class="comment_box">

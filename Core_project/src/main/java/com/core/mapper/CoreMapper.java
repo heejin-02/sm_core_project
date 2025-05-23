@@ -68,4 +68,7 @@ public interface CoreMapper {
 
     // 댓글 쓰기
     void insertDiscussionComment(Discussion_commentVO comment);
+    
+    // 카테고리별 토론 게시글 목록 조회
+    List<Discussion_postVO> selectByDiscussCategory(@Param("category") String category);
 }

@@ -74,7 +74,7 @@
             <div class="discuss_box">
               <!-- 카테고리, 상태 -->
               <div class="discuss_box_header">
-                <p class="discuss_box_header_category">${room.droom_category}</p>
+                <p class="discuss_box_header_category">${post.category}</p>
               </div>
 
               <!-- 제목, 내용 -->

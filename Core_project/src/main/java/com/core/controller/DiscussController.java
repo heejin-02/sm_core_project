@@ -142,5 +142,30 @@ public class DiscussController {
         return "redirect:/discuss_room?id=" + discussionId;
     }
     
+	// 찬/반 댓글 삭제
+    @GetMapping("/discuss_room/delete_comment")
+    public String deleteComment(@RequestParam("id") int commentId,
+                                @RequestParam("discussionId") int discussionId,
+                                HttpSession session,
+                                RedirectAttributes rttr) {
+        UserinfoVO user = (UserinfoVO) session.getAttribute("mvo");
+
+        if (user == null) {
+            rttr.addFlashAttribute("msg", "로그인이 필요합니다.");
+            return "redirect:/login";
+        }
+
+        // 본인 댓글인지 확인
+        String writerId = mapper.selectCommentWriter(commentId);
+        if (!user.getId().equals(writerId)) {
+            rttr.addFlashAttribute("msg", "본인의 댓글만 삭제할 수 있습니다.");
+            return "redirect:/discuss_room?id=" + discussionId;  // 변경됨
+        }
+
+        mapper.deleteComment(commentId);
+        return "redirect:/discuss_room?id=" + discussionId;  // 변경됨
+    }
+
+
 
 }

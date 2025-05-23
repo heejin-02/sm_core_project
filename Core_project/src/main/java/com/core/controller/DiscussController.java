@@ -25,17 +25,21 @@ public class DiscussController {
     /** 1) 토론 목록 (discuss_list.jsp) */
     @GetMapping("/discuss_list")
     public String showDiscussionList(
+    		@RequestParam(value = "category", required = false) String category,
             @RequestParam(value = "keyword", required = false) String keyword,
             Model model) {
 
         List<Discussion_postVO> posts;
-        if (keyword != null && !keyword.trim().isEmpty()) {
+        if (category != null && !category.isEmpty()) {
+            posts = mapper.selectByDiscussCategory(category);
+        } else if (keyword != null && !keyword.trim().isEmpty()) {
             posts = mapper.searchPostsByTitle(keyword);
         } else {
             posts = mapper.selectAllPosts();
         }
 
         model.addAttribute("posts", posts);
+        model.addAttribute("currentCategory", category);
         model.addAttribute("keyword", keyword);
         return "discuss_list";
     }

@@ -217,13 +217,23 @@
   </select>
   
   <!-- 토론 게시글 카테고리 조회 -->
-  <select id="selectByDiscussCategory"
-          parameterType="string"
-          resultMap="DiscussionPostResult">
-    SELECT * FROM DISCUSSION_POST
-     WHERE CATEGORY = #{category}
-     ORDER BY CREATED_AT DESC
-  </select>
+  <select id="selectByDiscussCategory" 
+        parameterType="String" 
+        resultMap="DiscussionPostResult">
+    SELECT 
+        p.DISCUSSION_ID, 
+        p.TITLE, 
+        p.CONTENT, 
+        p.AUTHOR_ID, 
+        p.CREATED_AT,
+        (SELECT COUNT(*) 
+         FROM DISCUSSION_COMMENT c 
+         WHERE c.DISCUSSION_ID = p.DISCUSSION_ID) AS COMMENT_COUNT,
+        p.CATEGORY
+    FROM DISCUSSION_POST p
+    WHERE p.CATEGORY = #{category}
+    ORDER BY p.CREATED_AT DESC
+</select>
   
   <select id="selectCommentsByDiscussionId"
           parameterType="int"

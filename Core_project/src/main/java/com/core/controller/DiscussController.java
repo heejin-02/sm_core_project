@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.core.mapper.CoreMapper;
 import com.core.model.Discussion_commentVO;
@@ -54,7 +55,8 @@ public class DiscussController {
     @PostMapping("/discuss_post")
     public String createDiscussion(
             @ModelAttribute("post") Discussion_postVO post,
-            HttpSession session) {
+            HttpSession session,
+            RedirectAttributes rttr) {
 
         UserinfoVO user = (UserinfoVO) session.getAttribute("mvo");
         if (user == null) {
@@ -64,6 +66,8 @@ public class DiscussController {
         post.setAuthorId(user.getId());
         post.setCreatedAt(Timestamp.valueOf(LocalDateTime.now()));
         mapper.insertDiscussionPost(post);
+
+        rttr.addFlashAttribute("msg", "게시글이 성공적으로 등록되었습니다.");
         return "redirect:/discuss_list";
     }
 

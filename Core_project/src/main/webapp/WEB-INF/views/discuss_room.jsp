@@ -4,6 +4,7 @@
          isELIgnored="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt"   prefix="fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -30,7 +31,7 @@
         <span>|</span>
         <span><span class="title_banner_info_title">작성자  </span>${post.authorId}</span>
         <span>|</span>
-        <span><span class="title_banner_info_title">참여자  </span>댓글 숫자세서 넣기</span>
+        <span><span class="title_banner_info_title">참여자  </span>${fn:length(comments)}명</span>
       </div>
     </div>
 

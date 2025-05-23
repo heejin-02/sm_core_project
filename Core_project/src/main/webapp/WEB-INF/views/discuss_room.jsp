@@ -31,7 +31,7 @@
         <span>|</span>
         <span><span class="title_banner_info_title">작성자  </span>${post.authorId}</span>
         <span>|</span>
-        <span><span class="title_banner_info_title">참여자  </span>${fn:length(comments)}명</span>
+        <span><span class="title_banner_info_title">의견수  </span>${fn:length(comments)}</span>
       </div>
     </div>
 

@@ -229,3 +229,7 @@
     font-size: 10px;
     color: #9a9a9a;
 }
+
+.scroll_container::-webkit-scrollbar {
+  display: none;
+}

@@ -40,7 +40,8 @@
   <result property="authorId"     column="AUTHOR_ID"/>
   <result property="createdAt"    column="CREATED_AT"
           jdbcType="TIMESTAMP"
-          javaType="java.sql.Timestamp"/>  
+          javaType="java.sql.Timestamp"/> 
+  <result property="commentCount" column="COMMENT_COUNT"/> 
 </resultMap>
 
 <resultMap id="DiscussionCommentResult" type="com.core.model.Discussion_commentVO">
@@ -162,19 +163,35 @@
 
   <!-- 전체 조회 -->
   <select id="selectAllPosts" resultMap="DiscussionPostResult">
-    SELECT DISCUSSION_ID, TITLE, CONTENT, AUTHOR_ID, CREATED_AT
-      FROM DISCUSSION_POST
-     ORDER BY CREATED_AT DESC
+    SELECT 
+        p.DISCUSSION_ID, 
+        p.TITLE, 
+        p.CONTENT, 
+        p.AUTHOR_ID, 
+        p.CREATED_AT,
+        (SELECT COUNT(*) 
+         FROM DISCUSSION_COMMENT c 
+         WHERE c.DISCUSSION_ID = p.DISCUSSION_ID) AS COMMENT_COUNT
+    FROM DISCUSSION_POST p
+    ORDER BY p.CREATED_AT DESC
   </select>
 
   <!-- 제목 검색 -->
   <select id="searchPostsByTitle"
           parameterType="string"
           resultMap="DiscussionPostResult">
-    SELECT DISCUSSION_ID, TITLE, CONTENT, AUTHOR_ID, CREATED_AT
-      FROM DISCUSSION_POST
-     WHERE TITLE LIKE '%' || #{keyword} || '%'
-     ORDER BY CREATED_AT DESC
+    SELECT 
+        p.DISCUSSION_ID, 
+        p.TITLE, 
+        p.CONTENT, 
+        p.AUTHOR_ID, 
+        p.CREATED_AT,
+        (SELECT COUNT(*) 
+         FROM DISCUSSION_COMMENT c 
+         WHERE c.DISCUSSION_ID = p.DISCUSSION_ID) AS COMMENT_COUNT
+    FROM DISCUSSION_POST p
+    WHERE p.TITLE LIKE '%' || #{keyword} || '%'
+    ORDER BY p.CREATED_AT DESC
   </select>
 
   <!-- 삽입 -->

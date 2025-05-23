@@ -84,9 +84,15 @@
     DELETE FROM Userinfo WHERE ID = #{value, jdbcType=VARCHAR}
   </delete>
   
+<<<<<<< HEAD
+  <!-- 게시글 삭제 -->
+  <delete id="deleteProposalById" parameterType="int">
+   	 DELETE FROM PROPOSAL WHERE PRPSL_NO = #{id}
+=======
    <!-- 게시글 삭제 -->
   <delete id="deleteProposalById" parameterType="int">
        DELETE FROM PROPOSAL WHERE PRPSL_NO = #{id}
+>>>>>>> origin/dev/hyerim
   </delete>
   
    <!-- 게시글 수정 -->

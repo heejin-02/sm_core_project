@@ -51,7 +51,19 @@
         <span>${proposal.EXPECTATION_EFFECT}</span>
       </div>
     </div>
+<<<<<<< HEAD
+
+	<!-- 게시글 삭제 -->
+	<c:if test="${sessionScope.midx == proposal.ID}">
+	    <form action="proposal_delete" method="post" onsubmit="return confirm('정말 삭제하시겠습니까?');">
+	        <input type="hidden" name="id" value="${proposal.PRPSL_NO}">
+	        <button type="submit" class="basic_btn">삭제하기</button>
+	    </form>
+	</c:if>
+	
+=======
     
+>>>>>>> origin/dev/hyerim
     <!-- 👍👎 버튼 항상 보이게 -->
     <div class="updown_btn">
       <button class="up_btn" onclick="vote('${proposal.PRPSL_NO}', 'LIKE')">

@@ -24,6 +24,8 @@ public interface CoreMapper {
     public int checkId(String id);
     // 회원정보수정
     public int updateUserInfo(UserinfoVO updatedUser);
+    // 게시글 삭제 
+    int deleteProposalById(int id);
 
 
     /** 정책 제안 저장 */

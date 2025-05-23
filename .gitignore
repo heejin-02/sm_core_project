@@ -2,3 +2,8 @@ Core_project/src/main/java/com/core/model/Discussion_commentVO.java
 Core_project/src/main/java/com/core/model/Discussion_postVO.java
 Core_project/target/classes/com/core/model/Discussion_commentVO.class
 Core_project/target/classes/com/core/model/Discussion_postVO.class
+Core_project/src/main/java/com/core/controller/DiscussController.java
+Core_project/src/main/webapp/resources/assets/css/discuss_post.css
+Core_project/src/main/webapp/resources/assets/css/proposal_detail.css
+Core_project/src/main/webapp/WEB-INF/views/edit_profile.jsp
+Core_project/target/classes/com/core/controller/DiscussController.class

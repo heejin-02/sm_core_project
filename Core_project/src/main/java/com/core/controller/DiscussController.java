@@ -112,8 +112,6 @@ public class DiscussController {
         c.setUserId(user.getId());
         c.setOpinionType(opinionType);       // "T" or "F"
         c.setContent(content);
-        // CREATED_AT은 DB DEFAULT가 SYSDATE/SYSTIMESTAMP 이므로 생략 가능하지만,
-        // 명시하려면 아래와 같이 설정해도 됩니다.
         c.setCreatedAt(Timestamp.valueOf(LocalDateTime.now()));
 
         mapper.insertDiscussionComment(c);

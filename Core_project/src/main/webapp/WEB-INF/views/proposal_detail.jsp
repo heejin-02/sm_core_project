@@ -71,7 +71,14 @@
            <button type="submit" class="basic_btn">삭제하기</button>
        </form>
    </c:if>
-
+   
+   <!-- 게시글 수정 -->
+   <form action="proposal_update.jsp" method="get" style="display:inline;">
+	    <input type="hidden" name="id" value="${proposal.PRPSL_NO}">
+	    <button type="submit" class="basic_btn">수정하기</button>
+	  </form>
+	</c:if>
+   
     <%@ include file="footer.jsp"%>
   </div>
 

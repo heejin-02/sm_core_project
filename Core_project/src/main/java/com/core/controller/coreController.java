@@ -202,6 +202,41 @@ public class coreController {
 
 	       return "redirect:/proposal_list";
 	   }
+	   
+	// 수정 폼 띄우기
+	   @GetMapping("/proposal_edit")
+	   public String showEditForm(@RequestParam("id") int proposalId, HttpSession session, Model model, RedirectAttributes rttr) {
+	       UserinfoVO user = (UserinfoVO) session.getAttribute("mvo");
+	       if (user == null) {
+	           rttr.addFlashAttribute("msg", "로그인이 필요합니다.");
+	           return "redirect:/login";
+	       }
+
+	       ProposalVO proposal = mapper.selectProposalById(proposalId);
+	       if (proposal == null || !proposal.getID().equals(user.getId())) {
+	           rttr.addFlashAttribute("msg", "수정 권한이 없습니다.");
+	           return "redirect:/proposal_list";
+	       }
+
+	       List<String> categories = Arrays.asList("학교생활", "지역사회", "문화생활", "사회문제");
+	       model.addAttribute("categories", categories);
+	       model.addAttribute("proposal", proposal);
+
+	       return "proposal_edit";
+	   }
+
+	   // 게시글 수정 
+	   @GetMapping("/proposal_detail/view")
+	   public String proposalDetail(@RequestParam("id") int id, Model model) {
+	       ProposalVO proposal = mapper.selectProposalById(id);
+	       model.addAttribute("proposal", proposal);
+
+	       // 카테고리 추가
+	       List<String> categories = Arrays.asList("학교생활", "지역사회", "문화생활", "사회문제");
+	       model.addAttribute("categories", categories);
+
+	       return "proposal_detail";
+	   }
 
 	// 회원탈퇴 메서드
 	@RequestMapping("/delete")

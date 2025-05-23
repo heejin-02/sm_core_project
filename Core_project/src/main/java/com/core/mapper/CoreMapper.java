@@ -26,6 +26,9 @@ public interface CoreMapper {
     public int updateUserInfo(UserinfoVO updatedUser);
     // 게시글 삭제 
     int deleteProposalById(int id);
+    // 게시글 수정
+    int updateProposal(ProposalVO proposal);
+
 
 
     /** 정책 제안 저장 */

@@ -212,19 +212,12 @@
 
  <insert id="insertDiscussionComment"
           parameterType="com.core.model.Discussion_commentVO">
-    <selectKey keyProperty="commentId"
-               resultType="int"
-               order="BEFORE">
-      SELECT COMMENT_SEQ.NEXTVAL FROM DUAL
-    </selectKey>
     INSERT INTO DISCUSSION_COMMENT (
-      COMMENT_ID,
       DISCUSSION_ID,
       USER_ID,
       OPINION_TYPE,
       CONTENT
     ) VALUES (
-      #{commentId},
       #{discussionId},
       #{userId},
       #{opinionType},

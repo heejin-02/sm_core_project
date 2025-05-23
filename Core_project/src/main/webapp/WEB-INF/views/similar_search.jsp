@@ -1,5 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!-- 유사도 검색 페이지(메인) -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -37,32 +39,40 @@
              <p class="list_body">유사한 정책 및 제안 목록입니다.</p>
           </div>
           
-          <!-- todo: 검색 전에는 결과 없음 페이지 띄우기 -->
-          <!-- todo: 카테고리 따라서 컬러 바뀌게 하기 -->
-         <div class="search_box_container">
-           <c:forEach var="p" items="${list}">
-            <div class="search_box">
-               <!-- 카테고리, 유사도 -->
-               <div class="search_box_header">
-                  <span class="category">${p.category}</span>
-                  <span class="similarity">유사도 ${p.similarity}%</span>
-               </div>
-               
-               <!-- 제안날짜, 제안제목, 제안내용 -->
-               <div class="search_box_content">
-                  <p class="search_box_content_date">${p.date} 제안</p>
-                  <p class="search_box_content_title">${p.title}</p>
-                  <p class="search_box_content_body">${p.summary}</p>
-               </div>
-               
-               <!-- 제안자 -->
-               <div class="search_box_proponent">
-                  <span class="material-symbols-rounded">person</span>
-                  <span class="search_box_proponent_name">${p.proposer }</span>
-               </div>
-            </div>
-            </c:forEach>
-         </div>
+          <c:choose>
+	        <c:when test="${empty list}">
+	          <div class="no-results">
+	            <p>아직 등록된 제안이 없습니다.</p>
+	          </div>
+	        </c:when>
+	
+	        <c:otherwise>	
+	         <div class="search_box_container">
+	           <c:forEach var="p" items="${list}">
+	            <div class="search_box">
+	               <!-- 카테고리, 유사도 -->
+	               <div class="search_box_header">
+	                  <span class="category">${p.category}</span>
+	                  <span class="similarity">유사도 ${p.similarity}%</span>
+	               </div>
+	               
+	               <!-- 제안날짜, 제안제목, 제안내용 -->
+	               <div class="search_box_content">
+	                  <p class="search_box_content_date">${p.date} 제안</p>
+	                  <p class="search_box_content_title">${p.title}</p>
+	                  <p class="search_box_content_body">${p.summary}</p>
+	               </div>
+	               
+	               <!-- 제안자 -->
+	               <div class="search_box_proponent">
+	                  <span class="material-symbols-rounded">person</span>
+	                  <span class="search_box_proponent_name">${p.proposer }</span>
+	               </div>
+	            </div>
+	            </c:forEach>
+	         </div>
+	         </c:otherwise>
+  			</c:choose>
        </div>
 
       <!-- 더보기 버튼 -->

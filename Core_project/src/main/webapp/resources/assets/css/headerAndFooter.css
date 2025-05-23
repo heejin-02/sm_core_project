@@ -53,11 +53,30 @@ footer {
 	margin-top: 100px;
 }
 
-footer p {
+#footer {
+	width: 80%;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	gap: 20px;
+}
+
+#footer img {
+	width: 100px;
+	object-fit: cover;
+}
+
+.footer_content {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+}
+
+.footer_content p {
 	color: rgb(84, 84, 84);
 	font-family: Pretendard;
 	font-weight: 400;
-	font-size: 20px;
+	font-size: 14px;
 }
 
 #nav button {

@@ -42,7 +42,7 @@
 
       <div class="content_container_content">
         <span>AI 토론 요약</span>
-        <span>토론 요약 내용 넣어주세요</span>
+        <span>${aiSummary}</span>
       </div>
     </div>
 

@@ -2,7 +2,10 @@ package com.core.controller;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,22 +28,19 @@ public class DiscussController {
     /** 1) 토론 목록 (discuss_list.jsp) */
     @GetMapping("/discuss_list")
     public String showDiscussionList(
-    		@RequestParam(value = "category", required = false) String category,
-            @RequestParam(value = "keyword", required = false) String keyword,
-            Model model) {
+        @RequestParam(value = "category", required = false) String category,
+        @RequestParam(value = "keyword", required = false) String keyword,
+        Model model) {
 
-        List<Discussion_postVO> posts;
-        if (category != null && !category.isEmpty()) {
-            posts = mapper.selectByDiscussCategory(category);
-        } else if (keyword != null && !keyword.trim().isEmpty()) {
-            posts = mapper.searchPostsByTitle(keyword);
-        } else {
-            posts = mapper.selectAllPosts();
-        }
+        Map<String, Object> params = new HashMap<>();
+        params.put("category", category);
+        params.put("keyword", keyword);
 
+        List<Discussion_postVO> posts = mapper.searchDiscussPosts(params);
         model.addAttribute("posts", posts);
         model.addAttribute("currentCategory", category);
         model.addAttribute("keyword", keyword);
+        
         return "discuss_list";
     }
 

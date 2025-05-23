@@ -1,6 +1,7 @@
 package com.core.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -70,5 +71,5 @@ public interface CoreMapper {
     void insertDiscussionComment(Discussion_commentVO comment);
     
     // 카테고리별 토론 게시글 목록 조회
-    List<Discussion_postVO> selectByDiscussCategory(@Param("category") String category);
+    List<Discussion_postVO> searchDiscussPosts(Map<String, Object> params);
 }

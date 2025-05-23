@@ -196,7 +196,36 @@
     WHERE p.TITLE LIKE '%' || #{keyword} || '%'
     ORDER BY p.CREATED_AT DESC
   </select>
-
+	
+	<!-- 키워드 필터링 검색 -->
+	<select id="searchDiscussPosts"
+			parameterType="map"
+			resultMap="DiscussionPostResult">
+    SELECT 
+        p.DISCUSSION_ID, 
+        p.TITLE, 
+        p.CONTENT, 
+        p.AUTHOR_ID, 
+        p.CREATED_AT,
+        (SELECT COUNT(*) 
+         FROM DISCUSSION_COMMENT c 
+         WHERE c.DISCUSSION_ID = p.DISCUSSION_ID) AS COMMENT_COUNT,
+        p.CATEGORY
+    FROM DISCUSSION_POST p
+    <where>
+        <!-- 카테고리 조건추가 -->
+        <if test="category != null and category != ''">
+            p.CATEGORY = #{category}
+        </if>
+        <!-- 제목+내용 동시에 검색 -->
+        <if test="keyword != null and keyword != ''">
+            <if test="category != null and category != ''">AND</if>
+            (p.TITLE LIKE '%'||#{keyword}||'%' OR p.CONTENT LIKE '%'||#{keyword}||'%')
+        </if>
+    </where>
+    ORDER BY p.CREATED_AT DESC
+</select>
+	
   <!-- 삽입 -->
   <insert id="insertDiscussionPost"
           parameterType="com.core.model.Discussion_postVO"

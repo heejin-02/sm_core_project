@@ -1,14 +1,19 @@
 package com.core.controller;
 
+import java.nio.charset.StandardCharsets;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.core.mapper.CoreMapper;
@@ -70,29 +75,48 @@ public class DiscussController {
         rttr.addFlashAttribute("msg", "게시글이 성공적으로 등록되었습니다.");
         return "redirect:/discuss_list";
     }
-
-    /**
-     * 4) 토론방 상세 보기 (discuss_room.jsp)
-     *    - 게시글 + 댓글 목록을 한 번에 모델에 담아서 반환
-     */
+    //게시글 리스트 + ai 요약
     @GetMapping("/discuss_room")
     public String showDiscussionRoom(
             @RequestParam("id") int discussionId,
             Model model) {
 
+        // 1. 게시글 조회
         Discussion_postVO post = mapper.selectPostById(discussionId);
         if (post == null) {
             return "redirect:/discuss_list";
         }
         model.addAttribute("post", post);
 
-        // 댓글 목록 조회
+        // 2. 댓글 목록 조회
         List<Discussion_commentVO> comments =
             mapper.selectCommentsByDiscussionId(discussionId);
         model.addAttribute("comments", comments);
 
+        // 3. FastAPI를 통한 GPT 요약 요청
+        try {
+            String apiUrl = "http://192.168.219.72:8001/summary/" + discussionId;
+
+            RestTemplate restTemplate = new RestTemplate();
+            restTemplate.getMessageConverters().add(0,
+                new org.springframework.http.converter.StringHttpMessageConverter(java.nio.charset.StandardCharsets.UTF_8));
+
+            String result = restTemplate.getForObject(apiUrl, String.class);
+            System.out.println("🔥 FastAPI 응답 내용:\n" + result);
+
+            // JSON에서 요약만 추출
+            String summary = result.replaceAll("^.*\"overall_summary\"\\s*:\\s*\"|\"\\s*\\}\\s*$", "");
+            model.addAttribute("aiSummary", summary);
+        } catch (Exception e) {
+            System.out.println("❌ FastAPI 요청 중 에러 발생:");
+            e.printStackTrace();
+            model.addAttribute("aiSummary", "요약 실패: " + e.getMessage());
+        }
+
+        // 4. 최종 JSP로 이동
         return "discuss_room";
     }
+
 
     /** 5) 댓글 쓰기 */
     @PostMapping("/discuss_room/comment")
@@ -112,11 +136,11 @@ public class DiscussController {
         c.setUserId(user.getId());
         c.setOpinionType(opinionType);       // "T" or "F"
         c.setContent(content);
-        // CREATED_AT은 DB DEFAULT가 SYSDATE/SYSTIMESTAMP 이므로 생략 가능하지만,
-        // 명시하려면 아래와 같이 설정해도 됩니다.
         c.setCreatedAt(Timestamp.valueOf(LocalDateTime.now()));
 
         mapper.insertDiscussionComment(c);
         return "redirect:/discuss_room?id=" + discussionId;
     }
+    
+
 }

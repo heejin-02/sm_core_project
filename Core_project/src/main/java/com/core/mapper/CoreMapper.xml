@@ -227,6 +227,7 @@
      ORDER BY CREATED_AT ASC
   </select>
 
+ <!-- 댓글 쓰기 -->
  <insert id="insertDiscussionComment"
           parameterType="com.core.model.Discussion_commentVO">
     INSERT INTO DISCUSSION_COMMENT (

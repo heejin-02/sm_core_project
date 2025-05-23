@@ -37,8 +37,8 @@
 					
 					<!-- 토론 내용 -->
 					<tr>
-						<td class="post_title">
-							<span class="input_title">제안 내용</span>
+						<td class="post_title title_top">
+							<span class="input_title">토론 내용</span>
 						</td>
 						<td class="post_input">
 							<textarea name="discuss_body" placeholder="토론 내용을 입력해주세요."></textarea>

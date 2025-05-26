@@ -90,6 +90,12 @@
   <delete id="deleteProposalById" parameterType="int">
        DELETE FROM PROPOSAL WHERE PRPSL_NO = #{id}
   </delete>
+  
+  <!-- 토론방 삭제 -->
+  <delete id="deleteDiscussionPostById" parameterType="int">
+    DELETE FROM discussion_post WHERE discussion_id = #{discussionId}
+ </delete>
+  
 
   <!-- 4. 정책 제안 -->
   <insert id="insertProposal"

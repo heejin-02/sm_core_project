@@ -89,4 +89,16 @@ public interface CoreMapper {
         @Param("offset")   int offset,
         @Param("limit")    int limit
     );
+    
+    /**  토론 키워드/카테고리 검색  */
+    List<Discussion_postVO> searchDiscussPosts(Map<String, Object> params);
+
+    /**  토론 요약 가져오기  */
+    Discussion_summaryVO selectSummaryByDiscussionId(@Param("discussionId") int discussionId);
+
+    /**  댓글 작성자 조회  */
+    String selectCommentWriter(@Param("commentId") int commentId);
+
+    /**  댓글 삭제  */
+    int deleteComment(@Param("commentId") int commentId);
 }

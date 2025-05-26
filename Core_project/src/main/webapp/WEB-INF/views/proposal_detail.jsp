@@ -32,7 +32,7 @@
         <span>|</span>
         <span>
           <span class="title_banner_info_title">제안자  </span>
-          ${proposal.ID}
+          ${proposal.NICK}
         </span>
         <span>|</span>
         <span>

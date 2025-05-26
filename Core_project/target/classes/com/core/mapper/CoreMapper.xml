@@ -19,6 +19,7 @@
     <result property="RESULT_CONTENT"   column="RESULT_CONTENT"/>
     <result property="AGREE_CNT"        column="AGREE_CNT"/>
     <result property="DISAG_CNT"        column="DISAG_CNT"/>
+    <result property="NICK" 			column="NICK"/>
   </resultMap>
 
   <!-- 2. AI 분석 결과 매핑 -->
@@ -43,6 +44,7 @@
           javaType="java.sql.Timestamp"/> 
   <result property="commentCount" column="COMMENT_COUNT"/>
   <result property="category" column="CATEGORY"/> 
+  <result property="nick" column="NICK" />
 </resultMap>
 
 <resultMap id="DiscussionCommentResult" type="com.core.model.Discussion_commentVO">
@@ -114,14 +116,26 @@
   </insert>
 
   <select id="selectAllProposals" resultMap="ProposalResult">
-    SELECT * FROM PROPOSAL ORDER BY PRPSL_DT DESC
-  </select>
+  SELECT 
+    P.*,
+    U.NICK
+  FROM PROPOSAL P
+  LEFT JOIN USERINFO U
+    ON P.ID = U.ID
+  ORDER BY P.PRPSL_DT DESC
+</select>
 
   <select id="selectProposalById"
-          parameterType="int"
-          resultMap="ProposalResult">
-    SELECT * FROM PROPOSAL WHERE PRPSL_NO = #{id}
-  </select>
+        parameterType="int"
+        resultMap="ProposalResult">
+  SELECT 
+    p.*,
+    u.nick
+  FROM PROPOSAL p
+  LEFT JOIN USERINFO u ON p.ID = u.ID  <!-- 실제 컬럼명에 맞게 수정 필요 -->
+  WHERE p.PRPSL_NO = #{id}
+</select>
+
 
   <select id="selectByCategory"
           parameterType="string"
@@ -265,12 +279,21 @@
 
   <!-- 단일 조회 -->
   <select id="selectPostById"
-          parameterType="int"
-          resultMap="DiscussionPostResult">
-    SELECT DISCUSSION_ID, TITLE, CONTENT, AUTHOR_ID, CREATED_AT, CATEGORY
-      FROM DISCUSSION_POST
-     WHERE DISCUSSION_ID = #{id}
-  </select>
+        parameterType="int"
+        resultMap="DiscussionPostResult">
+  SELECT 
+    dp.DISCUSSION_ID, 
+    dp.TITLE, 
+    dp.CONTENT, 
+    dp.AUTHOR_ID, 
+    dp.CREATED_AT, 
+    dp.CATEGORY,
+    ui.nick
+  FROM DISCUSSION_POST dp
+  LEFT JOIN USERINFO ui ON dp.AUTHOR_ID = ui.ID
+  WHERE dp.DISCUSSION_ID = #{id}
+</select>
+
   
   <!-- 토론 게시글 카테고리 조회 -->
   <select id="selectByDiscussCategory" 
@@ -335,30 +358,36 @@
 
   <!-- 전체 페이징 조회 -->
   <select id="selectProposalsPage" resultMap="ProposalResult">
-    SELECT *
-    FROM (
-      SELECT 
-        p.*,
-        ROW_NUMBER() OVER (ORDER BY PRPSL_DT DESC) AS rn
-      FROM PROPOSAL p
-    )
-   WHERE rn &gt; #{offset}
-     AND rn &lt;= #{offset} + #{limit}
-  </select>
+  SELECT *
+  FROM (
+    SELECT 
+      p.*,
+      u.nick,
+      ROW_NUMBER() OVER (ORDER BY p.PRPSL_DT DESC) AS rn
+    FROM PROPOSAL p
+    LEFT JOIN USERINFO u ON p.ID = u.ID
+  )
+  WHERE rn &gt; #{offset}
+    AND rn &lt;= #{offset} + #{limit}
+</select>
+
 
   <!-- 카테고리별 페이징 조회 -->
   <select id="selectProposalsByCategoryPage" parameterType="map" resultMap="ProposalResult">
-    SELECT *
-    FROM (
-      SELECT 
-        p.*,
-        ROW_NUMBER() OVER (ORDER BY PRPSL_DT DESC) AS rn
-      FROM PROPOSAL p
-      WHERE p.CATEGORY = #{category}
-    )
-   WHERE rn &gt; #{offset}
-     AND rn &lt;= #{offset} + #{limit}
-  </select>
+  SELECT *
+  FROM (
+    SELECT 
+      p.*,
+      u.nick,
+      ROW_NUMBER() OVER (ORDER BY p.PRPSL_DT DESC) AS rn
+    FROM PROPOSAL p
+    LEFT JOIN USERINFO u ON p.ID = u.ID
+    WHERE p.CATEGORY = #{category}
+  )
+  WHERE rn &gt; #{offset}
+    AND rn &lt;= #{offset} + #{limit}
+</select>
+
   
   <!-- 전체 건수 (필터링된) -->
 <select id="countDiscussPosts" parameterType="map" resultType="int">

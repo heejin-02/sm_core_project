@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 public class ProposalVO {
    private int PRPSL_NO;
    private String ID;
+   private String NICK;
    private String CATEGORY = "";
    private String TITLE;
    private String CONTENT;

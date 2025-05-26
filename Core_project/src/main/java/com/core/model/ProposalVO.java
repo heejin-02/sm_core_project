@@ -2,6 +2,7 @@ package com.core.model;
 
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,8 +24,9 @@ public class ProposalVO {
    private String RESULT_CONTENT; // 제안 배경 및 현황 저장 용도
    private int AGREE_CNT;
    private int DISAG_CNT;
-   public java.util.Date getPrpslDtAsDate() {
-        return java.util.Date
-             .from(PRPSL_DT.atZone(java.time.ZoneId.systemDefault()).toInstant());
-    }
+   public String getPrpslDtAsDate() {
+       return PRPSL_DT.format(
+           DateTimeFormatter.ofPattern("yyyy.MM.dd")
+       );
+   }
 }

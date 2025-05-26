@@ -270,26 +270,6 @@ public class coreController {
         return "redirect:/proposal_list";
     }
 
-	// 정책 제안 목록 띄우기 메서드(proposal_list)
-	@GetMapping("/proposal_list")
-	public String showProposalList(
-			@RequestParam(value = "category", required = false, defaultValue = "전체") String category, Model model) {
-		// 카테고리 탭 데이터
-		List<String> categories = Arrays.asList("전체", "학교생활", "지역사회", "문화생활", "사회문제");
-		model.addAttribute("categories", categories);
-		model.addAttribute("selectedCategory", category);
-
-		// 제안 목록 조회
-		List<ProposalVO> proposals;
-		if ("전체".equals(category)) {
-			proposals = mapper.selectAllProposals();
-		} else {
-			proposals = mapper.selectByCategory(category);
-		}
-		model.addAttribute("proposals", proposals);
-
-		return "proposal_list";
-	}
 
 	@GetMapping("/proposal_detail")
 	public String showProposalDetail(@RequestParam("id") int id, Model model) {
@@ -399,6 +379,51 @@ public class coreController {
         
 		return "similar_search_detail";
 	}
+	// 클래스 맨 위에
+	private static final int PAGE_SIZE = 6;
 
+	// /proposal_list 핸들러 전체 교체
+	@GetMapping("/proposal_list")
+	public String showProposalList(
+	    @RequestParam(value = "category", required = false, defaultValue = "전체") String category,
+	    Model model) {
+
+	    // 탭
+	    List<String> categories = Arrays.asList("전체", "학교생활", "지역사회", "문화생활", "사회문제");
+	    model.addAttribute("categories", categories);
+	    model.addAttribute("selectedCategory", category);
+
+	    // 전체 건수 & 첫 페이지(0~5) 데이터
+	    int totalCount;
+	    List<ProposalVO> proposals;
+	    if ("전체".equals(category)) {
+	        totalCount = mapper.countAllProposals();
+	        proposals = mapper.selectProposalsPage(0, PAGE_SIZE);
+	    } else {
+	        totalCount = mapper.countProposalsByCategory(category);
+	        proposals = mapper.selectProposalsByCategoryPage(category, 0, PAGE_SIZE);
+	    }
+	    model.addAttribute("totalCount", totalCount);
+	    model.addAttribute("pageSize", PAGE_SIZE);
+	    model.addAttribute("proposals", proposals);
+
+	    return "proposal_list";
+	}
+
+	// AJAX용 loadMore 핸들러
+	@GetMapping("/proposal_list/loadMore")
+	@ResponseBody
+	public ResponseEntity<List<ProposalVO>> loadMore(
+	    @RequestParam("category") String category,
+	    @RequestParam("offset")   int offset) {
+
+	    List<ProposalVO> more;
+	    if ("전체".equals(category)) {
+	        more = mapper.selectProposalsPage(offset, PAGE_SIZE);
+	    } else {
+	        more = mapper.selectProposalsByCategoryPage(category, offset, PAGE_SIZE);
+	    }
+	    return new ResponseEntity<>(more, HttpStatus.OK);
+	}
 
 }

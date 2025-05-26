@@ -243,4 +243,41 @@
     )
   </insert>
   
+  <!-- 페이징용 전체 건수 -->
+<select id="countAllProposals" resultType="int">
+  SELECT COUNT(*) FROM PROPOSAL
+</select>
+
+<!-- 페이징용 카테고리 건수 -->
+<select id="countProposalsByCategory" parameterType="string" resultType="int">
+  SELECT COUNT(*) FROM PROPOSAL WHERE CATEGORY = #{category}
+</select>
+
+  <!-- 전체 페이징 조회 -->
+  <select id="selectProposalsPage" resultMap="ProposalResult">
+    SELECT *
+    FROM (
+      SELECT 
+        p.*,
+        ROW_NUMBER() OVER (ORDER BY PRPSL_DT DESC) AS rn
+      FROM PROPOSAL p
+    )
+   WHERE rn &gt; #{offset}
+     AND rn &lt;= #{offset} + #{limit}
+  </select>
+
+  <!-- 카테고리별 페이징 조회 -->
+  <select id="selectProposalsByCategoryPage" parameterType="map" resultMap="ProposalResult">
+    SELECT *
+    FROM (
+      SELECT 
+        p.*,
+        ROW_NUMBER() OVER (ORDER BY PRPSL_DT DESC) AS rn
+      FROM PROPOSAL p
+      WHERE p.CATEGORY = #{category}
+    )
+   WHERE rn &gt; #{offset}
+     AND rn &lt;= #{offset} + #{limit}
+  </select>
+  
 </mapper>

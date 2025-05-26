@@ -68,4 +68,23 @@ public interface CoreMapper {
 
     // 댓글 쓰기
     void insertDiscussionComment(Discussion_commentVO comment);
+    
+    // 페이징용 전체 카운트
+    int countAllProposals();
+
+    // 페이징용 카테고리별 카운트
+    int countProposalsByCategory(@Param("category") String category);
+
+    // 전체 페이징 조회
+    List<ProposalVO> selectProposalsPage(
+        @Param("offset") int offset,
+        @Param("limit")  int limit
+    );
+
+    // 카테고리별 페이징 조회
+    List<ProposalVO> selectProposalsByCategoryPage(
+        @Param("category") String category,
+        @Param("offset")   int offset,
+        @Param("limit")    int limit
+    );
 }

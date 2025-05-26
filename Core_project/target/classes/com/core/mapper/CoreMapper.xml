@@ -351,4 +351,42 @@
      AND rn &lt;= #{offset} + #{limit}
   </select>
   
+  <!-- 전체 건수 (필터링된) -->
+<select id="countDiscussPosts" parameterType="map" resultType="int">
+  SELECT COUNT(*) FROM DISCUSSION_POST p
+  <where>
+    <if test="category != null and category != ''">
+      p.CATEGORY = #{category}
+    </if>
+    <if test="keyword != null and keyword != ''">
+      <if test="category != null and category != ''">AND</if>
+      (p.TITLE   LIKE '%'||#{keyword}||'%'
+       OR p.CONTENT LIKE '%'||#{keyword}||'%')
+    </if>
+  </where>
+</select>
+
+<!-- offset/limit 페이징 조회 -->
+<select id="selectDiscussPostsPage" parameterType="map" resultMap="DiscussionPostResult">
+  SELECT *
+  FROM (
+    SELECT
+      p.*,
+      ROW_NUMBER() OVER (ORDER BY p.CREATED_AT DESC) AS rn
+    FROM DISCUSSION_POST p
+    <where>
+      <if test="category != null and category != ''">
+        p.CATEGORY = #{category}
+      </if>
+      <if test="keyword != null and keyword != ''">
+        <if test="category != null and category != ''">AND</if>
+        (p.TITLE   LIKE '%'||#{keyword}||'%'
+         OR p.CONTENT LIKE '%'||#{keyword}||'%')
+      </if>
+    </where>
+  )
+  WHERE rn &gt; #{offset}
+    AND rn &lt;= #{offset} + #{limit}
+</select>
+  
 </mapper>

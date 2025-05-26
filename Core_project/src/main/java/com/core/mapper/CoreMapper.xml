@@ -39,6 +39,7 @@
   <result property="title"        column="TITLE"/>
   <result property="content"      column="CONTENT"/>
   <result property="authorId"     column="AUTHOR_ID"/>
+  <result property="nick"		  column="NICK"/>
   <result property="createdAt"    column="CREATED_AT"
           jdbcType="TIMESTAMP"
           javaType="java.sql.Timestamp"/> 
@@ -184,20 +185,23 @@
   </update>
 
   <!-- 전체 조회 -->
-  <select id="selectAllPosts" resultMap="DiscussionPostResult">
-    SELECT 
-        p.DISCUSSION_ID, 
-        p.TITLE, 
-        p.CONTENT, 
-        p.AUTHOR_ID, 
-        p.CREATED_AT,
-        (SELECT COUNT(*) 
-         FROM DISCUSSION_COMMENT c 
-         WHERE c.DISCUSSION_ID = p.DISCUSSION_ID) AS COMMENT_COUNT,
-        p.CATEGORY
-    FROM DISCUSSION_POST p
-    ORDER BY p.CREATED_AT DESC
-  </select>
+<select id="selectAllPosts" resultMap="DiscussionPostResult">
+  SELECT 
+      p.DISCUSSION_ID, 
+      p.TITLE, 
+      p.CONTENT, 
+      p.AUTHOR_ID, 
+      u.NICK AS NICK,           
+      p.CREATED_AT,
+      (SELECT COUNT(*) 
+       FROM DISCUSSION_COMMENT c 
+       WHERE c.DISCUSSION_ID = p.DISCUSSION_ID) AS COMMENT_COUNT,
+      p.CATEGORY
+  FROM DISCUSSION_POST p
+  JOIN USERINFO u ON p.AUTHOR_ID = u.ID
+  ORDER BY p.CREATED_AT DESC
+</select>
+
 
   <!-- 제목 검색 -->
   <select id="searchPostsByTitle"
@@ -227,10 +231,12 @@
       p.TITLE,
       p.CONTENT,
       p.AUTHOR_ID,
+      u.NICK AS NICK,  <!-- 닉네임 포함 -->
       p.CREATED_AT,
       (SELECT COUNT(*) FROM DISCUSSION_COMMENT c WHERE c.DISCUSSION_ID = p.DISCUSSION_ID) AS COMMENT_COUNT,
       p.CATEGORY
     FROM DISCUSSION_POST p
+    JOIN USERINFO u ON p.AUTHOR_ID = u.ID
     <where>
       <if test="category != null and category != ''">
         p.CATEGORY = #{category}

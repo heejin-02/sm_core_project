@@ -72,6 +72,9 @@ public class DiscussController {
     public String showCreateForm(HttpSession session, Model model) {
         UserinfoVO user = (UserinfoVO) session.getAttribute("mvo");
         if (user == null) {
+            // 로그인 페이지로 보낼 때 원래 요청을 저장
+            String original = "/discuss_post";
+            session.setAttribute("redirectAfterLogin", original);
             return "redirect:/login";
         }
         model.addAttribute("post", new Discussion_postVO());

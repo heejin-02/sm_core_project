@@ -225,7 +225,7 @@
     margin-bottom: 2px;
 }
 
-.comment_box_metadata span:nth-child(2) {
+.comment_box_metadata span:nth-child(even) {
     font-size: 10px;
     color: #9a9a9a;
 }
@@ -234,8 +234,11 @@
   display: none;
 }
 
-.comment_box_footer {
-    width: 100%;
-    margin-top: 10px;
-    background-color: red;
+.comment_delete {
+    color: #3E3E3E;
+    text-decoration: underline;
+}
+
+.comment_delete:hover {
+    font-weight: 600;
 }

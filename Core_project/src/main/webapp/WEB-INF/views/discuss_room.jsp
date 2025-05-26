@@ -107,7 +107,7 @@
 			
 			        <c:if test="${not empty sessionScope.mvo && cmt.userId == sessionScope.mvo.id}">
 			          <span>|</span>
-			          <a href="${pageContext.request.contextPath}/discuss_room/delete_comment?id=${cmt.commentId}&discussionId=${post.discussionId}"
+			          <a class="comment_delete" href="${pageContext.request.contextPath}/discuss_room/delete_comment?id=${cmt.commentId}&discussionId=${post.discussionId}"
 			             onclick="return confirm('정말 삭제하시겠습니까?')">삭제</a>
 			        </c:if>
 			      </div>
@@ -135,16 +135,15 @@
 			        <span class="comment_box_date">
 			          <fmt:formatDate value="${cmt.createdAt}" pattern="yyyy.MM.dd HH:mm"/>
 			        </span>
+              <c:if test="${not empty sessionScope.mvo && cmt.userId == sessionScope.mvo.id}">
+              		<span>|</span>
+                  <a class="comment_delete" href="${pageContext.request.contextPath}/discuss_room/delete_comment?id=${cmt.commentId}&discussionId=${post.discussionId}"
+                      onclick="return confirm('정말 삭제하시겠습니까?')">삭제</a>
+	            </c:if>
 			      </div>
 			
 			      <p class="comment_box_body">${cmt.content}</p>
 
-	            <c:if test="${not empty sessionScope.mvo && cmt.userId == sessionScope.mvo.id}">
-	                <div class="comment_box_footer">
-	                  <a class="comment_delete" href="${pageContext.request.contextPath}/discuss_room/delete_comment?id=${cmt.commentId}&discussionId=${post.discussionId}"
-	                      onclick="return confirm('정말 삭제하시겠습니까?')">삭제</a>
-	                </div>
-	            </c:if>
 			    </div>
 			  </c:if>
 			</c:forEach>

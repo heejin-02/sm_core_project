@@ -10,7 +10,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>${post.title}</title>
+  <title>청정기, 청소년정책제안소</title>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/share.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/discuss_room.css">
 </head>

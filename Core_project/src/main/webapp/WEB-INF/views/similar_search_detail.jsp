@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>청정기</title>
+<title>청정기, 청소년정책제안소</title>
 <link rel="stylesheet" href="resources/assets/css/share.css"/>
 <link rel="stylesheet" href="resources/assets/css/similar_search_detail.css"/>
 </head>

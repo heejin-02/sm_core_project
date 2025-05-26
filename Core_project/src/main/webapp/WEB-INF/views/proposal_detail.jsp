@@ -7,7 +7,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>제안 상세</title>
+  <title>청정기, 청소년정책제안소</title>
   <link rel="stylesheet" href="resources/assets/css/share.css"/>
   <link rel="stylesheet" href="resources/assets/css/proposal_detail.css"/>
 </head>

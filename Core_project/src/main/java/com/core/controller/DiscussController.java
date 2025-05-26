@@ -150,7 +150,7 @@ public class DiscussController {
 
         // 2. FastAPI에 요약 갱신 요청
         try {
-            String url = "http://localhost:8001/summary/update/" + discussionId;
+            String url = "http://192.168.219.72:8001/summary/update/" + discussionId;
             java.net.URL requestUrl = new java.net.URL(url);
             java.net.HttpURLConnection conn = (java.net.HttpURLConnection) requestUrl.openConnection();
 
@@ -200,7 +200,7 @@ public class DiscussController {
 
         // ✅ FastAPI에 요약 갱신 요청
         try {
-            String url = "http://localhost:8001/summary/update/" + discussionId;
+            String url = "http://192.168.219.72:8001/summary/update/" + discussionId;
             URL requestUrl = new URL(url);
             HttpURLConnection conn = (HttpURLConnection) requestUrl.openConnection();
             conn.setRequestMethod("GET");

@@ -88,7 +88,9 @@
                 </p>
                 <p class="discuss_box_content_title">${post.title}</p>
                 <p class="discuss_box_content_AItitle">AI 토론 요약</p>
-                <p class="discuss_box_content_AI">${room.droom_info}</p>
+
+                <p class="discuss_box_content_AI">${post.summary}</p>
+
               </div>
 
               <div class="discuss_box_footer">

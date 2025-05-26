@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Param;
 import com.core.model.Ai_analysisVO;
 import com.core.model.Discussion_commentVO;
 import com.core.model.Discussion_postVO;
+import com.core.model.Discussion_summaryVO;
 import com.core.model.ProposalVO;
 import com.core.model.ProposalVoteVO;
 import com.core.model.UserinfoVO;
@@ -69,6 +70,9 @@ public interface CoreMapper {
 
     // 댓글 쓰기
     void insertDiscussionComment(Discussion_commentVO comment);
+
+	public Discussion_summaryVO selectSummaryByDiscussionId(int discussionId);
+
     
     // 찬/반 토론 댓글 삭제
     String selectCommentWriter(int id);  // 댓글 작성자 가져오기
@@ -76,4 +80,5 @@ public interface CoreMapper {
 
     // 카테고리별 토론 게시글 목록 조회
     List<Discussion_postVO> searchDiscussPosts(Map<String, Object> params);
+
 }

@@ -24,7 +24,7 @@
     
     <!-- 타이틀 배너 -->
     <div class="title_banner">
-      <p class="title_banner_category">카테고리 수정 필요</p>
+      <p class="title_banner_category">${post.category}</p>
       <p class="title_banner_title">${post.title}</p>
       <div class="title_banner_info">
         <span><span class="title_banner_info_title">게시일  </span><fmt:formatDate value="${post.createdAt}" pattern="yyyy.MM.dd"/></span>
@@ -95,20 +95,27 @@
             <span>찬성</span>
           </div>
           <div class="comment_agreement scroll_container">
-            <c:forEach var="cmt" items="${comments}">
-              <c:if test="${cmt.opinionType=='T'}">
-                <div class="comment_box">
-                  <div class="comment_box_metadata">
-                    <span class="comment_box_writer">${cmt.userId}</span>
-                    <span>|</span>
-                    <span class="comment_box_date">
-                      <fmt:formatDate value="${cmt.createdAt}" pattern="yyyy.MM.dd HH:mm"/>
-                    </span>
-                  </div>
-                  <p class="comment_box_body">${cmt.content}</p>
-                </div>
-              </c:if>
-            </c:forEach>
+           <c:forEach var="cmt" items="${comments}">
+			  <c:if test="${cmt.opinionType=='T'}">
+			    <div class="comment_box">
+			      <div class="comment_box_metadata">
+			        <span class="comment_box_writer">${cmt.userId}</span>
+			        <span>|</span>
+			        <span class="comment_box_date">
+			          <fmt:formatDate value="${cmt.createdAt}" pattern="yyyy.MM.dd HH:mm"/>
+			        </span>
+			
+			        <c:if test="${not empty sessionScope.mvo && cmt.userId == sessionScope.mvo.id}">
+			          <span>|</span>
+			          <a href="${pageContext.request.contextPath}/discuss_room/delete_comment?id=${cmt.commentId}&discussionId=${post.discussionId}"
+			             onclick="return confirm('정말 삭제하시겠습니까?')">삭제</a>
+			        </c:if>
+			      </div>
+
+      <p class="comment_box_body">${cmt.content}</p>
+    </div>
+  </c:if>
+</c:forEach>
           </div>
 
         </div>
@@ -119,20 +126,29 @@
             <span>반대</span>
           </div>
           <div class="comment_opposition scroll_container">
-            <c:forEach var="cmt" items="${comments}">
-              <c:if test="${cmt.opinionType=='F'}">
-                <div class="comment_box">
-                  <div class="comment_box_metadata">
-                    <span class="comment_box_writer">${cmt.userId}</span>
-                    <span>|</span>
-                    <span class="comment_box_date">
-                      <fmt:formatDate value="${cmt.createdAt}" pattern="yyyy.MM.dd HH:mm"/>
-                    </span>
-                  </div>
-                  <p class="comment_box_body">${cmt.content}</p>
-                </div>
-              </c:if>
-            </c:forEach>
+           <c:forEach var="cmt" items="${comments}">
+			  <c:if test="${cmt.opinionType=='F'}">
+			    <div class="comment_box">
+			      <div class="comment_box_metadata">
+			        <span class="comment_box_writer">${cmt.userId}</span>
+			        <span>|</span>
+			        <span class="comment_box_date">
+			          <fmt:formatDate value="${cmt.createdAt}" pattern="yyyy.MM.dd HH:mm"/>
+			        </span>
+			      </div>
+			
+			      <p class="comment_box_body">${cmt.content}</p>
+
+	            <c:if test="${not empty sessionScope.mvo && cmt.userId == sessionScope.mvo.id}">
+	                <div class="comment_box_footer">
+	                  <a class="comment_delete" href="${pageContext.request.contextPath}/discuss_room/delete_comment?id=${cmt.commentId}&discussionId=${post.discussionId}"
+	                      onclick="return confirm('정말 삭제하시겠습니까?')">삭제</a>
+	                </div>
+	            </c:if>
+			    </div>
+			  </c:if>
+			</c:forEach>
+
           </div>
         </div>
       </c:if>

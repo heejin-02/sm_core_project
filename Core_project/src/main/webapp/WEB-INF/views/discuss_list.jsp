@@ -35,18 +35,20 @@
         <form action="${pageContext.request.contextPath}/discuss_list" method="get" style="display:flex; gap:10px; align-items:center;">
           <!-- 2) 전체 카테고리 셀렉트 -->
           <select name="category" class="search_category">
-            <option value="">전체 카테고리</option>
-            <option value="학교생활" ${
-                param.category=='학교생활' ? 'selected':'' }>학교생활</option>
-            <option value="지역사회" ${
-                param.category=='지역사회' ? 'selected':'' }>지역사회</option>
-            <option value="문화생활" ${
-                param.category=='문화생활' ? 'selected':'' }>문화생활</option>
-            <option value="사회문제" ${
-                param.category=='사회문제' ? 'selected':'' }>사회문제</option>
+    		<option value="">전체 카테고리</option>
+    		<option value="학교생활" ${
+    			param.category == '학교생활' ? 'selected' : ''}>학교생활</option>
+    		<option value="지역사회" ${
+    			param.category == '지역사회' ? 'selected' : ''}>지역사회</option>
+    		<option value="문화생활" ${
+    			param.category == '문화생활' ? 'selected' : ''}>문화생활</option>
+    		<option value="사회문제" ${
+    			param.category == '사회문제' ? 'selected' : ''}>사회문제</option>
+   			<option value="기타" ${
+   			param.category == '기타' ? 'selected' : ''}>기타</option>
+			</select>
             <!-- 필요하면 더 늘리세요 -->
-          </select>
-
+            
           <!-- 3) 키워드 입력창 -->
           <input
             type="text"
@@ -75,7 +77,7 @@
             <div class="discuss_box">
               <!-- 카테고리, 상태 -->
               <div class="discuss_box_header">
-                <p class="discuss_box_header_category">${room.droom_category}</p>
+                <p class="discuss_box_header_category">${post.category}</p>
               </div>
 
               <!-- 제목, 내용 -->
@@ -86,7 +88,9 @@
                 </p>
                 <p class="discuss_box_content_title">${post.title}</p>
                 <p class="discuss_box_content_AItitle">AI 토론 요약</p>
-                <p class="discuss_box_content_AI">${room.droom_info}</p>
+
+                <p class="discuss_box_content_AI">${post.summary}</p>
+
               </div>
 
               <div class="discuss_box_footer">

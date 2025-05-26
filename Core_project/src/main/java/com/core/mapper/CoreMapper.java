@@ -1,6 +1,7 @@
 package com.core.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -8,6 +9,7 @@ import org.apache.ibatis.annotations.Param;
 import com.core.model.Ai_analysisVO;
 import com.core.model.Discussion_commentVO;
 import com.core.model.Discussion_postVO;
+import com.core.model.Discussion_summaryVO;
 import com.core.model.ProposalVO;
 import com.core.model.ProposalVoteVO;
 import com.core.model.UserinfoVO;
@@ -63,7 +65,7 @@ public interface CoreMapper {
     // 단일 토론 게시글 조회
     Discussion_postVO selectPostById(@Param("id") int discussionId);
     
- // 댓글 조회
+    // 댓글 조회
     List<Discussion_commentVO> selectCommentsByDiscussionId(@Param("discussionId") int discussionId);
 
     // 댓글 쓰기

@@ -32,9 +32,7 @@ if (uri == null) {
 					제안소</a> <a href="/Core_project/discuss_list"
 					class="<%=uri.contains("/Core_project/discuss_list") ? "active" : ""%>">토론장</a>
 				<span>|</span>
-				<%
-				System.out.println("현재 uri: " + uri);
-				%>
+				
 				<c:if test="${empty sessionScope.midx}">
 					<a href="/Core_project/join"
 						class="<%=uri.contains("/Core_project/join") ? "active" : ""%>">

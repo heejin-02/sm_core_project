@@ -30,8 +30,15 @@
 	margin-top: 20px;
 }
 
-.search_box {
+.search_box_link {
 	width: calc(33.333% - 13.5px);
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.search_box {
+	width: 100%;
 	display: flex;
 	flex-direction: column;
 	box-sizing: border-box;
@@ -43,9 +50,8 @@
 }
 
 .search_box:hover {
-    box-shadow: 0 0 20px #4C9DF850;
-    border: 2px solid #4C9DF8;
-    scale: 1.02;
+    background-color: #ebf4ff;
+    border: 2px solid #0d396b;
 }
 
 .search_box_header {
@@ -115,8 +121,3 @@
 	margin-left: 5px;
 	padding-top: 2px;
 }
-
-
-
-
-

@@ -11,7 +11,13 @@
 </head>
 <body>
 	<footer>
-		<p>Team 공기청정기</p>
+		<div id="footer">
+			<img src="resources/images/logo_gray.png" alt="">
+			<div class="footer_content">
+				<p>이용약관 | 개인정보처리방침</p>
+				<p>© 2025 Team 공기청정기. All rights reserved.</p>
+			</div>
+		</div>
 	</footer>
 </body>
 </html>

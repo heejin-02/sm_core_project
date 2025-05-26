@@ -153,6 +153,58 @@ public class coreController {
 		session.invalidate(); // 세션 무효화
 		return "similar_search";
 	}
+	
+	@PostMapping("/edit_profile")
+	public String editProfile(UserinfoVO updatedUser, HttpSession session, RedirectAttributes rttr) {
+	    UserinfoVO user = (UserinfoVO) session.getAttribute("mvo");
+	    if (user == null) {
+	        return "redirect:/login";
+	    }
+
+	    updatedUser.setId(user.getId()); // 아이디는 세션값으로 고정
+
+	    // 비밀번호가 빈칸이면 기존 비밀번호 유지
+	    if (updatedUser.getPw() == null || updatedUser.getPw().isEmpty()) {
+	        updatedUser.setPw(user.getPw());
+	    }
+
+	    int result = mapper.updateUserInfo(updatedUser);
+	    if (result > 0) {
+	        session.setAttribute("mvo", updatedUser);
+	        session.setAttribute("nickname", updatedUser.getNick());
+	        rttr.addFlashAttribute("msg", "회원정보가 수정되었습니다.");
+	    } else {
+	        rttr.addFlashAttribute("msg", "회원정보 수정 실패");
+	    }
+	    return "redirect:/edit_profile";
+	}
+	
+	// 게시글 삭제
+	   @PostMapping("/proposal_delete")
+	   public String deleteProposal(@RequestParam("id") int proposalId, HttpSession session, RedirectAttributes rttr) {
+	       UserinfoVO user = (UserinfoVO) session.getAttribute("mvo");
+
+	       if (user == null) {
+	           rttr.addFlashAttribute("msg", "로그인이 필요합니다.");
+	           return "redirect:/login";
+	       }
+
+	       // 제안 작성자인지 확인
+	       ProposalVO proposal = mapper.selectProposalById(proposalId);
+	       if (proposal == null || !proposal.getID().equals(user.getId())) {
+	           rttr.addFlashAttribute("msg", "삭제 권한이 없습니다.");
+	           return "redirect:/proposal_list";
+	       }
+
+	       int result = mapper.deleteProposalById(proposalId);
+	       if (result > 0) {
+	           rttr.addFlashAttribute("msg", "제안이 삭제되었습니다.");
+	       } else {
+	           rttr.addFlashAttribute("msg", "제안 삭제 실패");
+	       }
+
+	       return "redirect:/proposal_list";
+	   }
 
 	// 회원탈퇴 메서드
 	@RequestMapping("/delete")
@@ -334,7 +386,19 @@ public class coreController {
 	public String discuss_post() {
 		return "discuss_post";
 	}
+	
+	// 정책 상세페이지
+	@RequestMapping("/similar_search_detail")
+	public String similar_search_detail(@RequestParam("name") String name, @RequestParam("title") String title, @RequestParam("category") String category, @RequestParam("similar") String similarity, @RequestParam("date") String date, @RequestParam("summary") String summary, Model model) {
+		model.addAttribute("name", name);
+        model.addAttribute("title", title);
+        model.addAttribute("category", category);
+        model.addAttribute("similar", similarity);
+        model.addAttribute("date", date);
+        model.addAttribute("summary", summary);
+        
+		return "similar_search_detail";
+	}
 
-	// 토론방 안 채팅 띄우기 메서드(discuss_room)
-	// (제일 나중에하기)
+
 }

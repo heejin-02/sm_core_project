@@ -77,8 +77,32 @@ public interface CoreMapper {
     // 찬/반 토론 댓글 삭제
     String selectCommentWriter(int id);  // 댓글 작성자 가져오기
     int deleteComment(int id);           // 댓글 삭제
+	// 토론방 삭제
+    int deleteDiscussionPostById(int discussionId);
+   
 
     // 카테고리별 토론 게시글 목록 조회
     List<Discussion_postVO> searchDiscussPosts(Map<String, Object> params);
+
+    
+    // 페이징용 전체 카운트
+    int countAllProposals();
+
+    // 페이징용 카테고리별 카운트
+    int countProposalsByCategory(@Param("category") String category);
+
+    // 전체 페이징 조회
+    List<ProposalVO> selectProposalsPage(
+        @Param("offset") int offset,
+        @Param("limit")  int limit
+    );
+
+    // 카테고리별 페이징 조회
+    List<ProposalVO> selectProposalsByCategoryPage(
+        @Param("category") String category,
+        @Param("offset")   int offset,
+        @Param("limit")    int limit
+    );
+    
 
 }

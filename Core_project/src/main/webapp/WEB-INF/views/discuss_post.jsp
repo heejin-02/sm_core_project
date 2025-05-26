@@ -47,6 +47,10 @@
 							<input type="radio" name="category" value="사회문제">
 							<span class="category_title">사회문제</span>
 						</div>
+						<div class="category">
+							<input type="radio" name="category" value="기타">
+							<span class="category_title">기타</span>
+						</div>
 					</td>
 				</tr>
 				

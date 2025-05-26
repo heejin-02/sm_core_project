@@ -14,5 +14,6 @@ public class Discussion_commentVO {
     private String     userId;         // USER_ID
     private String     opinionType;    // OPINION_TYPE ('T' / 'F')
     private String     content;        // CONTENT
+    private String		nick;			// NICK
     private Timestamp  createdAt;      // CREATED_AT  <-- java.sql.Timestamp으로 변경
 }

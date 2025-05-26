@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
@@ -17,21 +17,33 @@
     <%@ include file="header.jsp"%>
 
     <div class="sub_banner">
-			<p class="sub_banner_title">정책 아이디어 열람</p>
-		</div>
+      <p class="sub_banner_title">정책 아이디어 열람</p>
+    </div>
 
     <!-- 타이틀 배너 -->
     <div class="title_banner">
       <p class="title_banner_category">${proposal.CATEGORY}</p>
       <p class="title_banner_title">${proposal.TITLE}</p>
       <div class="title_banner_info">
-        <span><span class="title_banner_info_title">제안일  </span><fmt:formatDate value="${proposal.prpslDtAsDate}" pattern="yyyy.MM.dd"/></span>
+        <span>
+          <span class="title_banner_info_title">제안일  </span>
+          ${proposal.prpslDtAsDate}
+        </span>
         <span>|</span>
-        <span><span class="title_banner_info_title">제안자  </span>${proposal.ID}</span>
+        <span>
+          <span class="title_banner_info_title">제안자  </span>
+          ${proposal.NICK}
+        </span>
         <span>|</span>
-        <span><span class="title_banner_info_title">추천  </span>${proposal.AGREE_CNT}</span>
+        <span>
+          <span class="title_banner_info_title">추천  </span>
+          ${proposal.AGREE_CNT}
+        </span>
         <span>|</span>
-        <span><span class="title_banner_info_title">비추천  </span>${proposal.DISAG_CNT}</span>
+        <span>
+          <span class="title_banner_info_title">비추천  </span>
+          ${proposal.DISAG_CNT}
+        </span>
       </div>
     </div>
 
@@ -52,7 +64,7 @@
       </div>
     </div>
     
-    <!-- 👍👎 버튼 항상 보이게 -->
+     <!-- 👍👎 버튼 항상 보이게 -->
     <div class="updown_btn">
       <button class="up_btn" onclick="vote('${proposal.PRPSL_NO}', 'LIKE')">
         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#4C9DF8"><path d="M840-640q32 0 56 24t24 56v80q0 7-2 15t-4 15L794-168q-9 20-30 34t-44 14H280v-520l240-238q15-15 35.5-17.5T595-888q19 10 28 28t4 37l-45 183h258Zm-480 34v406h360l120-280v-80H480l54-220-174 174ZM160-120q-33 0-56.5-23.5T80-200v-360q0-33 23.5-56.5T160-640h120v80H160v360h120v80H160Zm200-80v-406 406Z"/></svg>
@@ -65,40 +77,40 @@
     </div>
     
     <!-- 게시글 삭제 -->
-   <c:if test="${sessionScope.midx == proposal.ID}">
-       <form action="proposal_delete" method="post" onsubmit="return confirm('정말 삭제하시겠습니까?');">
-           <input type="hidden" name="id" value="${proposal.PRPSL_NO}">
-           <button type="submit" class="basic_btn">삭제하기</button>
-       </form>
-   </c:if>
+    <c:if test="${sessionScope.midx == proposal.ID}">
+      <form action="proposal_delete" method="post" onsubmit="return confirm('정말 삭제하시겠습니까?');">
+        <input type="hidden" name="id" value="${proposal.PRPSL_NO}">
+        <button type="submit" class="basic_btn">삭제하기</button>
+      </form>
+    </c:if>
 
     <%@ include file="footer.jsp"%>
   </div>
 
   <script>
-  function vote(proposalId, voteType) {
-    fetch('${pageContext.request.contextPath}/proposal/vote?id=' + proposalId + '&voteType=' + voteType, {
-      method: 'POST'
-    })
-    .then(response => {
-      if (!response.ok) throw new Error("이미 투표했거나 비로그인 상태이거나 오류 발생");
-      return response.text();
-    })
-    .then(msg => {
-      if (voteType === 'LIKE') {
-        alert('좋아요를 눌렀습니다');
-      } else if (voteType === 'DISLIKE') {
-        alert('싫어요를 눌렀습니다');
-      } else {
-        alert(msg); // 예외 처리
-      }
-      location.reload();
-    })
-    .catch(err => {
-      alert(err.message);
-    });
-  }
-</script>
+    function vote(proposalId, voteType) {
+      fetch('${pageContext.request.contextPath}/proposal/vote?id=' + proposalId + '&voteType=' + voteType, {
+        method: 'POST'
+      })
+      .then(response => {
+        if (!response.ok) throw new Error("이미 투표했거나 비로그인 상태이거나 오류 발생");
+        return response.text();
+      })
+      .then(msg => {
+        if (voteType === 'LIKE') {
+          alert('좋아요를 눌렀습니다');
+        } else if (voteType === 'DISLIKE') {
+          alert('싫어요를 눌렀습니다');
+        } else {
+          alert(msg);
+        }
+        location.reload();
+      })
+      .catch(err => {
+        alert(err.message);
+      });
+    }
+  </script>
 
 </body>
 </html>

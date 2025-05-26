@@ -63,8 +63,9 @@
 						<td class="post_title title_top">
 							<span>제안 배경 및 현황</span>
 						</td>
-						<td class="post_input">
-							<textarea name="RESULT_CONTENT" placeholder="제안 배경 및 현황을 입력해주세요."></textarea>
+						<td class="post_input limint_input">
+							<textarea maxlength="1000" name="RESULT_CONTENT" placeholder="제안 배경 및 현황을 입력해주세요." id="background_content"></textarea>
+							<p class="text_limit_st" id="background_limit">0 / 1000 자</p>
 						</td>
 					</tr>
 					
@@ -73,8 +74,9 @@
 						<td class="post_title title_top">
 							<span>제안 내용</span>
 						</td>
-						<td class="post_input">
-							<textarea name="CONTENT" placeholder="제안 내용을 입력해주세요."></textarea>
+						<td class="post_input limint_input">
+							<textarea maxlength="1000" name="CONTENT" placeholder="제안 내용을 입력해주세요." id="main_content"></textarea>
+							<p class="text_limit_st" id="main_limit">0 / 1000 자</p>
 						</td>
 					</tr>
 					
@@ -83,8 +85,9 @@
 						<td class="post_title title_top">
 							<span>기대 효과</span>
 						</td>
-						<td class="post_input">
-							<textarea name="EXPECTATION_EFFECT" placeholder="기대효과를 입력해주세요."></textarea>
+						<td class="post_input limint_input">
+							<textarea maxlength="1000" name="EXPECTATION_EFFECT" placeholder="기대효과를 입력해주세요." id="effect_content"></textarea>
+							<p class="text_limit_st" id="effect_limit">0 / 1000 자</p>
 						</td>
 					</tr>
 				</table>
@@ -96,5 +99,54 @@
 		<%@ include file="footer.jsp" %>
 
 	</div>
+	
+	<script>
+		const background_limit = document.getElementById('background_limit');
+		const main_limit = document.getElementById('main_limit');
+		const effect_limit = document.getElementById('effect_limit');
+
+		const background_content = document.getElementById('background_content');
+		const main_content = document.getElementById('main_content');
+		const effect_content = document.getElementById('effect_content');
+
+		background_content.addEventListener('input', () => {
+			const currentLength = background_content.value.length;
+			console.log(currentLength);
+			
+			background_limit.textContent = currentLength +  ` / 1000 자`;
+
+			if(currentLength >= 1000) {
+				background_limit.style.color = 'red';
+			} else {
+				background_limit.style.color = '#3E3E3E';
+			}
+		})
+
+		main_content.addEventListener('input', () => {
+			const currentLength = main_content.value.length;
+			console.log(currentLength);
+			
+			main_limit.textContent = currentLength +  ` / 1000 자`;
+
+			if(currentLength >= 1000) {
+				main_limit.style.color = 'red';
+			} else {
+				main_limit.style.color = '#3E3E3E';
+			}
+		})
+
+		effect_content.addEventListener('input', () => {
+			const currentLength = effect_content.value.length;
+			console.log(currentLength);
+			
+			effect_limit.textContent = currentLength +  ` / 1000 자`;
+
+			if(currentLength >= 1000) {
+				effect_limit.style.color = 'red';
+			} else {
+				effect_limit.style.color = '#3E3E3E';
+			}
+		})
+	</script>
 </body>
 </html>

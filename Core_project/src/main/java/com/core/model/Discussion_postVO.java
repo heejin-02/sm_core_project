@@ -19,5 +19,7 @@ public class Discussion_postVO {
     private String summary;
 
     private String category = ""; // CATEGORY
+    
+    private String nick;
 
 }

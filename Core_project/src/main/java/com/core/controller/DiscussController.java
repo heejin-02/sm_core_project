@@ -3,7 +3,10 @@ package com.core.controller;
 import java.nio.charset.StandardCharsets;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,17 +39,20 @@ public class DiscussController {
     /** 1) 토론 목록 (discuss_list.jsp) */
     @GetMapping("/discuss_list")
     public String showDiscussionList(
-            @RequestParam(value = "keyword", required = false) String keyword,
-            Model model) {
+        @RequestParam(value = "category", required = false) String category,
+        @RequestParam(value = "keyword", required = false) String keyword,
+        Model model) {
 
-        List<Discussion_postVO> posts;
-        if (keyword != null && !keyword.trim().isEmpty()) {
-            posts = mapper.searchPostsByTitle(keyword);
-        } else {
-            posts = mapper.selectAllPosts();
-        }
+        Map<String, Object> params = new HashMap<>();
+        params.put("category", category);
+        params.put("keyword", keyword);
+
+        List<Discussion_postVO> posts = mapper.searchDiscussPosts(params);
+        model.addAttribute("posts", posts);
+        model.addAttribute("currentCategory", category);
+        model.addAttribute("keyword", keyword);
         
-     // ✅ 각 게시글에 AI 요약 붙이기
+        // ✅ 각 게시글에 AI 요약 붙이기
         for (Discussion_postVO post : posts) {
             Discussion_summaryVO summaryVO = mapper.selectSummaryByDiscussionId(post.getDiscussionId());
             if (summaryVO != null && summaryVO.getSummary() != null) {
@@ -56,8 +62,6 @@ public class DiscussController {
             }
         }
 
-        model.addAttribute("posts", posts);
-        model.addAttribute("keyword", keyword);
         return "discuss_list";
     }
 
@@ -172,5 +176,30 @@ public class DiscussController {
 
 
     
+	// 찬/반 댓글 삭제
+    @GetMapping("/discuss_room/delete_comment")
+    public String deleteComment(@RequestParam("id") int commentId,
+                                @RequestParam("discussionId") int discussionId,
+                                HttpSession session,
+                                RedirectAttributes rttr) {
+        UserinfoVO user = (UserinfoVO) session.getAttribute("mvo");
+
+        if (user == null) {
+            rttr.addFlashAttribute("msg", "로그인이 필요합니다.");
+            return "redirect:/login";
+        }
+
+        // 본인 댓글인지 확인
+        String writerId = mapper.selectCommentWriter(commentId);
+        if (!user.getId().equals(writerId)) {
+            rttr.addFlashAttribute("msg", "본인의 댓글만 삭제할 수 있습니다.");
+            return "redirect:/discuss_room?id=" + discussionId;  // 변경됨
+        }
+
+        mapper.deleteComment(commentId);
+        return "redirect:/discuss_room?id=" + discussionId;  // 변경됨
+    }
+
+
 
 }

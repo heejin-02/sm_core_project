@@ -233,3 +233,9 @@
 .scroll_container::-webkit-scrollbar {
   display: none;
 }
+
+.comment_box_footer {
+    width: 100%;
+    margin-top: 10px;
+    background-color: red;
+}

@@ -32,19 +32,19 @@
 					</td>
 					<td class="post_input">
 						<div class="category">
-							<input type="radio" name="CATEGORY" value="학교생활">
+							<input type="radio" name="category" value="학교생활">
 							<span class="category_title">학교생활</span>
 						</div>
 						<div class="category">
-							<input type="radio" name="CATEGORY" value="지역사회">
+							<input type="radio" name="category" value="지역사회">
 							<span class="category_title">지역사회</span>
 						</div>
 						<div class="category">
-							<input type="radio" name="CATEGORY" value="문화생활">
+							<input type="radio" name="category" value="문화생활">
 							<span class="category_title">문화생활</span>
 						</div>
 						<div class="category">
-							<input type="radio" name="CATEGORY" value="사회문제">
+							<input type="radio" name="category" value="사회문제">
 							<span class="category_title">사회문제</span>
 						</div>
 					</td>

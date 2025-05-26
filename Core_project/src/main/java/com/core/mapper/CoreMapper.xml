@@ -41,7 +41,8 @@
   <result property="createdAt"    column="CREATED_AT"
           jdbcType="TIMESTAMP"
           javaType="java.sql.Timestamp"/> 
-  <result property="commentCount" column="COMMENT_COUNT"/> 
+  <result property="commentCount" column="COMMENT_COUNT"/>
+  <result property="category" column="CATEGORY"/> 
 </resultMap>
 
 <resultMap id="DiscussionCommentResult" type="com.core.model.Discussion_commentVO">
@@ -171,7 +172,8 @@
         p.CREATED_AT,
         (SELECT COUNT(*) 
          FROM DISCUSSION_COMMENT c 
-         WHERE c.DISCUSSION_ID = p.DISCUSSION_ID) AS COMMENT_COUNT
+         WHERE c.DISCUSSION_ID = p.DISCUSSION_ID) AS COMMENT_COUNT,
+        p.CATEGORY
     FROM DISCUSSION_POST p
     ORDER BY p.CREATED_AT DESC
   </select>
@@ -188,30 +190,79 @@
         p.CREATED_AT,
         (SELECT COUNT(*) 
          FROM DISCUSSION_COMMENT c 
-         WHERE c.DISCUSSION_ID = p.DISCUSSION_ID) AS COMMENT_COUNT
+         WHERE c.DISCUSSION_ID = p.DISCUSSION_ID) AS COMMENT_COUNT,
+        p.CATEGORY
     FROM DISCUSSION_POST p
     WHERE p.TITLE LIKE '%' || #{keyword} || '%'
     ORDER BY p.CREATED_AT DESC
   </select>
-
+	
+	<!-- 키워드 필터링 검색 -->
+	<select id="searchDiscussPosts"
+			parameterType="map"
+			resultMap="DiscussionPostResult">
+    SELECT 
+        p.DISCUSSION_ID, 
+        p.TITLE, 
+        p.CONTENT, 
+        p.AUTHOR_ID, 
+        p.CREATED_AT,
+        (SELECT COUNT(*) 
+         FROM DISCUSSION_COMMENT c 
+         WHERE c.DISCUSSION_ID = p.DISCUSSION_ID) AS COMMENT_COUNT,
+        p.CATEGORY
+    FROM DISCUSSION_POST p
+    <where>
+        <!-- 카테고리 조건추가 -->
+        <if test="category != null and category != ''">
+            p.CATEGORY = #{category}
+        </if>
+        <!-- 제목+내용 동시에 검색 -->
+        <if test="keyword != null and keyword != ''">
+            <if test="category != null and category != ''">AND</if>
+            (p.TITLE LIKE '%'||#{keyword}||'%' OR p.CONTENT LIKE '%'||#{keyword}||'%')
+        </if>
+    </where>
+    ORDER BY p.CREATED_AT DESC
+</select>
+	
   <!-- 삽입 -->
   <insert id="insertDiscussionPost"
           parameterType="com.core.model.Discussion_postVO"
           useGeneratedKeys="true"
           keyProperty="discussionId"
           keyColumn="DISCUSSION_ID">
-    INSERT INTO DISCUSSION_POST (TITLE, CONTENT, AUTHOR_ID, CREATED_AT)
-    VALUES (#{title}, #{content}, #{authorId}, #{createdAt})
+    INSERT INTO DISCUSSION_POST (TITLE, CONTENT, AUTHOR_ID, CREATED_AT, CATEGORY)
+    VALUES (#{title}, #{content}, #{authorId}, #{createdAt}, #{category})
   </insert>
 
   <!-- 단일 조회 -->
   <select id="selectPostById"
           parameterType="int"
           resultMap="DiscussionPostResult">
-    SELECT DISCUSSION_ID, TITLE, CONTENT, AUTHOR_ID, CREATED_AT
+    SELECT DISCUSSION_ID, TITLE, CONTENT, AUTHOR_ID, CREATED_AT, CATEGORY
       FROM DISCUSSION_POST
      WHERE DISCUSSION_ID = #{id}
   </select>
+  
+  <!-- 토론 게시글 카테고리 조회 -->
+  <select id="selectByDiscussCategory" 
+        parameterType="String" 
+        resultMap="DiscussionPostResult">
+    SELECT 
+        p.DISCUSSION_ID, 
+        p.TITLE, 
+        p.CONTENT, 
+        p.AUTHOR_ID, 
+        p.CREATED_AT,
+        (SELECT COUNT(*) 
+         FROM DISCUSSION_COMMENT c 
+         WHERE c.DISCUSSION_ID = p.DISCUSSION_ID) AS COMMENT_COUNT,
+        p.CATEGORY
+    FROM DISCUSSION_POST p
+    WHERE p.CATEGORY = #{category}
+    ORDER BY p.CREATED_AT DESC
+</select>
   
   <select id="selectCommentsByDiscussionId"
           parameterType="int"
@@ -248,5 +299,15 @@
     FROM DISCUSSION_SUMMARY
     WHERE DISCUSSION_ID = #{discussionId}
 </select>
+
+  <!-- 찬/반 토론댓글 삭제 -->
+  <select id="selectCommentWriter" resultType="string">
+  SELECT USER_ID FROM DISCUSSION_COMMENT WHERE COMMENT_ID = #{id}
+</select>
+
+<delete id="deleteComment">
+  DELETE FROM DISCUSSION_COMMENT WHERE COMMENT_ID = #{id}
+</delete>
+
   
 </mapper>

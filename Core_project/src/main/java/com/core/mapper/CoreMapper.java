@@ -100,4 +100,6 @@ public interface CoreMapper {
         @Param("offset")   int offset,
         @Param("limit")    int limit
     );
+    
+
 }

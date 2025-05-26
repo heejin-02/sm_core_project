@@ -97,10 +97,11 @@
 
     <script>
     $(function(){
-      var offset      = '${pageSize}';               // 한 페이지 당 보여줄 개수
-      var totalCount  = '${totalCount}';             // 전체 제안 개수
+      var offset      = ${pageSize};               // 한 페이지 당 보여줄 개수
+      var totalCount  = ${totalCount};             // 전체 제안 개수
       var selectedCat = '${selectedCategory}';     // 현재 카테고리
       var ctx         = '${pageContext.request.contextPath}';
+      
 
       $('#load-more-btn').on('click', function(){
         $.ajax({

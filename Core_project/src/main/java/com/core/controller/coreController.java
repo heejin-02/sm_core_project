@@ -392,4 +392,69 @@ public class coreController {
 		return "similar_search_detail";
 	}
 	
+	// 정책 제안 게시글 수정
+	// 제안 수정 페이지
+	@GetMapping("/proposal/edit")
+	public String editProposalForm(@RequestParam("id") int proposalId, HttpSession session, Model model, RedirectAttributes rttr) {
+	    // 로그인 정보 가져오기
+	    UserinfoVO user = (UserinfoVO) session.getAttribute("mvo");
+
+	    if (user == null) {
+	        rttr.addFlashAttribute("msg", "로그인이 필요합니다.");
+	        return "redirect:/login";
+	    }
+
+	    // 제안 가져오기
+	    ProposalVO proposal = mapper.selectProposalById(proposalId);
+
+	    // 제안이 존재하지 않거나 작성자가 아니면 접근 제한
+	    if (proposal == null || !proposal.getID().equals(user.getId())) {
+	        rttr.addFlashAttribute("msg", "수정 권한이 없습니다.");
+	        return "redirect:/proposal_list";
+	    }
+
+	    // 수정할 제안을 모델에 추가
+	    model.addAttribute("proposal", proposal);
+	    
+	    // 수정 페이지로 이동
+	    return "proposal_edit"; // 수정 폼 JSP 파일 (예: proposal_edit.jsp)
+	}
+
+	// 제안 수정 처리
+	@PostMapping("/proposal/edit")
+	public String editProposal(@ModelAttribute ProposalVO proposal, HttpSession session, RedirectAttributes rttr) {
+	    // 로그인 정보 가져오기
+	    UserinfoVO user = (UserinfoVO) session.getAttribute("mvo");
+
+	    if (user == null) {
+	        rttr.addFlashAttribute("msg", "로그인이 필요합니다.");
+	        return "redirect:/login";
+	    }
+
+	    // 제안 가져오기
+	    ProposalVO originalProposal = mapper.selectProposalById(proposal.getPRPSL_NO());
+
+	    // 제안이 존재하지 않거나 작성자가 아니면 수정할 수 없음
+	    if (originalProposal == null || !originalProposal.getID().equals(user.getId())) {
+	        rttr.addFlashAttribute("msg", "수정 권한이 없습니다.");
+	        return "redirect:/proposal_list";
+	    }
+
+	    // 수정 처리
+	    int result = mapper.updateProposal(proposal);
+
+	    // 수정 결과에 따른 메시지 설정
+	    if (result > 0) {
+	        rttr.addFlashAttribute("msg", "제안이 수정되었습니다.");
+	    } else {
+	        rttr.addFlashAttribute("msg", "제안 수정 실패");
+	    }
+
+	    // 수정 후 제안 상세 페이지로 리다이렉트
+	    return "redirect:/proposal_detail?id=" + proposal.getPRPSL_NO();
+	}
+
+
+
+	
 }

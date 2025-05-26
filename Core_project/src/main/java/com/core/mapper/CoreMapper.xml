@@ -94,8 +94,18 @@
   <delete id="deleteDiscussionPostById" parameterType="int">
     DELETE FROM discussion_post WHERE discussion_id = #{discussionId}
  </delete>
+ 
+ <!-- 정책제안 게시글 수정 -->
+ <update id="updateProposal" parameterType="com.core.model.ProposalVO">
+    UPDATE PROPOSAL
+    SET TITLE = #{TITLE},
+        RESULT_CONTENT = #{RESULT_CONTENT},
+        CONTENT = #{CONTENT},
+        EXPECTATION_EFFECT = #{EXPECTATION_EFFECT}
+    WHERE PRPSL_NO = #{PRPSL_NO}
+</update>
+ 
   
-
   <!-- 4. 정책 제안 -->
   <insert id="insertProposal"
           parameterType="com.core.model.ProposalVO"

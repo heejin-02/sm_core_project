@@ -24,7 +24,7 @@
     
     <!-- 타이틀 배너 -->
     <div class="title_banner">
-      <p class="title_banner_category">카테고리 수정 필요</p>
+      <p class="title_banner_category">${post.category}</p>
       <p class="title_banner_title">${post.title}</p>
       <div class="title_banner_info">
         <span><span class="title_banner_info_title">게시일  </span><fmt:formatDate value="${post.createdAt}" pattern="yyyy.MM.dd"/></span>

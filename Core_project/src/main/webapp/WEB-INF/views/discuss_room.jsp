@@ -95,20 +95,27 @@
             <span>찬성</span>
           </div>
           <div class="comment_agreement scroll_container">
-            <c:forEach var="cmt" items="${comments}">
-              <c:if test="${cmt.opinionType=='T'}">
-                <div class="comment_box">
-                  <div class="comment_box_metadata">
-                    <span class="comment_box_writer">${cmt.userId}</span>
-                    <span>|</span>
-                    <span class="comment_box_date">
-                      <fmt:formatDate value="${cmt.createdAt}" pattern="yyyy.MM.dd HH:mm"/>
-                    </span>
-                  </div>
-                  <p class="comment_box_body">${cmt.content}</p>
-                </div>
-              </c:if>
-            </c:forEach>
+           <c:forEach var="cmt" items="${comments}">
+			  <c:if test="${cmt.opinionType=='T'}">
+			    <div class="comment_box">
+			      <div class="comment_box_metadata">
+			        <span class="comment_box_writer">${cmt.userId}</span>
+			        <span>|</span>
+			        <span class="comment_box_date">
+			          <fmt:formatDate value="${cmt.createdAt}" pattern="yyyy.MM.dd HH:mm"/>
+			        </span>
+			
+			        <c:if test="${not empty sessionScope.mvo && cmt.userId == sessionScope.mvo.id}">
+			          <span>|</span>
+			          <a href="${pageContext.request.contextPath}/discuss_room/delete_comment?id=${cmt.commentId}&discussionId=${post.discussionId}"
+			             onclick="return confirm('정말 삭제하시겠습니까?')">삭제</a>
+			        </c:if>
+			      </div>
+
+      <p class="comment_box_body">${cmt.content}</p>
+    </div>
+  </c:if>
+</c:forEach>
           </div>
 
         </div>
@@ -118,21 +125,30 @@
             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#f84c4c"><path d="M120-320q-32 0-56-24t-24-56v-80q0-7 2-15t4-15l120-282q9-20 30-34t44-14h440v520L440-82q-15 15-35.5 17.5T365-72q-19-10-28-28t-4-37l45-183H120Zm480-34v-406H240L120-480v80h360l-54 220 174-174Zm200-486q33 0 56.5 23.5T880-760v360q0 33-23.5 56.5T800-320H680v-80h120v-360H680v-80h120Zm-200 80v406-406Z"/></svg>
             <span>반대</span>
           </div>
-          <div class="comment_opposition scroll_container">
-            <c:forEach var="cmt" items="${comments}">
-              <c:if test="${cmt.opinionType=='F'}">
-                <div class="comment_box">
-                  <div class="comment_box_metadata">
-                    <span class="comment_box_writer">${cmt.userId}</span>
-                    <span>|</span>
-                    <span class="comment_box_date">
-                      <fmt:formatDate value="${cmt.createdAt}" pattern="yyyy.MM.dd HH:mm"/>
-                    </span>
-                  </div>
-                  <p class="comment_box_body">${cmt.content}</p>
-                </div>
-              </c:if>
-            </c:forEach>
+          <div class="comment_opposition">
+           <c:forEach var="cmt" items="${comments}">
+			  <c:if test="${cmt.opinionType=='F'}">
+			    <div class="comment_box">
+			      <div class="comment_box_metadata">
+			        <span class="comment_box_writer">${cmt.userId}</span>
+			        <span>|</span>
+			        <span class="comment_box_date">
+			          <fmt:formatDate value="${cmt.createdAt}" pattern="yyyy.MM.dd HH:mm"/>
+			        </span>
+			      </div>
+			
+			      <p class="comment_box_body">${cmt.content}</p>
+
+	            <c:if test="${not empty sessionScope.mvo && cmt.userId == sessionScope.mvo.id}">
+	                <div class="comment_box_footer">
+	                  <a class="comment_delete" href="${pageContext.request.contextPath}/discuss_room/delete_comment?id=${cmt.commentId}&discussionId=${post.discussionId}"
+	                      onclick="return confirm('정말 삭제하시겠습니까?')">삭제</a>
+	                </div>
+	            </c:if>
+			    </div>
+			  </c:if>
+			</c:forEach>
+
           </div>
         </div>
       </c:if>

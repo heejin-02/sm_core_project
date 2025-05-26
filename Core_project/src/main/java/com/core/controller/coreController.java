@@ -391,6 +391,5 @@ public class coreController {
         
 		return "similar_search_detail";
 	}
-
-
+	
 }

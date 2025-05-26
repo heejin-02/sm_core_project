@@ -1,5 +1,7 @@
 package com.core.controller;
 
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -173,10 +175,7 @@ public class DiscussController {
     }
 
 
-
-
-    
-	// 찬/반 댓글 삭제
+ // 찬/반 댓글 삭제
     @GetMapping("/discuss_room/delete_comment")
     public String deleteComment(@RequestParam("id") int commentId,
                                 @RequestParam("discussionId") int discussionId,
@@ -193,12 +192,29 @@ public class DiscussController {
         String writerId = mapper.selectCommentWriter(commentId);
         if (!user.getId().equals(writerId)) {
             rttr.addFlashAttribute("msg", "본인의 댓글만 삭제할 수 있습니다.");
-            return "redirect:/discuss_room?id=" + discussionId;  // 변경됨
+            return "redirect:/discuss_room?id=" + discussionId;
         }
 
+        // ✅ 댓글 삭제
         mapper.deleteComment(commentId);
-        return "redirect:/discuss_room?id=" + discussionId;  // 변경됨
+
+        // ✅ FastAPI에 요약 갱신 요청
+        try {
+            String url = "http://localhost:8001/summary/update/" + discussionId;
+            URL requestUrl = new URL(url);
+            HttpURLConnection conn = (HttpURLConnection) requestUrl.openConnection();
+            conn.setRequestMethod("GET");
+            conn.setConnectTimeout(3000);
+            conn.setReadTimeout(10000);
+            conn.getResponseCode();
+            conn.disconnect();
+        } catch (Exception e) {
+            System.out.println("❌ 요약 갱신 실패 (댓글 삭제 후): " + e.getMessage());
+        }
+
+        return "redirect:/discuss_room?id=" + discussionId;
     }
+
 
 
 

@@ -35,14 +35,6 @@
       </div>
     </div>
     
-     <!-- 여기에 삭제 버튼 추가 -->
-	  <c:if test="${not empty sessionScope.mvo && post.authorId == sessionScope.mvo.id}">
-	    <form action="${pageContext.request.contextPath}/discuss_delete" method="post" onsubmit="return confirm('정말 삭제하시겠습니까?');" style="margin-top: 10px;">
-	      <input type="hidden" name="id" value="${post.discussionId}" />
-	      <button type="submit" class="btn-delete">게시글 삭제</button>
-	    </form>
-	  </c:if>
-
     <div class="content_container">
       <div class="content_container_content">
         <span>토론 내용</span>
@@ -54,6 +46,14 @@
         <span>${aiSummary}</span>
       </div>
     </div>
+
+    <!-- 여기에 삭제 버튼 추가 -->
+	  <c:if test="${not empty sessionScope.mvo && post.authorId == sessionScope.mvo.id}">
+	    <form action="${pageContext.request.contextPath}/discuss_delete" method="post" onsubmit="return confirm('정말 삭제하시겠습니까?');" style="margin-top: 10px;">
+	      <input type="hidden" name="id" value="${post.discussionId}" />
+	      <button type="submit" class="btn-delete basic_btn">게시글 삭제</button>
+	    </form>
+	  </c:if>
 
     <div class="comment_write_container">
       <c:choose>
@@ -107,7 +107,7 @@
 			  <c:if test="${cmt.opinionType=='T'}">
 			    <div class="comment_box">
 			      <div class="comment_box_metadata">
-			        <span class="comment_box_writer">${cmt.userId}</span>
+			        <span class="comment_box_writer">${cmt.nick}</span>
 			        <span>|</span>
 			        <span class="comment_box_date">
 			          <fmt:formatDate value="${cmt.createdAt}" pattern="yyyy.MM.dd HH:mm"/>
@@ -138,7 +138,7 @@
 			  <c:if test="${cmt.opinionType=='F'}">
 			    <div class="comment_box">
 			      <div class="comment_box_metadata">
-			        <span class="comment_box_writer">${cmt.userId}</span>
+			        <span class="comment_box_writer">${cmt.nick}</span>
 			        <span>|</span>
 			        <span class="comment_box_date">
 			          <fmt:formatDate value="${cmt.createdAt}" pattern="yyyy.MM.dd HH:mm"/>

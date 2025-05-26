@@ -34,6 +34,7 @@
     color: #262626;
     font-size: 35px;
     margin-bottom: 20px;
+    text-align: center;
 }
 
 .title_banner_info {
@@ -241,4 +242,8 @@
 
 .comment_delete:hover {
     font-weight: 600;
+}
+
+.basic_btn {
+    margin-bottom: 50px;
 }

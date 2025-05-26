@@ -49,6 +49,7 @@
     <id     property="commentId"    column="COMMENT_ID"/>
     <result property="discussionId" column="DISCUSSION_ID"/>
     <result property="userId"       column="USER_ID"/>
+    <result property="nick" 		column="NICK"/>
     <result property="opinionType"  column="OPINION_TYPE"/>
     <result property="content"      column="CONTENT"/>
     <result property="createdAt"    column="CREATED_AT"
@@ -298,8 +299,10 @@
            USER_ID,
            OPINION_TYPE,
            CONTENT,
-           CREATED_AT
-      FROM DISCUSSION_COMMENT
+           CREATED_AT,
+           NICK
+      FROM DISCUSSION_COMMENT dc
+      JOIN USERINFO ui ON dc.USER_ID = ui.ID
      WHERE DISCUSSION_ID = #{discussionId}
      ORDER BY CREATED_AT ASC
   </select>

@@ -30,8 +30,15 @@
 	margin-top: 20px;
 }
 
-.search_box {
+.search_box_link {
 	width: calc(33.333% - 13.5px);
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.search_box {
+	width: 100%;
 	display: flex;
 	flex-direction: column;
 	box-sizing: border-box;
@@ -114,8 +121,3 @@
 	margin-left: 5px;
 	padding-top: 2px;
 }
-
-
-
-
-

@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import com.core.model.Ai_analysisVO;
 import com.core.model.Discussion_commentVO;
 import com.core.model.Discussion_postVO;
+import com.core.model.Discussion_summaryVO;
 import com.core.model.ProposalVO;
 import com.core.model.ProposalVoteVO;
 import com.core.model.UserinfoVO;
@@ -68,4 +69,5 @@ public interface CoreMapper {
 
     // 댓글 쓰기
     void insertDiscussionComment(Discussion_commentVO comment);
+	public Discussion_summaryVO selectSummaryByDiscussionId(int discussionId);
 }

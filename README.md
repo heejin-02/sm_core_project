@@ -74,7 +74,7 @@
 <br>
 
 ## ⚙ 시스템 아키텍처
-![Image](https://github.com/user-attachments/assets/147fe033-3162-4bfe-8eb5-09756bce1f13)
+![Image](https://github.com/user-attachments/assets/64691734-d972-4843-8bc5-d3bad56a6115)
 <br>
 
 ## 📌 SW유스케이스

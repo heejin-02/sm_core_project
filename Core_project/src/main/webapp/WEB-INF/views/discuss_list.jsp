@@ -121,10 +121,15 @@ $(function(){
           // 1) 상세 URL
           var detailUrl = ctx + '/discuss_room?id=' + p.discussionId;
           // 2) 날짜 포맷 (YYYY-MM-DD → YYYY.MM.DD)
-          var raw = p.createdAt || '';
-          var dateText = raw.length >= 10
-            ? raw.substr(0,10).replace(/-/g, '.')
-            : raw;
+          var raw = p.createdAt;
+          var dateText = '';
+
+          if (typeof raw === 'number') {
+            var d = new Date(raw);
+            dateText = d.getFullYear() + '.' + String(d.getMonth()+1).padStart(2, '0') + '.' + String(d.getDate()).padStart(2, '0');
+          } else if (typeof raw === 'string' && raw.length >= 10) {
+            dateText = raw.substr(0,10).replace(/-/g, '.');
+          }
 
           // 3) 카드 HTML 문자열 생성
           var card =
@@ -134,7 +139,7 @@ $(function(){
                   '<p class="discuss_box_header_category">' + (p.category||'') + '</p>' +
                 '</div>' +
                 '<div class="discuss_box_content">' +
-                  '<p class="discuss_box_content_date">' + dateText + ' 작성</p>' +
+                  '<p class="discuss_box_content_date">' + dateText+ ' 작성</p>' +
                   '<p class="discuss_box_content_title">' + (p.title||'') + '</p>' +
                   '<p class="discuss_box_content_AItitle">AI 토론 요약</p>' +
                   '<p class="discuss_box_content_AI">' + (p.summary||'') + '</p>' +

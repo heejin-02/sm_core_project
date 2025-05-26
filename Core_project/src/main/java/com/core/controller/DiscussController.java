@@ -165,6 +165,39 @@ public class DiscussController {
         mapper.deleteComment(commentId);
         return "redirect:/discuss_room?id=" + discussionId;  // 변경됨
     }
+    
+    // 토론방 삭제
+    @PostMapping("/discuss_delete")
+    public String deleteDiscussionPost(@RequestParam("id") int discussionId,
+                                       HttpSession session,
+                                       RedirectAttributes rttr) {
+        UserinfoVO user = (UserinfoVO) session.getAttribute("mvo");
+
+        if (user == null) {
+            rttr.addFlashAttribute("msg", "로그인이 필요합니다.");
+            return "redirect:/login";
+        }
+
+        Discussion_postVO post = mapper.selectPostById(discussionId);
+
+        if (post == null || !post.getAuthorId().equals(user.getId())) {
+            rttr.addFlashAttribute("msg", "삭제 권한이 없습니다.");
+            return "redirect:/discuss_list";
+        }
+
+        int result = mapper.deleteDiscussionPostById(discussionId);
+
+        if (result > 0) {
+            rttr.addFlashAttribute("msg", "게시글이 삭제되었습니다.");
+        } else {
+            rttr.addFlashAttribute("msg", "게시글 삭제에 실패했습니다.");
+        }
+
+        return "redirect:/discuss_list";
+    }
+
+    
+    
 
 
 

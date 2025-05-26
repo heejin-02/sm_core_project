@@ -34,6 +34,15 @@
         <span><span class="title_banner_info_title">의견수  </span>${fn:length(comments)}</span>
       </div>
     </div>
+    
+     <!-- 여기에 삭제 버튼 추가 -->
+	  <c:if test="${not empty sessionScope.mvo && post.authorId == sessionScope.mvo.id}">
+	    <form action="${pageContext.request.contextPath}/discuss_delete" method="post" onsubmit="return confirm('정말 삭제하시겠습니까?');" style="margin-top: 10px;">
+	      <input type="hidden" name="id" value="${post.discussionId}" />
+	      <button type="submit" class="btn-delete">게시글 삭제</button>
+	    </form>
+	  </c:if>
+	</div>
 
     <div class="content_container">
       <div class="content_container_content">

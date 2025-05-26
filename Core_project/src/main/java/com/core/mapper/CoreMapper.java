@@ -72,5 +72,8 @@ public interface CoreMapper {
     // 찬/반 토론 댓글 삭제
     String selectCommentWriter(int id);  // 댓글 작성자 가져오기
     int deleteComment(int id);           // 댓글 삭제
+	// 토론방 삭제
+    int deleteDiscussionPostById(int discussionId);
+   
 
 }

@@ -101,4 +101,14 @@ public interface CoreMapper {
 
     /**  댓글 삭제  */
     int deleteComment(@Param("commentId") int commentId);
+    
+    /**
+     * 페이징 처리를 위한 전체 건수 조회
+     */
+    int countDiscussPosts(Map<String, Object> params);
+
+    /**
+     * 페이징 처리를 위한 offset/limit 조회
+     */
+    List<Discussion_postVO> selectDiscussPostsPage(Map<String, Object> params);
 }

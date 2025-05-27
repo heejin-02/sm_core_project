@@ -68,8 +68,7 @@
                      <span class="input_title">토론 내용</span>
                   </td>
                   <td class="post_input">
-                     <textarea name="content" placeholder="토론 내용을 입력해주세요."></textarea>
-                  	
+                     <textarea name="content" placeholder="토론 내용을 입력해주세요."></textarea>	
                   </td>
                </tr>
                

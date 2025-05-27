@@ -25,6 +25,7 @@
   border: 2px solid #282828;
   border-radius: 5px;
   margin-bottom: 40px;
+  box-sizing: border-box;
 }
 
 .tabs a {
@@ -35,6 +36,10 @@
   font-weight: 400;
   color: #282828;
   padding: 20px 0;
+}
+
+.tabs a:hover {
+  font-weight: 600;
 }
 
 .tabs a:not(:last-child) {
@@ -65,7 +70,7 @@
 }
 
 .search_box {
-    width: calc(33.333% - 13.5px);
+    width: calc(33.333% - 7px);
     box-sizing: border-box;
     border: 2px solid #282828;
     border-radius: 5px;

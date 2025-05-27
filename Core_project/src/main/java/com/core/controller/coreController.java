@@ -318,42 +318,46 @@ public class coreController {
 	@PostMapping("/proposal/vote")
 	@ResponseBody
 	public ResponseEntity<String> voteProposal(@RequestParam("id") int proposalId,
-			@RequestParam("voteType") String voteType, HttpSession session) {
+	                                           @RequestParam("voteType") String voteType,
+	                                           HttpSession session) {
 
-		UserinfoVO user = (UserinfoVO) session.getAttribute("mvo");
-		if (user == null) {
-			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
-		}
+	    UserinfoVO user = (UserinfoVO) session.getAttribute("mvo");
+	    if (user == null) {
+	        // 로그인 안 되어 있으면 401
+	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("UNAUTHORIZED");
+	    }
 
-		System.out.println("===== VOTE DEBUG =====");
-		System.out.println("user: " + (user != null ? user.getId() : "null"));
-		System.out.println("proposalId: " + proposalId);
-		System.out.println("voteType: " + voteType);
-		System.out.println("=======================");
+//	    System.out.println("===== VOTE DEBUG =====");
+//	    System.out.println("user: " + user.getId());
+//	    System.out.println("proposalId: " + proposalId);
+//	    System.out.println("voteType: " + voteType);
+//	    System.out.println("=======================");
 
-		if (!"LIKE".equalsIgnoreCase(voteType) && !"DISLIKE".equalsIgnoreCase(voteType)) {
-			return ResponseEntity.badRequest().body("잘못된 투표 타입입니다.");
-		}
+	    if (!"LIKE".equalsIgnoreCase(voteType) && !"DISLIKE".equalsIgnoreCase(voteType)) {
+	        return ResponseEntity.badRequest().body("잘못된 투표 타입입니다.");
+	    }
 
-		ProposalVoteVO existingVote = mapper.checkVote(proposalId, user.getId());
-		if (existingVote != null) {
-			return ResponseEntity.status(HttpStatus.FORBIDDEN).body("이미 투표하셨습니다.");
-		}
+	    ProposalVoteVO existingVote = mapper.checkVote(proposalId, user.getId());
+	    if (existingVote != null) {
+	        // 이미 투표했으면 403 + 명확한 키워드
+	        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("ALREADY_VOTED");
+	    }
 
-		ProposalVoteVO newVote = new ProposalVoteVO(proposalId, user.getId(), voteType);
-		int result = mapper.insertVote(newVote);
-		if (result == 0) {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("투표 저장 실패");
-		}
+	    ProposalVoteVO newVote = new ProposalVoteVO(proposalId, user.getId(), voteType);
+	    int result = mapper.insertVote(newVote);
+	    if (result == 0) {
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("투표 저장 실패");
+	    }
 
-		if ("LIKE".equalsIgnoreCase(voteType)) {
-			mapper.incrementAgree(proposalId);
-		} else {
-			mapper.incrementDisagree(proposalId);
-		}
+	    if ("LIKE".equalsIgnoreCase(voteType)) {
+	        mapper.incrementAgree(proposalId);
+	    } else {
+	        mapper.incrementDisagree(proposalId);
+	    }
 
-		return ResponseEntity.ok("투표 완료");
+	    return ResponseEntity.ok("투표 완료");
 	}
+
 
 	// 토론방 목록 띄우기 메서드(discuss_list)
 	@RequestMapping("/discuss_list")

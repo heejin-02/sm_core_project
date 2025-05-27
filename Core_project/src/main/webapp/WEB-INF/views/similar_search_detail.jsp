@@ -6,7 +6,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<<<<<<< HEAD
 <title>청정기, 청소년정책제안소</title>
+=======
+<title>청정기 | 유사도 분석 결과</title>
+>>>>>>> 190378014561af06ced0c8fe369d1226f0feb8ff
 <link rel="stylesheet" href="resources/assets/css/share.css"/>
 <link rel="stylesheet" href="resources/assets/css/similar_search_detail.css"/>
 </head>

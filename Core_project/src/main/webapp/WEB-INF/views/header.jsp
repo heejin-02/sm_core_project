@@ -25,8 +25,7 @@ if (uri == null) {
 			</a>
 
 			<nav id="nav">
-				<a href="/Core_project"
-					class="<%=uri.equals("/Core_project/") ? "active" : ""%>">정책 기획소</a>
+				<a href="/Core_project" class="<%= request.getRequestURI().startsWith("/Core_project/") ? "active" : "" %>">정책 기획소</a>
 				<a href="/Core_project/proposal_list"
 					class="<%=uri.contains("/Core_project/proposal_list") ? "active" : ""%>">정책
 					제안소</a> <a href="/Core_project/discuss_list"
@@ -42,7 +41,7 @@ if (uri == null) {
 				</c:if>
 
 				<c:if test="${not empty sessionScope.midx}">
-					<a href="mypage">${sessionScope.nickname}님</a>
+					<a href="#">${sessionScope.nickname}님</a>
 					<a href="logout">로그아웃</a>
 
 					<form action="delete" method="post"

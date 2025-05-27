@@ -63,3 +63,13 @@
 td.title_top span {
 	padding-bottom: 160px;
 }
+
+.text_limit_st {
+	margin-top: 5px;
+	color: #3E3E3E;
+}
+
+td.limint_input {
+	display: flex;
+	flex-direction: column !important;
+}

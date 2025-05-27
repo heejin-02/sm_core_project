@@ -29,7 +29,7 @@
       <div class="title_banner_info">
         <span><span class="title_banner_info_title">게시일  </span><fmt:formatDate value="${post.createdAt}" pattern="yyyy.MM.dd"/></span>
         <span>|</span>
-        <span><span class="title_banner_info_title">작성자  </span>${post.authorId}</span>
+        <span><span class="title_banner_info_title">작성자  </span>${post.nick}</span>
         <span>|</span>
         <span><span class="title_banner_info_title">의견수  </span>${fn:length(comments)}</span>
       </div>

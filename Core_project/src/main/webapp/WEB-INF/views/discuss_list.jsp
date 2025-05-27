@@ -43,7 +43,6 @@
             <option value="지역사회" ${currentCategory=='지역사회' ? 'selected':''}>지역사회</option>
             <option value="문화생활" ${currentCategory=='문화생활' ? 'selected':''}>문화생활</option>
             <option value="사회문제" ${currentCategory=='사회문제' ? 'selected':''}>사회문제</option>
-            <option value="기타"     ${currentCategory=='기타'     ? 'selected':''}>기타</option>
           </select>
           <input type="text"
                  name="keyword"

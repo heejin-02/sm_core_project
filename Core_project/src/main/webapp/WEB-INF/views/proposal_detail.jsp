@@ -7,7 +7,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>제안 상세</title>
+  <title>제안 상세 | ${proposal.TITLE}</title>
   <link rel="stylesheet" href="resources/assets/css/share.css"/>
   <link rel="stylesheet" href="resources/assets/css/proposal_detail.css"/>
 </head>

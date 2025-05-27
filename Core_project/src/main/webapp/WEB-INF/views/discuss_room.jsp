@@ -10,7 +10,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>${post.title}</title>
+  <title>토론 상세 | ${post.title}</title>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/share.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/discuss_room.css">
 </head>

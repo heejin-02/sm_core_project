@@ -1,7 +1,6 @@
 package com.core.model;
 
-
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,13 +10,15 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Discuss_roomVO {
-	private int DROOM_NO;
-	private String DROOM_CATEGORY;
-	private String DROOM_TITLE;
-	private String DROOM_INFO;
-	private String ID;
-	private int DROOM_LIMIT;
-	private String DROOM_MG;
-	private LocalDateTime CREATED_AT;
-	private String DROOM_ST;
+
+    private int droom_no;               // DROOM_NO
+    private String droom_category;      // DROOM_CATEGORY
+    private String droom_title;         // DROOM_TITLE
+    private String droom_info;          // DROOM_INFO
+    private String id;                  // ID (개설자 ID)
+    private int droom_limit;            // DROOM_LIMIT
+    private String droom_mg;            // DROOM_MG
+    private Timestamp create_at;        // CREATED_AT
+    private String droom_st;            // DROOM_ST
+
 }

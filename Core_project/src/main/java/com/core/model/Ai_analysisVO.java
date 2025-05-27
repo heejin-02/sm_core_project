@@ -10,11 +10,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Ai_analysisVO {
-	private int ANALYSIS_NO;
-	private int PRPSL_NO;
-	private String ANALYSIS_MODEL;
-	private String ANALYSIS_RESULT;
-	private int SIMILARITY;
-	private String RECO_POLICY;
-	private LocalDateTime ANALIZED_AT;
+	private int analysis_no;
+	private int prpsl_no;
+	private String analysis_model;
+	private String analysis_result;
+	private int similarity;
+	private String reco_policy;
+	private LocalDateTime analized_at;
 }

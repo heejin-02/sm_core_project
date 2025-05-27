@@ -1,0 +1,105 @@
+@charset "UTF-8";
+
+header {
+	width: 100%;
+	position: fixed;
+	top: 0;
+	background-color: white;
+	display: flex;
+	justify-content: center;
+	box-shadow: 10px 0px 10px #35353520;
+}
+
+#header {
+	/* background-color: red; */
+	width: 80%;
+	min-height: 60px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+#logo img {
+	width: 100px;
+	object-fit: cover;
+}
+
+#nav {
+	width: 45%;
+	display: flex;
+	justify-content: space-between;
+}
+
+#nav a {
+	text-decoration: none;
+	color: #979797;
+	font-family: 'Pretendard', sans-serif;
+	font-weight: 400;
+	font-size: 16px;
+}
+
+#nav a:hover {
+	font-weight: 600;
+	transition-duration: 0.5s;
+}
+
+footer {
+	width: 100%;
+	min-height: 100px;
+	background-color: #231F20;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 100px;
+}
+
+#footer {
+	width: 80%;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	gap: 20px;
+}
+
+#footer img {
+	width: 100px;
+	object-fit: cover;
+}
+
+.footer_content {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+}
+
+.footer_content p {
+	color: rgb(84, 84, 84);
+	font-family: Pretendard;
+	font-weight: 400;
+	font-size: 14px;
+}
+
+#nav button {
+	all: unset;
+	color: #979797;
+	font-family: 'Pretendard', sans-serif;
+	font-weight: 400;
+	font-size: 16px;
+}
+
+#nav button:hover {
+	font-weight: 600;
+	transition-duration: 0.5s;
+}
+
+.nav_btn_center {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/* 지금 있는 사이트 색 표시 */
+nav a.active {
+	color: #353535 !important;
+	font-weight: 600 !important;            
+}

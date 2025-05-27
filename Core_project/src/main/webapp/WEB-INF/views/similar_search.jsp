@@ -84,11 +84,7 @@
   			</c:choose>
        </div>
 
-      <!-- 더보기 버튼 -->
-      <!-- todo: 버튼 넘겨서 쭉 리스트 볼 수 있게 하기 -->
-      <c:if test="${not empty list}">
-      	<button class="basic_btn">유사도 분석 결과 더보기</button>
-	  </c:if>
+   
        
        <!-- 푸터 -->
       <%@ include file="footer.jsp" %>

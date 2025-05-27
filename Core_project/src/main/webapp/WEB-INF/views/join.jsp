@@ -8,7 +8,7 @@
    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
    <link rel="stylesheet" href="resources/assets/css/share.css" />
    <link rel="stylesheet" href="resources/assets/css/joinAndLogin.css" />
-    <title>회원가입</title>
+   <title>청정기 | 회원가입</title>
 </head>
 
 <body>

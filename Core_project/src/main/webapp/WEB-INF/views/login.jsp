@@ -9,7 +9,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="resources/assets/css/share.css" />
 <link rel="stylesheet" href="resources/assets/css/joinAndLogin.css" />
-<title>로그인</title>
+<title>청정기 | 로그인</title>
 </head>
 <body>
 	<div class="wrapper">

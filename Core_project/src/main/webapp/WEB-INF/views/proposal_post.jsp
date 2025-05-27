@@ -9,6 +9,7 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=person" />
 	<link rel="stylesheet" href="resources/assets/css/share.css" />
 	<link rel="stylesheet" href="resources/assets/css/proposal_post.css" />
+	<title>청정기 | 정책 제안하기</title>
 </head>
 <body>
 	<div class="wrapper">

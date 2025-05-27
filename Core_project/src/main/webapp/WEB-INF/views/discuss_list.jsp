@@ -8,7 +8,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>토론 목록</title>
+  <title>청정기 | 토론장 </title>
   <link rel="stylesheet" href="resources/assets/css/share.css" />
   <link rel="stylesheet" href="resources/assets/css/discuss_list.css" />
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

@@ -11,9 +11,15 @@
    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=person" />
    <link rel="stylesheet" href="resources/assets/css/share.css" />
    <link rel="stylesheet" href="resources/assets/css/similar_search.css" />
+   <title>청정기, 청소년정책기획소</title>
 </head>
 <body>
    <div class="wrapper">
+   	<!-- 검색 로딩 화면 -->
+	 <div id="loading" style="display: none;">
+		<img src="resources/images/loading.gif" alt="">
+		<p>검색 중입니다. 잠시만 기다려주세요.</p>
+	 </div>
    
       <!-- 헤더(네비게이션) -->
       <%@ include file="header.jsp" %>
@@ -27,7 +33,7 @@
           <div id="search">
 			  <form action="search" method="post" onsubmit="return validateSearch()">
 			    <input class="search_bar" type="text" id="searchInput" name="input" placeholder="아이디어를 입력해주세요.">
-			    <input class="submit_btn" type="submit" value="검색">
+			    <input class="submit_btn" id="similar_search_btn" type="submit" value="검색">
 			  </form>
 			</div>
        </div>
@@ -83,7 +89,12 @@
       <c:if test="${not empty list}">
       	<button class="basic_btn">유사도 분석 결과 더보기</button>
 	  </c:if>
+       
+       <!-- 푸터 -->
+      <%@ include file="footer.jsp" %>
+      
        <script>
+       	/* 검색어 없을 경우 처리 */
 		  function validateSearch() {
 		    const input = document.getElementById("searchInput").value.trim();
 		    if (input === "") {
@@ -92,10 +103,20 @@
 		    }
 		    return true;
 		  }
+       	
+		/* 로딩 창 띄우기 */
+		document.getElementById("similar_search_btn").addEventListener("click", function() {
+			var isListEmpty = ${empty list ? 'true' : 'false'};
+			console.log(isListEmpty);
+			
+			if (isListEmpty === 'true') {
+				document.getElementById('loading').style.display = 'none';
+			} else {
+				document.getElementById('loading').style.display = 'flex';
+			}
+		});
+       		
 		</script>
-       
-       <!-- 푸터 -->
-      <%@ include file="footer.jsp" %>
    
    </div>
 </body>

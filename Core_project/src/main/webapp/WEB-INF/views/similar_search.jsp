@@ -84,8 +84,6 @@
   			</c:choose>
        </div>
 
-   
-       
        <!-- 푸터 -->
       <%@ include file="footer.jsp" %>
       

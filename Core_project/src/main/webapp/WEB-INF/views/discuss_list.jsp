@@ -24,7 +24,7 @@
       </div>
       <button class="basic_btn"
               onclick="location.href='${pageContext.request.contextPath}/discuss_post'">
-        토론 생성하기
+        토론 글 작성하기
       </button>
     </div>
 

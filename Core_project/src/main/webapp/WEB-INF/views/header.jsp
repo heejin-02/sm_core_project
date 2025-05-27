@@ -7,7 +7,12 @@ String uri = (String) request.getAttribute("javax.servlet.forward.request_uri");
 if (uri == null) {
 	uri = request.getRequestURI();
 }
+String ctx = request.getContextPath(); // ex: /Core_project
+boolean isActive = uri.equals(ctx + "/") || uri.equals(ctx + "/search");
 %>
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,7 +30,7 @@ if (uri == null) {
 			</a>
 
 			<nav id="nav">
-				<a href="/Core_project" class="<%= request.getRequestURI().startsWith("/Core_project/") ? "active" : "" %>">정책 기획소</a>
+				<a href="<%= ctx %>/" class="<%= isActive ? "active" : "" %>">정책 기획소</a>
 				<a href="/Core_project/proposal_list"
 					class="<%=uri.contains("/Core_project/proposal_list") ? "active" : ""%>">정책
 					제안소</a> <a href="/Core_project/discuss_list"

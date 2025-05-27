@@ -9,6 +9,8 @@ if (uri == null) {
 }
 String ctx = request.getContextPath(); // ex: /Core_project
 boolean isActive = uri.equals(ctx + "/") || uri.equals(ctx + "/search");
+boolean isDiscussActive = uri.contains("/discuss_list") || uri.contains("/discuss_room");
+boolean isProposalActive = uri.contains("/proposal_list") || uri.contains("/proposal_detail");
 %>
 
 
@@ -31,10 +33,10 @@ boolean isActive = uri.equals(ctx + "/") || uri.equals(ctx + "/search");
 
 			<nav id="nav">
 				<a href="<%= ctx %>/" class="<%= isActive ? "active" : "" %>">정책 기획소</a>
-				<a href="/Core_project/proposal_list"
-					class="<%=uri.contains("/Core_project/proposal_list") ? "active" : ""%>">정책
-					제안소</a> <a href="/Core_project/discuss_list"
-					class="<%=uri.contains("/Core_project/discuss_list") ? "active" : ""%>">토론장</a>
+				<a href="${pageContext.request.contextPath}/proposal_list"
+   						class="<%= isProposalActive ? "active" : "" %>">정책 제안소</a>
+				<a href="${pageContext.request.contextPath}/discuss_list"
+   						class="<%= isDiscussActive ? "active" : "" %>">토론장</a>
 				<span>|</span>
 				
 				<c:if test="${empty sessionScope.midx}">

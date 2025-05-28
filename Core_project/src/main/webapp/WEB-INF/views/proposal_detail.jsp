@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>제안 상세 | ${proposal.TITLE}</title>
+<link rel="icon" type="image/x-icon" href="<c:url value='/resources/images/favicon.ico' />">
 <link rel="stylesheet" href="resources/assets/css/share.css" />
 <link rel="stylesheet" href="resources/assets/css/proposal_detail.css" />
 

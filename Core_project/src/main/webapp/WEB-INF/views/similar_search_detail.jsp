@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>청정기 | 유사도 분석 결과</title>
+<link rel="icon" type="image/x-icon" href="<c:url value='/resources/images/favicon.ico' />">
 <link rel="stylesheet" href="resources/assets/css/share.css"/>
 <link rel="stylesheet" href="resources/assets/css/similar_search_detail.css"/>
 </head>

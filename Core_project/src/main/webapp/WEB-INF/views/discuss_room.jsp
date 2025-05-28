@@ -11,6 +11,7 @@
 <head>
   <meta charset="UTF-8">
   <title>토론 상세 | ${post.title}</title>
+  <link rel="icon" type="image/x-icon" href="<c:url value='/resources/images/favicon.ico' />">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/share.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/discuss_room.css">
 </head>

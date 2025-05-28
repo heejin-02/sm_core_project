@@ -15,7 +15,7 @@
    <div class="wrapper">
 
       <!-- 헤더(네비게이션) -->
-         <%@ include file="header.jsp" %>
+      <%@ include file="header.jsp" %>
       
       <!-- 배너 -->
       <div class="sub_banner">
@@ -24,41 +24,40 @@
       
       <!-- 내용 입력 -->
       <div class="pro_post">
-         <form action="discuss_post" method="post">
+         <form action="discuss_post" method="post" onsubmit="return validateForm()">
             <table>
-				<!-- 카테고리 -->
-				<tr>
-					<td class="post_title">
-						<span>카테고리</span>
-					</td>
-					<td class="post_input">
-						<div class="category">
-							<input type="radio" name="category" value="학교생활">
-							<span class="category_title">학교생활</span>
-						</div>
-						<div class="category">
-							<input type="radio" name="category" value="지역사회">
-							<span class="category_title">지역사회</span>
-						</div>
-						<div class="category">
-							<input type="radio" name="category" value="문화생활">
-							<span class="category_title">문화생활</span>
-						</div>
-						<div class="category">
-							<input type="radio" name="category" value="사회문제">
-							<span class="category_title">사회문제</span>
-						</div>
-						
-					</td>
-				</tr>
-				
+               <!-- 카테고리 -->
+               <tr>
+                  <td class="post_title">
+                     <span>카테고리</span>
+                  </td>
+                  <td class="post_input">
+                     <div class="category">
+                        <input type="radio" name="category" value="학교생활">
+                        <span class="category_title">학교생활</span>
+                     </div>
+                     <div class="category">
+                        <input type="radio" name="category" value="지역사회">
+                        <span class="category_title">지역사회</span>
+                     </div>
+                     <div class="category">
+                        <input type="radio" name="category" value="문화생활">
+                        <span class="category_title">문화생활</span>
+                     </div>
+                     <div class="category">
+                        <input type="radio" name="category" value="사회문제">
+                        <span class="category_title">사회문제</span>
+                     </div>
+                  </td>
+               </tr>
+               
                <!-- 토론주제 -->
                <tr>
                   <td class="post_title">
                      <span class="input_title">토론 주제</span>
                   </td>
                   <td class="post_input">
-                     <input type="text" name="title" placeholder="토론 주제를 적어주세요.">
+                     <input type="text" name="title" id="title" placeholder="토론 주제를 적어주세요.">
                   </td>
                </tr>
                
@@ -69,38 +68,47 @@
                   </td>
                   <td class="post_input limint_input">
                      <textarea maxlength="1000" name="content" placeholder="토론 내용을 입력해주세요." id="discuss_content"></textarea>
-							<p class="text_limit_st" id="discuss_limit">0 / 1000 자</p>
+                     <p class="text_limit_st" id="discuss_limit">0 / 1000 자</p>
                   </td>
                </tr>
-               
             </table>
-         
-             <input class="basic_btn" type="submit" value="제출하기">
+            <input class="basic_btn" type="submit" value="제출하기">
          </form>
       </div>
 
       <!-- 푸터 -->
-         <%@ include file="footer.jsp" %>
+      <%@ include file="footer.jsp" %>
 
    </div>
 
    <script>
+      // 글자 수 카운트
       const discuss_limit = document.getElementById('discuss_limit');
-
       const discuss_content = document.getElementById('discuss_content');
 
       discuss_content.addEventListener('input', () => {
-			const currentLength = discuss_content.value.length;
-			console.log(currentLength);
-			
-			discuss_limit.textContent = currentLength +  ` / 1000 자`;
+         const currentLength = discuss_content.value.length;
+         discuss_limit.textContent = currentLength + " / 1000 자";
+         discuss_limit.style.color = currentLength >= 1000 ? 'red' : '#3E3E3E';
+      });
 
-			if(currentLength >= 1000) {
-				discuss_limit.style.color = 'red';
-			} else {
-				discuss_limit.style.color = '#3E3E3E';
-			}
-		})
+      // 제출 전 유효성 검사
+      function validateForm() {
+         const title = document.getElementById("title").value.trim();
+         const content = document.getElementById("discuss_content").value.trim();
+
+         if (title === "") {
+            alert("토론 주제를 입력해주세요.");
+            return false;
+         }
+
+         if (content === "") {
+            alert("토론 내용을 입력해주세요.");
+            return false;
+         }
+
+         return true; // 유효성 통과 시 제출
+      }
    </script>
 </body>
 </html>

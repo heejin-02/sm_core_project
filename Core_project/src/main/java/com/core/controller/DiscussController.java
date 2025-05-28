@@ -194,7 +194,7 @@ public class DiscussController {
     /** 7) 댓글 삭제 **/
     @GetMapping("/discuss_room/delete_comment")
     public String deleteComment(
-        @RequestParam("commentId")    int commentId,
+        @RequestParam("id")    int commentId,
         @RequestParam("discussionId") int discussionId,
         HttpSession session,
         RedirectAttributes rttr

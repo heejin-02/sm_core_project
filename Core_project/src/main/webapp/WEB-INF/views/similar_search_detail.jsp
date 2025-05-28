@@ -6,7 +6,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-
 <title>청정기 | 유사도 분석 결과</title>
 <link rel="stylesheet" href="resources/assets/css/share.css"/>
 <link rel="stylesheet" href="resources/assets/css/similar_search_detail.css"/>

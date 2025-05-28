@@ -67,8 +67,9 @@
                   <td class="post_title title_top">
                      <span class="input_title">토론 내용</span>
                   </td>
-                  <td class="post_input">
-                     <textarea name="content" placeholder="토론 내용을 입력해주세요."></textarea>	
+                  <td class="post_input limint_input">
+                     <textarea maxlength="1000" name="content" placeholder="토론 내용을 입력해주세요." id="discuss_content"></textarea>
+							<p class="text_limit_st" id="discuss_limit">0 / 1000 자</p>
                   </td>
                </tr>
                
@@ -82,5 +83,24 @@
          <%@ include file="footer.jsp" %>
 
    </div>
+
+   <script>
+      const discuss_limit = document.getElementById('discuss_limit');
+
+      const discuss_content = document.getElementById('discuss_content');
+
+      discuss_content.addEventListener('input', () => {
+			const currentLength = discuss_content.value.length;
+			console.log(currentLength);
+			
+			discuss_limit.textContent = currentLength +  ` / 1000 자`;
+
+			if(currentLength >= 1000) {
+				discuss_limit.style.color = 'red';
+			} else {
+				discuss_limit.style.color = '#3E3E3E';
+			}
+		})
+   </script>
 </body>
 </html>

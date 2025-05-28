@@ -6,6 +6,7 @@
 <head>
    <meta charset="UTF-8" />
    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <link rel="icon" type="image/x-icon" href="<c:url value='/resources/images/favicon.ico' />">
    <link rel="stylesheet" href="resources/assets/css/share.css" />
    <link rel="stylesheet" href="resources/assets/css/joinAndLogin.css" />
    <title>청정기 | 회원가입</title>

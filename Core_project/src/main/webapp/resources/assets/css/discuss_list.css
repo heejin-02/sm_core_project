@@ -9,6 +9,10 @@
 	margin-top: 50px;
 }
 
+.main_banner .basic_btn {
+	margin-top: 20px;
+}
+
 .discuss_search {
     width: 100%;
     display: flex;

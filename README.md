@@ -9,76 +9,52 @@
 ## 📅 프로젝트 기간
 2025/05/15 ~ 2025/05/29
 
-## ⭐ 주요 기능
-* 회원가입
-* 유사도 검색
-  ![Image](https://github.com/user-attachments/assets/273f200f-b41a-4af9-abcc-b40b7d575c73)
-  ![image](https://github.com/user-attachments/assets/b7c5e4da-d371-4364-a2ac-d1100037db8f)
+## 🌟 주요 기능
 
-* 정책 제안
-  ![image](https://github.com/user-attachments/assets/87037a44-56be-40d0-9a91-f6867ac25ad8)
-  ![image](https://github.com/user-attachments/assets/b1f2d1ea-dc9d-4aac-9503-ead00e09ff45)
+---
 
-* 찬반 토론
-*  AI 댓글 요약
-  ![image](https://github.com/user-attachments/assets/95036ee5-4fac-4a18-8807-f1056762f444)
-  ![image](https://github.com/user-attachments/assets/d33972a9-00dc-4fe3-bcb8-bf2f19595b97)
-<br>
+### 🧑‍💻 회원가입  
+청소년 인증을 통해 누구나 쉽게 가입하고, 자유롭게 의견을 나눌 수 있습니다.
+
+---
+
+### 🔍 유사도 검색  
+<img src="https://github.com/user-attachments/assets/273f200f-b41a-4af9-abcc-b40b7d575c73" width="400"/>
+<img src="https://github.com/user-attachments/assets/b7c5e4da-d371-4364-a2ac-d1100037db8f" width="400"/>
+
+자신이 생각했던 아이디어가 이미 존재하는 정책인지 확인할 수 있습니다.  
+입력한 키워드를 바탕으로 **의미 기반 유사도 분석**을 통해 관련 정책을 찾아줍니다.
+
+---
+
+### 📝 정책 제안  
+<img src="https://github.com/user-attachments/assets/87037a44-56be-40d0-9a91-f6867ac25ad8" width="400"/>
+<img src="https://github.com/user-attachments/assets/b1f2d1ea-dc9d-4aac-9503-ead00e09ff45" width="400"/>
+
+청소년이 **직접 정책을 제안**하고, 다른 사용자와 함께 고민을 나눌 수 있는 공간을 제공합니다.
+
+---
+
+### 💬 찬반 토론  
+<img src="https://github.com/user-attachments/assets/95036ee5-4fac-4a18-8807-f1056762f444" width="400"/>
+
+정책 제안에 대해 다양한 시각에서 **찬성과 반대 의견을 자유롭게 토론**할 수 있습니다.
+
+---
+
+### 🧠 AI 댓글 요약  
+<img src="https://github.com/user-attachments/assets/d33972a9-00dc-4fe3-bcb8-bf2f19595b97" width="400"/>
+
+많은 댓글 속에서 흐름을 파악하기 어렵다면?  
+**AI가 찬반 의견을 요약**해 핵심 내용을 한눈에 보여줍니다.
+
+---
+
+> 함께 만드는 청소년 정책, **청!정!기!**에서 시작해보세요 🎉
+
 
 ## ⛏ 기술스택
-<table>
-    <tr>
-        <th>구분</th>
-        <th>내용</th>
-    </tr>
-    <tr>
-        <td>사용언어</td>
-        <td>
-            <img src="https://img.shields.io/badge/Java-007396?style=for-the-badge&logo=java&logoColor=white"/>
-            <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=HTML5&logoColor=white"/>
-            <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=CSS3&logoColor=white"/>
-            <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=white"/>
-        </td>
-    </tr>
-    <tr>
-        <td>라이브러리</td>
-        <td>
-            <img src="https://img.shields.io/badge/BootStrap-7952B3?style=for-the-badge&logo=BootStrap&logoColor=white"/>
-            <img src="https://img.shields.io/badge/KakaoMap-FFCD00?style=for-the-badge&logo=Kakao&logoColor=white"/>
-        </td>
-    </tr>
-    <tr>
-        <td>개발도구</td>
-        <td>
-            <img src="https://img.shields.io/badge/Eclipse-2C2255?style=for-the-badge&logo=Eclipse&logoColor=white"/>
-            <img src="https://img.shields.io/badge/RaskpberryPi-A22846?style=for-the-badge&logo=RaskpberryPi&logoColor=white"/>
-            <img src="https://img.shields.io/badge/Arduino-00979D?style=for-the-badge&logo=Arduino&logoColor=white"/>
-            <img src="https://img.shields.io/badge/VSCode-007ACC?style=for-the-badge&logo=VisualStudioCode&logoColor=white"/>
-        </td>
-    </tr>
-    <tr>
-        <td>서버환경</td>
-        <td>
-            <img src="https://img.shields.io/badge/Apache Tomcat-D22128?style=for-the-badge&logo=Apache Tomcat&logoColor=white"/>
-        </td>
-    </tr>
-    <tr>
-        <td>데이터베이스</td>
-        <td>
-            <img src="https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=Firebase&logoColor=white"/>
-            <img src="https://img.shields.io/badge/Oracle 11g-F80000?style=for-the-badge&logo=Oracle&logoColor=white"/>
-        </td>
-    </tr>
-    <tr>
-        <td>협업도구</td>
-        <td>
-            <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=Git&logoColor=white"/>
-            <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white"/>
-        </td>
-    </tr>
-</table>
-
-
+![image](https://github.com/user-attachments/assets/4a492235-620b-457b-989d-d60a07bbd463)
 <br>
 
 ## ⚙ 시스템 아키텍처
@@ -116,9 +92,7 @@
 |백엔드/DB설계|차명훈| [GitHub](https://github.com/ckaudgns89)|
 
 ## 🤾‍♂️ 트러블슈팅
-개념: 문제 해결을 위해 문제의 원인을 논리적이고 체계적으로 찾는 일이며 제품이나 프로세스의 운영을 재개
-프로젝트 진행하는 동안 발생했던 이슈 중 가장 기억에 남았던 문제와 해결 프로세스 나열(2~5가지 정도)
-  
+
 * 특정 데이터 조회 시, 쿼리문이 정상적으로 실행되지 않아 데이터가 반환되지 않거나 Null이 반환됨<br>
 MyBatis를 사용하는 과정에서 ResultMap이 정의되지 않아, 쿼리 결과가 DTO로 매핑되지 않는 문제가 발생함
 -> Mapper.xml에 ResultMap을 명시적으로 추가하고, 쿼리문과 DTO 필드 간의 매핑을 정확히 지정하여 데이터를 정상적으로 연결함

@@ -10,11 +10,19 @@
 2025/05/15 ~ 2025/05/29
 
 ## ⭐ 주요 기능
-* 기능1
-* 기능2
-* 기능3
-* 기능4
-* 기능5
+* 회원가입
+* 유사도 검색
+  ![Image](https://github.com/user-attachments/assets/273f200f-b41a-4af9-abcc-b40b7d575c73)
+  ![image](https://github.com/user-attachments/assets/b7c5e4da-d371-4364-a2ac-d1100037db8f)
+
+* 정책 제안
+  ![image](https://github.com/user-attachments/assets/87037a44-56be-40d0-9a91-f6867ac25ad8)
+  ![image](https://github.com/user-attachments/assets/b1f2d1ea-dc9d-4aac-9503-ead00e09ff45)
+
+* 찬반 토론
+*  AI 댓글 요약
+  ![image](https://github.com/user-attachments/assets/95036ee5-4fac-4a18-8807-f1056762f444)
+  ![image](https://github.com/user-attachments/assets/d33972a9-00dc-4fe3-bcb8-bf2f19595b97)
 <br>
 
 ## ⛏ 기술스택
@@ -74,33 +82,28 @@
 <br>
 
 ## ⚙ 시스템 아키텍처
-![Image](https://github.com/user-attachments/assets/64691734-d972-4843-8bc5-d3bad56a6115)
+![image](https://github.com/user-attachments/assets/4c58c051-73f1-4260-b4cb-47be9059f073)
 <br>
 
-## 📌 SW유스케이스
-![image](https://user-images.githubusercontent.com/25995055/178401023-9a015e66-aa6e-4d74-8564-9b1f9d306649.png)
+## ⚙ AI 서비스 시스템 아키텍처
+### 유사도 분석
+![image](https://github.com/user-attachments/assets/d3ace899-691a-4d42-804e-986a928ac7d6)
+<br>
+### AI 댓글요약
+![image](https://github.com/user-attachments/assets/2bf04ac6-8423-4da8-810c-aa4903b5650c)
+<br>
+
+## 📌 ER-다이어그램
+![image](https://github.com/user-attachments/assets/8f6dceb6-2628-4492-b468-a05839e1d185)
 <br>
 
 ## 📌 서비스 흐름도
-![image](https://user-images.githubusercontent.com/25995055/178401048-d6484bda-a2d7-40e1-998b-2bd195cd9f89.png)
+![image](https://github.com/user-attachments/assets/e0df909a-a820-436f-8da2-c0bcab032d5a)
+
 <br>
 
-## 📌 ER다이어그램
-![image](https://user-images.githubusercontent.com/25995055/169925318-102784c2-893f-4fd7-bec9-a54c44b669d4.png)
-<br>
-
-## 🖥 화면 구성
-
-### 로그인/회원가입/회원괸리/회원수정/회원탈퇴
-![image](https://user-images.githubusercontent.com/25995055/178401098-95f15a0e-a2de-415e-83d5-883bb4cb0656.png)
-<br>
-
-### 옷 정보/코디 추천(날씨, 팁, 오늘의 코디, 참고할 수 있는 코디)
-![image](https://user-images.githubusercontent.com/25995055/178401127-287e6de2-4396-49fc-a107-59c4d5cd55c7.png)
-<br>
-
-### 일정/고객센터
-![image](https://user-images.githubusercontent.com/25995055/178401150-861f0e93-0f40-4fae-98c1-2099bf513c8d.png)
+## 📌 DB 설계도
+![image](https://github.com/user-attachments/assets/ce4e3f7b-b728-4071-9698-eafebaf91a63)
 <br>
 
 ## 👨‍👩‍👦‍👦 팀원 역할
@@ -116,8 +119,10 @@
 개념: 문제 해결을 위해 문제의 원인을 논리적이고 체계적으로 찾는 일이며 제품이나 프로세스의 운영을 재개
 프로젝트 진행하는 동안 발생했던 이슈 중 가장 기억에 남았던 문제와 해결 프로세스 나열(2~5가지 정도)
   
-* 문제1<br>
- 문제점 설명 및 해결방안
+* 특정 데이터 조회 시, 쿼리문이 정상적으로 실행되지 않아 데이터가 반환되지 않거나 Null이 반환됨<br>
+MyBatis를 사용하는 과정에서 ResultMap이 정의되지 않아, 쿼리 결과가 DTO로 매핑되지 않는 문제가 발생함
+-> Mapper.xml에 ResultMap을 명시적으로 추가하고, 쿼리문과 DTO 필드 간의 매핑을 정확히 지정하여 데이터를 정상적으로 연결함
  
-* 문제2<br>
- 문제점 설명 및 해결방안
+* AI 댓글 요약을 불러올 때, 글자수가 초과되면 요약이 안되고 빈 칸으로 응답이 나오는 문제<br>
+ tokens 수를 제한하여 응답이가 생성되었을 때 제한한 토큰 수보다 응답이 더 길면 gpt 응답이 사라지는 현상이 발생함
+-> 모델을 변경하고, 프롬프트 엔지니어링을 통해 글자수에 최대한 제약을 두어 응답을 조절함

@@ -109,11 +109,11 @@
 ## 👨‍👩‍👦‍👦 팀원 역할
 |역할|이름|GitHub|
 |------|---|---|
-|팀장|오희진| [GitHub](https://github.com/heejin-02)|
-|역할|김혜림| [GitHub](https://github.com/hyerimmmmm)|
-|역할|박지은| [GitHub](https://github.com/jieunpark0428)|
-|역할|이동한| [GitHub](https://github.com/donghan-lee)|
-|역할|차명훈| [GitHub](https://github.com/ckaudgns89)|
+|팀장/AI 설계/데이터분석|오희진| [GitHub](https://github.com/heejin-02)|
+|프론트엔드/디자인|김혜림| [GitHub](https://github.com/hyerimmmmm)|
+|백엔드|박지은| [GitHub](https://github.com/jieunpark0428)|
+|백엔드/DB설계|이동한| [GitHub](https://github.com/donghan-lee)|
+|백엔드/DB설계|차명훈| [GitHub](https://github.com/ckaudgns89)|
 
 ## 🤾‍♂️ 트러블슈팅
 개념: 문제 해결을 위해 문제의 원인을 논리적이고 체계적으로 찾는 일이며 제품이나 프로세스의 운영을 재개

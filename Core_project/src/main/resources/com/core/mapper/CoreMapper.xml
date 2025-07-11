@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.core.mapper.CoreMapper">
+
+  <!-- 1. Proposal 관련 매핑 -->
+  <resultMap id="ProposalResult" type="com.core.model.ProposalVO">
+    <id     property="PRPSL_NO"         column="PRPSL_NO"/>
+    <result property="ID"               column="ID"/>
+    <result property="CATEGORY"         column="CATEGORY"/>
+    <result property="TITLE"            column="TITLE"/>
+    <result property="CONTENT"          column="CONTENT"/>
+    <result property="EXPECTATION_EFFECT" column="EXPECTATION_EFFECT"/>
+    <result property="PRPSL_DT"         column="PRPSL_DT"/>
+    <result property="ST_CD"            column="ST_CD"/>
+    <result property="PRCS_NM"          column="PRCS_NM"/>
+    <result property="RESULT_CONTENT"   column="RESULT_CONTENT"/>
+    <result property="AGREE_CNT"        column="AGREE_CNT"/>
+    <result property="DISAG_CNT"        column="DISAG_CNT"/>
+    <result property="NICK" 			column="NICK"/>
+  </resultMap>
+
+  <!-- 2. AI 분석 결과 매핑 -->
+  <resultMap id="AiAnalysisResult" type="com.core.model.Ai_analysisVO">
+    <id     property="ANALYSIS_NO"     column="ANALYSIS_NO"/>
+    <result property="PRPSL_NO"         column="PRPSL_NO"/>
+    <result property="ANALYSIS_MODEL"   column="ANALYSIS_MODEL"/>
+    <result property="ANALYSIS_RESULT"  column="ANALYSIS_RESULT"/>
+    <result property="SIMILARITY"       column="SIMILARITY"/>
+    <result property="RECO_POLICY"      column="RECO_POLICY"/>
+    <result property="ANALIZED_AT"      column="ANALIZED_AT"/>
+  </resultMap>
+
+  <!-- 3. 토론 게시글 매핑 -->
+  <resultMap id="DiscussionPostResult" type="com.core.model.Discussion_postVO">
+  <id     property="discussionId" column="DISCUSSION_ID"/>
+  <result property="title"        column="TITLE"/>
+  <result property="content"      column="CONTENT"/>
+  <result property="authorId"     column="AUTHOR_ID"/>
+  <result property="nick"		  column="NICK"/>
+  <result property="createdAt"    column="CREATED_AT"
+          jdbcType="TIMESTAMP"
+          javaType="java.sql.Timestamp"/> 
+  <result property="commentCount" column="COMMENT_COUNT"/>
+  <result property="category" column="CATEGORY"/> 
+  <result property="nick" column="NICK" />
+</resultMap>
+
+<resultMap id="DiscussionCommentResult" type="com.core.model.Discussion_commentVO">
+    <id     property="commentId"    column="COMMENT_ID"/>
+    <result property="discussionId" column="DISCUSSION_ID"/>
+    <result property="userId"       column="USER_ID"/>
+    <result property="nick" 		column="NICK"/>
+    <result property="opinionType"  column="OPINION_TYPE"/>
+    <result property="content"      column="CONTENT"/>
+    <result property="createdAt"    column="CREATED_AT"
+            jdbcType="TIMESTAMP"
+            javaType="java.sql.Timestamp"/>
+  </resultMap>
+
+  <!-- 회원가입 -->
+  <insert id="join" parameterType="com.core.model.UserinfoVO">
+    INSERT INTO Userinfo (id, pw, nick, region, id_card, is_approved, joined_at)
+    VALUES (#{id}, #{pw}, #{nick}, #{region}, #{id_card}, #{is_approved}, #{joined_at})
+  </insert>
+
+  <!-- 로그인 -->
+  <select id="login"
+          parameterType="com.core.model.UserinfoVO"
+          resultType="com.core.model.UserinfoVO">
+    SELECT * FROM Userinfo
+     WHERE id = #{id}
+       AND pw = #{pw}
+  </select>
+
+<!-- 아이디 중복 확인 -->
+  <select id="checkId" parameterType="string" resultType="int">
+    SELECT COUNT(*) FROM Userinfo WHERE id = #{id}
+  </select>
+
+  <!-- 회원 정보 수정 -->
+  <update id="updateUserInfo" parameterType="com.core.model.UserinfoVO">
+    UPDATE userinfo SET pw = #{pw}, nick = #{nick}, region = #{region} WHERE id = #{id}
+  </update>
+
+  <!-- 회원탈퇴 -->
+  <delete id="delete" parameterType="string">
+    DELETE FROM Userinfo WHERE ID = #{value, jdbcType=VARCHAR}
+  </delete>
+  
+   <!-- 게시글 삭제 -->
+  <delete id="deleteProposalById" parameterType="int">
+       DELETE FROM PROPOSAL WHERE PRPSL_NO = #{id}
+  </delete>
+  
+  <!-- 토론방 삭제 -->
+  <delete id="deleteDiscussionPostById" parameterType="int">
+    DELETE FROM discussion_post WHERE discussion_id = #{discussionId}
+ </delete>
+  
+
+  <!-- 4. 정책 제안 -->
+  <insert id="insertProposal"
+          parameterType="com.core.model.ProposalVO"
+          keyProperty="PRPSL_NO">
+    INSERT INTO PROPOSAL (
+      ID, CATEGORY, TITLE, CONTENT, EXPECTATION_EFFECT,
+      PRPSL_DT, ST_CD, PRCS_NM, RESULT_CONTENT,
+      AGREE_CNT, DISAG_CNT
+    ) VALUES (
+      #{ID}, #{CATEGORY}, #{TITLE}, #{CONTENT}, #{EXPECTATION_EFFECT},
+      #{PRPSL_DT}, #{ST_CD}, #{PRCS_NM}, #{RESULT_CONTENT},
+      #{AGREE_CNT}, #{DISAG_CNT}
+    )
+  </insert>
+
+  <select id="selectAllProposals" resultMap="ProposalResult">
+  SELECT 
+    P.*,
+    U.NICK
+  FROM PROPOSAL P
+  LEFT JOIN USERINFO U
+    ON P.ID = U.ID
+  ORDER BY P.PRPSL_DT DESC
+</select>
+
+  <select id="selectProposalById"
+        parameterType="int"
+        resultMap="ProposalResult">
+  SELECT 
+    p.*,
+    u.nick
+  FROM PROPOSAL p
+  LEFT JOIN USERINFO u ON p.ID = u.ID  <!-- 실제 컬럼명에 맞게 수정 필요 -->
+  WHERE p.PRPSL_NO = #{id}
+</select>
+
+
+  <select id="selectByCategory"
+          parameterType="string"
+          resultMap="ProposalResult">
+    SELECT * FROM PROPOSAL
+     WHERE CATEGORY = #{category}
+     ORDER BY PRPSL_DT DESC
+  </select>
+
+  <!-- 유사도 분석 -->
+  <select id="similarSearch"
+          parameterType="string"
+          resultMap="AiAnalysisResult">
+    SELECT * FROM AI_ANALYSIS
+     WHERE ANALYSIS_RESULT LIKE '%' || #{idea} || '%'
+     ORDER BY SIMILARITY DESC
+  </select>
+
+  <!-- 투표 관련 -->
+  <select id="checkVote" resultType="com.core.model.ProposalVoteVO">
+    SELECT PRPSL_NO AS prpslNo,
+           USER_ID  AS userId,
+           VOTE_TYPE
+      FROM PROPOSAL_VOTE
+     WHERE PRPSL_NO = #{prpslNo}
+       AND USER_ID  = #{userId}
+  </select>
+
+  <insert id="insertVote" parameterType="com.core.model.ProposalVoteVO">
+    INSERT INTO PROPOSAL_VOTE
+      (PRPSL_NO, USER_ID, VOTE_TYPE)
+    VALUES
+      (#{prpslNo}, #{userId}, #{voteType})
+  </insert>
+
+  <update id="incrementAgree">
+    UPDATE PROPOSAL
+       SET AGREE_CNT = AGREE_CNT + 1
+     WHERE PRPSL_NO = #{prpslNo}
+  </update>
+
+  <update id="incrementDisagree">
+    UPDATE PROPOSAL
+       SET DISAG_CNT = DISAG_CNT + 1
+     WHERE PRPSL_NO = #{prpslNo}
+  </update>
+
+  <!-- 전체 조회 -->
+<select id="selectAllPosts" resultMap="DiscussionPostResult">
+  SELECT 
+      p.DISCUSSION_ID, 
+      p.TITLE, 
+      p.CONTENT, 
+      p.AUTHOR_ID, 
+      u.NICK AS NICK,           
+      p.CREATED_AT,
+      (SELECT COUNT(*) 
+       FROM DISCUSSION_COMMENT c 
+       WHERE c.DISCUSSION_ID = p.DISCUSSION_ID) AS COMMENT_COUNT,
+      p.CATEGORY
+  FROM DISCUSSION_POST p
+  JOIN USERINFO u ON p.AUTHOR_ID = u.ID
+  ORDER BY p.CREATED_AT DESC
+</select>
+
+
+  <!-- 제목 검색 -->
+  <select id="searchPostsByTitle"
+          parameterType="string"
+          resultMap="DiscussionPostResult">
+    SELECT 
+        p.DISCUSSION_ID, 
+        p.TITLE, 
+        p.CONTENT, 
+        p.AUTHOR_ID, 
+        p.CREATED_AT,
+        (SELECT COUNT(*) 
+         FROM DISCUSSION_COMMENT c 
+         WHERE c.DISCUSSION_ID = p.DISCUSSION_ID) AS COMMENT_COUNT,
+        p.CATEGORY
+    FROM DISCUSSION_POST p
+    WHERE p.TITLE LIKE '%' || #{keyword} || '%'
+    ORDER BY p.CREATED_AT DESC
+  </select>
+	
+	<!-- 키워드 필터링 검색 -->
+  <select id="searchDiscussPosts"
+          parameterType="map"
+          resultMap="DiscussionPostResult">
+    SELECT 
+      p.DISCUSSION_ID,
+      p.TITLE,
+      p.CONTENT,
+      p.AUTHOR_ID,
+      u.NICK AS NICK,  <!-- 닉네임 포함 -->
+      p.CREATED_AT,
+      (SELECT COUNT(*) FROM DISCUSSION_COMMENT c WHERE c.DISCUSSION_ID = p.DISCUSSION_ID) AS COMMENT_COUNT,
+      p.CATEGORY
+    FROM DISCUSSION_POST p
+    JOIN USERINFO u ON p.AUTHOR_ID = u.ID
+    <where>
+      <if test="category != null and category != ''">
+        p.CATEGORY = #{category}
+      </if>
+      <if test="keyword != null and keyword != ''">
+        <if test="category != null and category != ''">AND</if>
+        (p.TITLE LIKE '%'||#{keyword}||'%' OR p.CONTENT LIKE '%'||#{keyword}||'%')
+      </if>
+    </where>
+    ORDER BY p.CREATED_AT DESC
+  </select>
+	<!-- 토론 요약 조회 -->
+  <select id="selectSummaryByDiscussionId"
+          parameterType="int"
+          resultType="com.core.model.Discussion_summaryVO">
+    SELECT
+      DISCUSSION_ID,
+      SUMMARY
+    FROM DISCUSSION_SUMMARY
+    WHERE DISCUSSION_ID = #{discussionId}
+  </select>
+
+  <!-- 댓글 작성자 조회 -->
+  <select id="selectCommentWriter"
+          parameterType="int"
+          resultType="string">
+    SELECT USER_ID
+      FROM DISCUSSION_COMMENT
+     WHERE COMMENT_ID = #{commentId}
+  </select>
+
+  <!-- 댓글 삭제 -->
+  <delete id="deleteComment" parameterType="int">
+    DELETE FROM DISCUSSION_COMMENT
+     WHERE COMMENT_ID = #{commentId}
+  </delete>
+  <!-- 삽입 -->
+  <insert id="insertDiscussionPost"
+          parameterType="com.core.model.Discussion_postVO"
+          useGeneratedKeys="true"
+          keyProperty="discussionId"
+          keyColumn="DISCUSSION_ID">
+    INSERT INTO DISCUSSION_POST (TITLE, CONTENT, AUTHOR_ID, CREATED_AT, CATEGORY)
+    VALUES (#{title}, #{content}, #{authorId}, #{createdAt}, #{category})
+  </insert>
+
+  <!-- 단일 조회 -->
+  <select id="selectPostById"
+        parameterType="int"
+        resultMap="DiscussionPostResult">
+  SELECT 
+    dp.DISCUSSION_ID, 
+    dp.TITLE, 
+    dp.CONTENT, 
+    dp.AUTHOR_ID, 
+    dp.CREATED_AT, 
+    dp.CATEGORY,
+    ui.nick
+  FROM DISCUSSION_POST dp
+  LEFT JOIN USERINFO ui ON dp.AUTHOR_ID = ui.ID
+  WHERE dp.DISCUSSION_ID = #{id}
+</select>
+
+  
+  <!-- 토론 게시글 카테고리 조회 -->
+  <select id="selectByDiscussCategory" 
+        parameterType="String" 
+        resultMap="DiscussionPostResult">
+    SELECT 
+        p.DISCUSSION_ID, 
+        p.TITLE, 
+        p.CONTENT, 
+        p.AUTHOR_ID, 
+        p.CREATED_AT,
+        (SELECT COUNT(*) 
+         FROM DISCUSSION_COMMENT c 
+         WHERE c.DISCUSSION_ID = p.DISCUSSION_ID) AS COMMENT_COUNT,
+        p.CATEGORY
+    FROM DISCUSSION_POST p
+    WHERE p.CATEGORY = #{category}
+    ORDER BY p.CREATED_AT DESC
+</select>
+  
+  <select id="selectCommentsByDiscussionId"
+          parameterType="int"
+          resultMap="DiscussionCommentResult">
+    SELECT COMMENT_ID,
+           DISCUSSION_ID,
+           USER_ID,
+           OPINION_TYPE,
+           CONTENT,
+           CREATED_AT,
+           NICK
+      FROM DISCUSSION_COMMENT dc
+      JOIN USERINFO ui ON dc.USER_ID = ui.ID
+     WHERE DISCUSSION_ID = #{discussionId}
+     ORDER BY CREATED_AT ASC
+  </select>
+
+ <!-- 댓글 쓰기 -->
+ <insert id="insertDiscussionComment"
+          parameterType="com.core.model.Discussion_commentVO">
+    INSERT INTO DISCUSSION_COMMENT (
+      DISCUSSION_ID,
+      USER_ID,
+      OPINION_TYPE,
+      CONTENT
+    ) VALUES (
+      #{discussionId},
+      #{userId},
+      #{opinionType},
+      #{content}
+    )
+  </insert>
+  
+  <!-- 페이징용 전체 건수 -->
+<select id="countAllProposals" resultType="int">
+  SELECT COUNT(*) FROM PROPOSAL
+</select>
+
+<!-- 페이징용 카테고리 건수 -->
+<select id="countProposalsByCategory" parameterType="string" resultType="int">
+  SELECT COUNT(*) FROM PROPOSAL WHERE CATEGORY = #{category}
+</select>
+
+  <!-- 전체 페이징 조회 -->
+  <select id="selectProposalsPage" resultMap="ProposalResult">
+  SELECT *
+  FROM (
+    SELECT 
+      p.*,
+      u.nick,
+      ROW_NUMBER() OVER (ORDER BY p.PRPSL_DT DESC) AS rn
+    FROM PROPOSAL p
+    LEFT JOIN USERINFO u ON p.ID = u.ID
+  )
+  WHERE rn &gt; #{offset}
+    AND rn &lt;= #{offset} + #{limit}
+</select>
+
+
+  <!-- 카테고리별 페이징 조회 -->
+  <select id="selectProposalsByCategoryPage" parameterType="map" resultMap="ProposalResult">
+  SELECT *
+  FROM (
+    SELECT 
+      p.*,
+      u.nick,
+      ROW_NUMBER() OVER (ORDER BY p.PRPSL_DT DESC) AS rn
+    FROM PROPOSAL p
+    LEFT JOIN USERINFO u ON p.ID = u.ID
+    WHERE p.CATEGORY = #{category}
+  )
+  WHERE rn &gt; #{offset}
+    AND rn &lt;= #{offset} + #{limit}
+</select>
+
+  
+  <!-- 전체 건수 (필터링된) -->
+<select id="countDiscussPosts" parameterType="map" resultType="int">
+  SELECT COUNT(*) FROM DISCUSSION_POST p
+  <where>
+    <if test="category != null and category != ''">
+      p.CATEGORY = #{category}
+    </if>
+    <if test="keyword != null and keyword != ''">
+      <if test="category != null and category != ''">AND</if>
+      (p.TITLE   LIKE '%'||#{keyword}||'%'
+       OR p.CONTENT LIKE '%'||#{keyword}||'%')
+    </if>
+  </where>
+</select>
+
+<!-- offset/limit 페이징 조회 -->
+<select id="selectDiscussPostsPage" parameterType="map" resultMap="DiscussionPostResult">
+  SELECT *
+  FROM (
+    SELECT
+      p.*,
+      ROW_NUMBER() OVER (ORDER BY p.CREATED_AT DESC) AS rn
+    FROM DISCUSSION_POST p
+    <where>
+      <if test="category != null and category != ''">
+        p.CATEGORY = #{category}
+      </if>
+      <if test="keyword != null and keyword != ''">
+        <if test="category != null and category != ''">AND</if>
+        (p.TITLE   LIKE '%'||#{keyword}||'%'
+         OR p.CONTENT LIKE '%'||#{keyword}||'%')
+      </if>
+    </where>
+  )
+  WHERE rn &gt; #{offset}
+    AND rn &lt;= #{offset} + #{limit}
+</select>
+  
+</mapper>

@@ -48,7 +48,7 @@
 	
 	<!-- 창닫으면 자동로그아웃 -->
     <session-config>
-        <session-timeout>1</session-timeout>
+        <session-timeout>30</session-timeout>
     </session-config>
 
 </web-app>

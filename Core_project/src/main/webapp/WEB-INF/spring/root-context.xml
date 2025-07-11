@@ -11,9 +11,9 @@
 		<property name="driverClassName"
 			value="oracle.jdbc.driver.OracleDriver"></property>
 		<property name="jdbcUrl"
-			value="jdbc:oracle:thin:@project-db-campus.smhrd.com:1524:xe"></property>
-		<property name="username" value="navercloudtest"></property>
-		<property name="password" value="navercloudtest"></property>
+			value="jdbc:oracle:thin:@project-db-campus.smhrd.com:1523:xe"></property>
+		<property name="username" value="hapjeong_24SW_DS_p2_2"></property>
+		<property name="password" value="smhrd2"></property>
 	</bean>
 
 	<bean id="hikariDatasource"

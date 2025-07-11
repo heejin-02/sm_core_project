@@ -39,11 +39,11 @@ boolean isProposalActive = uri.contains("/proposal_list") || uri.contains("/prop
 				<span>|</span>
 				
 				<c:if test="${empty sessionScope.midx}">
-					<a href="/Core_project/join"
-						class="<%=uri.contains("/Core_project/join") ? "active" : ""%>">
+					<a href="/SpringMVC1/join"
+						class="<%=uri.contains("/SpringMVC1/join") ? "active" : ""%>">
 						회원가입</a>
-					<a href="/Core_project/login"
-						class="<%=uri.contains("/Core_project/login") ? "active" : ""%>">로그인</a>
+					<a href="/SpringMVC1/login"
+						class="<%=uri.contains("/SpringMVC1/login") ? "active" : ""%>">로그인</a>
 				</c:if>
 
 				<c:if test="${not empty sessionScope.midx}">
